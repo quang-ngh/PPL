@@ -10,7 +10,7 @@ ANTLR_JAR = os.environ.get('ANTLR_JAR')
 TARGET_DIR = '../target'
 GENERATE_DIR = 'main/mt22/parser'
 
-print(os.environ)
+print(ANTLR_JAR)
 def main(argv):
     if len(argv) < 1:
         printUsage()
