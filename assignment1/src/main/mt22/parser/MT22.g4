@@ -25,7 +25,7 @@ UNCLOSE_STRING: .;
 ILLEGAL_ESCAPE: .;
 
 /*=========================	COMMENTS	============================== */
-BLOCKCOMMENTS: '/*' .*? '*/' -> skip;
+BLOCKCOMMENT: '/*' .*? '*/' -> skip;
 INLINECOMMENT: '//' ~[\r\n]* -> skip;
 
 /*=========================	VARIABLE DECLARE =========================*/
@@ -71,29 +71,40 @@ ARRAY: A R R A Y;
 AUTO: A U T O;
 OF: O F;
 
-/*=========================	OPERATORS	============================== */
-ADD: 		'+';
-SUBSTRACT: 	'-';
-DIVIDE:		'/';
-MULTIPLY:	'*';
-MODULO:		'%';
+/*============================================================================
+|								OPERATORS									 |
+|	* Details of operators can be found at the 6.1 in the MT22-Specification |
+|=============================================================================
+*/
 
-NOTEQUAL:	'!=';
-EQUAL:		'==';
-AND:		'&&';
-OR:			'||';
-NOT:		'!';
+ADD: 				'+';
+SUBSTRACT: 			'-';
+DIVIDE:				'/';
+MULTIPLY:			'*';
+MODULO:				'%';
 
-LESS:		'<';
-LEQ:		'<=';
-GREATER:	'>';
-GEQ:		'>=';
-GLOBAL: 	'::';
+NOTEQUAL:			'!=';
+EQUAL:				'==';
+AND:				'&&';
+OR:					'||';
+NOT:				'!';
+
+LESS:				'<';
+LEQ:				'<=';
+GREATER:			'>';
+GEQ:				'>=';
+STRING_CONCAT: 		'::';
 
 /*=========================	SEPERATORS	============================== */
+LEFT_PARENTHESIS: 		'(';
+RIGHT_PARENTHESIS: 		')';
+LEFT_SQUARE_BRACKET: 	'[';
+RIGHT_SQUARE_BRACKET: 	']';
+LEFT_CURLY_BRACKET:		'{';
+RIGHT_CURLY_BRACKET:	'}';
+ASSIGN:					'=';
 
 
-/*=========================	LITERALS	============================== */
 
 
 

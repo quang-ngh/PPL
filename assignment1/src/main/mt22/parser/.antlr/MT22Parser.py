@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3F")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3M")
         buf.write("\7\4\2\t\2\3\2\3\2\3\2\2\2\3\2\2\2\2\5\2\4\3\2\2\2\4\5")
         buf.write("\7\2\2\3\5\3\3\2\2\2\2")
         return buf.getvalue()
@@ -36,19 +36,22 @@ class MT22Parser ( Parser ):
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "'+'", "'-'", "'/'", "'*'", "'%'", "'!='", "'=='", 
                      "'&&'", "'||'", "'!'", "'<'", "'<='", "'>'", "'>='", 
-                     "'::'" ]
+                     "'::'", "'('", "')'", "'['", "']'", "'{'", "'}'", "'='" ]
 
     symbolicNames = [ "<INVALID>", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
-                      "ILLEGAL_ESCAPE", "BLOCKCOMMENTS", "INLINECOMMENT", 
+                      "ILLEGAL_ESCAPE", "BLOCKCOMMENT", "INLINECOMMENT", 
                       "IDENTIFIERS", "INHERIT", "VOID", "RETURN", "FUNCTION", 
                       "TRUE", "FALSE", "IF", "ELSE", "WHILE", "FOR", "DO", 
                       "BREAK", "CONTINUE", "INTEGER", "FLOAT", "STRING", 
                       "BOOLEAN", "ARRAY", "AUTO", "OF", "ADD", "SUBSTRACT", 
                       "DIVIDE", "MULTIPLY", "MODULO", "NOTEQUAL", "EQUAL", 
                       "AND", "OR", "NOT", "LESS", "LEQ", "GREATER", "GEQ", 
-                      "GLOBAL", "A", "B", "C", "D", "E", "F", "G", "H", 
-                      "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", 
-                      "S", "T", "U", "V", "W", "X", "Y", "Z" ]
+                      "STRING_CONCAT", "LEFT_PARENTHESIS", "RIGHT_PARENTHESIS", 
+                      "LEFT_SQUARE_BRACKET", "RIGHT_SQUARE_BRACKET", "LEFT_CURLY_BRACKET", 
+                      "RIGHT_CURLY_BRACKET", "ASSIGN", "A", "B", "C", "D", 
+                      "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+                      "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", 
+                      "Y", "Z" ]
 
     RULE_program = 0
 
@@ -59,7 +62,7 @@ class MT22Parser ( Parser ):
     ERROR_CHAR=2
     UNCLOSE_STRING=3
     ILLEGAL_ESCAPE=4
-    BLOCKCOMMENTS=5
+    BLOCKCOMMENT=5
     INLINECOMMENT=6
     IDENTIFIERS=7
     INHERIT=8
@@ -96,33 +99,40 @@ class MT22Parser ( Parser ):
     LEQ=39
     GREATER=40
     GEQ=41
-    GLOBAL=42
-    A=43
-    B=44
-    C=45
-    D=46
-    E=47
-    F=48
-    G=49
-    H=50
-    I=51
-    J=52
-    K=53
-    L=54
-    M=55
-    N=56
-    O=57
-    P=58
-    Q=59
-    R=60
-    S=61
-    T=62
-    U=63
-    V=64
-    W=65
-    X=66
-    Y=67
-    Z=68
+    STRING_CONCAT=42
+    LEFT_PARENTHESIS=43
+    RIGHT_PARENTHESIS=44
+    LEFT_SQUARE_BRACKET=45
+    RIGHT_SQUARE_BRACKET=46
+    LEFT_CURLY_BRACKET=47
+    RIGHT_CURLY_BRACKET=48
+    ASSIGN=49
+    A=50
+    B=51
+    C=52
+    D=53
+    E=54
+    F=55
+    G=56
+    H=57
+    I=58
+    J=59
+    K=60
+    L=61
+    M=62
+    N=63
+    O=64
+    P=65
+    Q=66
+    R=67
+    S=68
+    T=69
+    U=70
+    V=71
+    W=72
+    X=73
+    Y=74
+    Z=75
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
