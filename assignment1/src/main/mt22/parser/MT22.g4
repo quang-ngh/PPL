@@ -17,66 +17,60 @@ options{
 
 program:  EOF ;
 
-WS : [ \t\b\f\r\n]+ -> skip ; // skip spaces, tabs, backspace, form feed, carriage return, newline
 
 
-ERROR_CHAR: .;
-UNCLOSE_STRING: .;
-ILLEGAL_ESCAPE: .;
+
 
 /*=========================	COMMENTS	============================== */
-BLOCKCOMMENT: '/*' .*? '*/' -> skip;
-INLINECOMMENT: '//' ~[\r\n]* -> skip;
+BLOCKCOMMENT: 
+				'/*' .*? '*/' -> skip;
+INLINECOMMENT: 
+				'//' ~[\r\n]* -> skip;
 
 /*=========================	VARIABLE DECLARE =========================*/
 
 
 /*=========================	FUNCTION DECLARE ========================= */
 
+/*	=============================== LEXER ================================== */
 //	IDENTIFIERS
 IDENTIFIERS: [_a-zA-Z][_a-zA-Z0-9]*;
 
-/*=========================	KEYWORDS	==============================*/
 
-//	Methods 
-INHERIT: I N H E R I T;
-VOID: V O I D;
-RETURN: R E T U R N;
-FUNCTION: F U N C T I O N;
+//	KEYWORDS - Methods 
+INHERIT: 'inherit';
+VOID: 'void';
+RETURN:  'return';
+FUNCTION: 'function';
 
-//	Values
-TRUE: T R U E;
-FALSE: F A L S E;
+//	KEYWORDS - Values
+TRUE: 'true';
+FALSE: 'false';
 
 //	Flow Statements
-IF: I F;
-ELSE: E L S E;
+IF: 'if';
+ELSE: 'else';
+
 
 //	Loop Statements
-WHILE: W H I L E;
-FOR: F O R;
-DO: D O;
-BREAK: B R E A K;
-CONTINUE: C O N T I N U E;
+WHILE: 'while';
+FOR: 'for';
+DO: 'do';
+BREAK: 'break';
+CONTINUE: 'continue';
 
 //	Singular types
-INTEGER: I N T E G E R;
-FLOAT: F L O A T;
-STRING: S T R I N G;
-BOOLEAN: B O O L E A N;
+INTEGER: 'integer';
+FLOAT: 'float';
+STRING: 'string';
+BOOLEAN: 'boolean';
 
 //	Compound types
-ARRAY: A R R A Y;
+ARRAY: 'array';
+AUTO: 'auto';
+OF: 'of';
 
-AUTO: A U T O;
-OF: O F;
-
-/*============================================================================
-|								OPERATORS									 |
-|	* Details of operators can be found at the 6.1 in the MT22-Specification |
-|=============================================================================
-*/
-
+//	OPERATORS
 ADD: 				'+';
 SUBSTRACT: 			'-';
 DIVIDE:				'/';
@@ -95,7 +89,7 @@ GREATER:			'>';
 GEQ:				'>=';
 STRING_CONCAT: 		'::';
 
-/*=========================	SEPERATORS	============================== */
+// SEPARATORS	
 LEFT_PARENTHESIS: 		'(';
 RIGHT_PARENTHESIS: 		')';
 LEFT_SQUARE_BRACKET: 	'[';
@@ -105,12 +99,37 @@ RIGHT_CURLY_BRACKET:	'}';
 ASSIGN:					'=';
 
 
+//	LITERALS
+INTLIT: [0] | ([1-9] (ZeroDigits | ('_'))*) {self.text = self.text.replace('_','')};
+BOOLIT:
+		TRUE
+		| FALSE;
 
+//	Raise Error
 
+WS : [ \t\b\f\r\n]+ -> skip ; // skip spaces, tabs, backspace, form feed, carriage return, newline
 
-/*=========================	 */
+ERROR_CHAR: .{
+	raise ErrorToken(self.text)
+};
+UNCLOSE_STRING: .{
+	raise UncloseString(self.text)	
+};
+ILLEGAL_ESCAPE: .{
+	raise IllegalEscape(self.text)
+};
 
-/* */
+/*=========================	 Fragments =====================================*/
+
+fragment ZeroDigits: [0-9];
+fragment DoubleQuote: '"';
+fragment EscapeSeqs: '\\'[tbfrn"\\];
+fragment StringChar: 
+					~[\t\b\f\r\n"\\]
+					| ( (~[DoubleQuote]) | ([DoubleQuote][DoubleQuote]))*
+					| EscapeSeqs;
+fragment Exp: [E];
+fragment Minus: '-';
 A:[a];
 B:[b];
 C:[c];
