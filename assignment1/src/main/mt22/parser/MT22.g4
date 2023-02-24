@@ -98,6 +98,7 @@ ASSIGN:						'=';
 COLON:						':';											// May not sure whether the colon is counted as one token in vardecl
 COMMA: 						',';											// May not sure whether the comma is counted as one token in vardecl
 SEMI: 						';';
+EQ: 						'=';
 //	LITERALS
 INTLIT: [0] | ([1-9] (ZeroDigits | ('_'))*) {self.text = self.text.replace('_','')};
 FLOATLIT: INTLIT (DOT | ExpPart ('-'|'+')?) ZeroDigits* (DOT | ExpPart ('-'|'+'))? ZeroDigits*;
