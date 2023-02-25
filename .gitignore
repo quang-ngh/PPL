@@ -1,3 +1,5 @@
 __pycache__/
 utils.py
 gen.txt
+*.txt
+*.jar

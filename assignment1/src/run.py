@@ -30,6 +30,12 @@ def main(argv):
         elif argv[1] == 'LexerSuite':
             from LexerSuite import LexerSuite
             getAndTest(LexerSuite)
+        elif argv[1] == 'LexerSuite2':
+            from LexerSuite2 import LexerSuite
+            getAndTest(LexerSuite)
+        elif argv[1] == 'LexerSuite3':
+            from LexerSuite3 import LexerSuite
+            getAndTest(LexerSuite)
         elif argv[1] == 'ParserSuite':
             from ParserSuite import ParserSuite
             getAndTest(ParserSuite)
