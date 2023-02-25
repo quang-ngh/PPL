@@ -15,8 +15,8 @@ options{
 	language=Python3;
 }
 
-program:  (vardecl | funcdecl) + EOF;
-
+program: decl EOF;
+decl: (vardecl | funcdecl | vardecl_array) decl | (vardecl | funcdecl | vardecl_array);
 /*	=============================== Grammar - Parser - Declarations */
 //	Types of program
 
