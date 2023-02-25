@@ -478,7 +478,6 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"   
         self.assertTrue(TestParser.test(input, expect, 249))
     
-
     def test_parser_250(self):
         input = """
             main: function void() {

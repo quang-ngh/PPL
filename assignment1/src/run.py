@@ -36,8 +36,14 @@ def main(argv):
         elif argv[1] == 'LexerSuite3':
             from LexerSuite3 import LexerSuite
             getAndTest(LexerSuite)
+        elif argv[1] == 'LexerSuite4':
+            from LexerSuite4 import LexerSuite
+            getAndTest(LexerSuite)
         elif argv[1] == 'ParserSuite':
             from ParserSuite import ParserSuite
+            getAndTest(ParserSuite)
+        elif argv[1] == 'ParserSuite1':
+            from ParserSuite1 import ParserSuite
             getAndTest(ParserSuite)
         else:
             printUsage()
