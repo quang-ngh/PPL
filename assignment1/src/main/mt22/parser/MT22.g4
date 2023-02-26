@@ -16,27 +16,26 @@ options{
 }
 
 program: decl EOF;
-decl: (vardecl | funcdecl | vardecl_array) decl | (vardecl | funcdecl | vardecl_array);
+decl: (vardecl | funcdecl ) decl | (vardecl | funcdecl);
 /*	=============================== Grammar - Parser - Declarations */
 //	Types of program
 
 atomic_type: BOOLEAN | INTEGER | FLOAT | STRING;						// Atomic type
-function_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | VOID;		// Types that functions can return
-include_auto_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO;			// Atomic but include auto type
+function_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | VOID | array_type;		// Types that functions can return
+include_auto_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | array_type;			// Atomic but include auto type
 
 // Variables declarations
 // Bugs: cannot check compatible of values init and number of variables
-vardecl: (vardecl_with_init | vardecl_no_init | vardecl_array) SEMI; 
-
-vardecl_with_init: IDENTIFIERS COMMA vardecl_with_init COMMA expr
-					|IDENTIFIERS COLON include_auto_type ASSIGN expr;
-vardecl_no_init: list_of_ids COLON  include_auto_type; 
+vardecl: list_of_ids COLON include_auto_type SEMI
+		 | full_format_decl SEMI;
+full_format_decl: IDENTIFIERS COMMA full_format_decl COMMA expr
+				  | IDENTIFIERS COLON include_auto_type ASSIGN expr;
 list_of_ids: IDENTIFIERS another_id_list | IDENTIFIERS;
 another_id_list: COMMA list_of_ids;
 
 //	Array declarations
 // Format: ID {<dimensions>} of primitive_type
-vardecl_array: ARRAY LEFT_SQUARE_BRACKET dimensions RIGHT_SQUARE_BRACKET OF atomic_type;
+array_type: ARRAY LEFT_SQUARE_BRACKET dimensions RIGHT_SQUARE_BRACKET OF atomic_type;
 dimensions: INTLIT COMMA dimensions | INTLIT;
 
 //Format: {<nullable-comma separated list of expressions>}
@@ -82,8 +81,8 @@ expr6: SUBSTRACT expr6 | expr7;												// Sign
 expr7: literal | sub_expr | IDENTIFIERS | array_indexing | function_call; 					// Index operator
 
 //	Statments
-stmt: 			assign_stmt
-				| if_stmt
+stmt: 			assign_statement
+				| if_statement
 				| for_stmt
 				| while_stmt
 				| do_while_stmt
@@ -94,8 +93,8 @@ stmt: 			assign_stmt
 				| call_stmt; 
 
 noblock_stmt:   
-				assign_stmt
-				| if_stmt
+				assign_statement
+				| if_statement
 				| for_stmt
 				| while_stmt
 				| do_while_stmt
@@ -104,18 +103,16 @@ noblock_stmt:
 				| return_stmt
 				| call_stmt;
 
-assign_stmt: (IDENTIFIERS | array_indexing) ASSIGN expr SEMI; // MISSING INDEX EXPRESSION
+assign_statement: (IDENTIFIERS | array_indexing) ASSIGN expr SEMI; 
 
-// if_stmt: match_if | unmatch_if;
-// match_if: IF LB exp RB match_if
-if_stmt: IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt
+if_statement: IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt
 		|IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt ELSE stmt;
 
 for_stmt: FOR LEFT_PARENTHESIS (IDENTIFIERS | array_indexing) ASSIGN expr COMMA expr COMMA expr RIGHT_PARENTHESIS stmt;
 
 while_stmt: WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt;
 
-do_while_stmt: DO block_stmt WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS;
+do_while_stmt: DO block_stmt WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS SEMI;
 
 break_stmt: BREAK SEMI;
 continue_stmt: CONTINUE SEMI; 
@@ -125,10 +122,6 @@ block_stmt: LEFT_CURLY_BRACKET (noblock_stmt | vardecl)* RIGHT_CURLY_BRACKET;
 
 /*	=============================== LEXER ================================== */
 //	Comments
-BLOCKCOMMENT: 
-				'/*' .*? '*/' -> skip;
-INLINECOMMENT: 
-				'//' ~[\r\n]* -> skip;
 
 //	Singular types
 INTEGER: 	'integer';
@@ -197,13 +190,12 @@ IDENTIFIERS: [_a-zA-Z][_a-zA-Z0-9]*;
 INTLIT: IntPart {
 					self.text = self.text.replace('_', '')
 				};
-FLOATLIT: IntPart (DecPart ExpPart? | ExpPart) 
+FLOATLIT: ((IntPart DecPart) | (IntPart ExpPart) | (DecPart ExpPart) | (IntPart DecPart ExpPart)) 
 				{
 					self.text = self.text.replace('_', '')
 				};
-STRINGLIT: DoubleQuote (StringChar | EscapeSeqs)* DoubleQuote {
-	string = str(self.text)
-	self.text = string[1:-1]
+STRINGLIT: '"' (StringChar | EscapeSeqs)* '"' {
+	self.text = self.text[1:-1]
 };
 BOOLIT: 'true' | 'false';
 
@@ -216,11 +208,10 @@ BOOLIT: 'true' | 'false';
 
 fragment ZeroDigits: [0-9];
 fragment NonZeroDigits: [1-9];
-fragment EscapeSeqs: '\\'[tbfrn"\\];
 fragment UNDERSCORED: '_';
 fragment DoubleQuote: '"';
-fragment StringChar: (~[\\"'\t\b\n\r\f]);
-fragment ESCSeq: '\\'[tbnrf'"\\];
+fragment StringChar: (~[\\"\n]);
+fragment EscapeSeqs: '\\' [tbfrn'"\\];
 fragment Illegal_ESCSeq: '\\' ~[tbnrf'"\\] | '\'' ~'"';
 fragment ExpPart: [eE][+-]? ZeroDigits+;
 fragment DecPart: [.] ZeroDigits*;
@@ -230,21 +221,27 @@ fragment IntPart: [0] | NonZeroDigits ZeroDigits* (UNDERSCORED? ZeroDigits)*;
 //	Raise Error
 WS : [ \t\b\f\r\n]+ -> skip ; // skip spaces, tabs, backspace, form feed, carriage return, newline
 
-ERROR_CHAR: .{
-	raise ErrorToken(self.text)
+BLOCKCOMMENT: 
+				'/*' .*? '*/' -> skip;
+INLINECOMMENT: 
+				'//' ~[\r\n]* -> skip;
+
+ILLEGAL_ESCAPE: DoubleQuote (StringChar | EscapeSeqs)* Illegal_ESCSeq 
+{
+	text = str(self.text)
+	raise IllegalEscape(text[1:])
 };
-UNCLOSE_STRING: DoubleQuote StringChar* ([\b\t\f\n\r"\\] | EOF)
+
+UNCLOSE_STRING: '"' (StringChar|EscapeSeqs)* ('\n' | EOF)
     {
         unclose_str = str(self.text)
-        possible = ['\b', '\t', '\f', '\n', '\r', '"', '\\']
+        possible = '\n'
         if unclose_str[-1] in possible:
             raise UncloseString(unclose_str[1:-1])
         else:
             raise UncloseString(unclose_str[1:])
 };
 
-ILLEGAL_ESCAPE: DoubleQuote (StringChar | EscapeSeqs)* Illegal_ESCSeq 
-{
-	text = str(self.text)
-	raise IllegalEscape(text[1:])
+ERROR_CHAR: .{
+	raise ErrorToken(self.text)
 };
