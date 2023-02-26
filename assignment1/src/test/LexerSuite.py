@@ -1,7 +1,7 @@
 import unittest
 from TestUtils import TestLexer
 
-
+#   Nguyen Ho Quang - 2052666
 class LexerSuite(unittest.TestCase):
 
     #   --------------------------- TEST IDs ------------------------------
@@ -189,13 +189,13 @@ class LexerSuite(unittest.TestCase):
 
     def test_lexer_131(self):
         my_input = ".1e+10"
-        my_expected_output = ".,1e+10,<EOF>"
+        my_expected_output = ".1e+10,<EOF>"
         self.assertTrue(TestLexer.test(my_input, my_expected_output, 131))
 
 
     def test_lexer_132(self):
         my_input = ".E-10"
-        my_expected_output = ".,E,-,10,<EOF>"
+        my_expected_output = ".E-10,<EOF>"
         self.assertTrue(TestLexer.test(my_input, my_expected_output, 132))
 
 
@@ -607,36 +607,38 @@ class LexerSuite(unittest.TestCase):
     def test_lexer_201(self):
         my_input = """ 123.e-13-546+ABC"\n" " " """""" "hello test !!! \\n sdsdsd" """
         my_expected_output = """123.e-13,-,546,+,ABC,Unclosed String: """
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 201))
+        self.assertTrue(TestLexer.test(my_input, my_expected_output, 2011))
     
     def test_lexer_202(self):
         my_input = """ "(*&^%$#@#$%^)     """
         my_expected_output = """Unclosed String: (*&^%$#@#$%^)     """
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 202))
+        self.assertTrue(TestLexer.test(my_input, my_expected_output, 2012))
 
     def test_lexer_203(self):
         my_input = """ "%^&*(\\t"|"|b6783\\")&* """
         my_expected_output = """%^&*(\\t,Error Token |"""
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 203))
+        self.assertTrue(TestLexer.test(my_input, my_expected_output, 2013))
     
     def test_lexer_204(self):
         my_input = """ "%^&*(\n"|"|b6783\\")&* """
         my_expected_output = """Unclosed String: %^&*("""
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 204))
+        self.assertTrue(TestLexer.test(my_input, my_expected_output, 2014))
     
     def test_lexer_205(self):
-        my_input = """ "%^&*(\\n\\"|\\"|b6783\\")&* """
-        my_expected_output = """Unclosed String: %^&*(\n\"|\"|b6783\")&*"""
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 205))
-    
+        # my_input = """ "%^&*(\\n\\"|\\"|b6783\\")&*"""
+        # my_expected_output = """Unclosed String: %^&*(\\n\\"|\\"|b6783\\")&*"""
+        # self.assertTrue(TestLexer.test(my_input, my_expected_output, 205))
+        self.assertTrue(TestLexer.test(r'"%^&*(\n\"|\"|b6783\")&*', r'Unclosed String: %^&*(\n\"|\"|b6783\")&*',2015))
     def test_lexer_206(self):
         my_input = """ "|||&&&&&\n****&^%" """
         my_expected_output = """Unclosed String: |||&&&&&"""
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 206))
+        self.assertTrue(TestLexer.test(my_input, my_expected_output, 2016))
     
     def test_lexer_207(self):
         my_input = """ 123.e-13-546+ABC"\n" " " """
         my_expected_output = """123.e-13,-,546,+,ABC,Unclosed String: """
-        self.assertTrue(TestLexer.test(my_input, my_expected_output, 207))
+        self.assertTrue(TestLexer.test(my_input, my_expected_output, 2017))
     
-    
+    def test_lexer_208(self):
+        self.assertTrue(TestLexer.test(
+            R'"Hello\b\f\r\n\t\\\'\", world!"', R'Hello\b\f\r\n\t\\\'\", world!,<EOF>', 2018))

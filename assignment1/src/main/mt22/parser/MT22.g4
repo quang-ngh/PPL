@@ -20,7 +20,7 @@ decl: (vardecl | funcdecl ) decl | (vardecl | funcdecl);
 /*	=============================== Grammar - Parser - Declarations */
 //	Types of program
 
-atomic_type: BOOLEAN | INTEGER | FLOAT | STRING;						// Atomic type
+atomic_type: BOOLEAN | INTEGER | FLOAT | STRING;									// Atomic type
 function_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | VOID | array_type;		// Types that functions can return
 include_auto_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | array_type;			// Atomic but include auto type
 
@@ -56,7 +56,7 @@ funcdecl: function_prototype function_body;
 //	Format: ID : <function keyword> <return type> (<param list>) [<inherit keyword> <function name>]?
 function_prototype: IDENTIFIERS COLON FUNCTION function_type LEFT_PARENTHESIS func_params RIGHT_PARENTHESIS
 					| IDENTIFIERS COLON FUNCTION function_type LEFT_PARENTHESIS func_params RIGHT_PARENTHESIS INHERIT IDENTIFIERS;
-function_body: block_stmt;
+function_body: block_statement;
 func_params: paramlist |;
 paramlist: paramone COMMA paramlist | paramone;
 paramone: INHERIT? IDENTIFIERS? IDENTIFIERS COLON include_auto_type;
@@ -83,42 +83,42 @@ expr7: literal | sub_expr | IDENTIFIERS | array_indexing | function_call; 					/
 //	Statments
 stmt: 			assign_statement
 				| if_statement
-				| for_stmt
-				| while_stmt
-				| do_while_stmt
-				| break_stmt
-				| continue_stmt
-				| return_stmt
-				| block_stmt
-				| call_stmt; 
+				| for_statement
+				| while_statement
+				| do_while_statement
+				| break_statement
+				| continue_statement
+				| return_statement
+				| block_statement
+				| call_statement; 
 
-noblock_stmt:   
+noblock_statement:   
 				assign_statement
 				| if_statement
-				| for_stmt
-				| while_stmt
-				| do_while_stmt
-				| break_stmt
-				| continue_stmt
-				| return_stmt
-				| call_stmt;
+				| for_statement
+				| while_statement
+				| do_while_statement
+				| break_statement
+				| continue_statement
+				| return_statement
+				| call_statement;
 
 assign_statement: (IDENTIFIERS | array_indexing) ASSIGN expr SEMI; 
 
 if_statement: IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt
 		|IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt ELSE stmt;
 
-for_stmt: FOR LEFT_PARENTHESIS (IDENTIFIERS | array_indexing) ASSIGN expr COMMA expr COMMA expr RIGHT_PARENTHESIS stmt;
+for_statement: FOR LEFT_PARENTHESIS (IDENTIFIERS | array_indexing) ASSIGN expr COMMA expr COMMA expr RIGHT_PARENTHESIS stmt;
 
-while_stmt: WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt;
+while_statement: WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt;
 
-do_while_stmt: DO block_stmt WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS SEMI;
+do_while_statement: DO block_statement WHILE LEFT_PARENTHESIS expr RIGHT_PARENTHESIS SEMI;
 
-break_stmt: BREAK SEMI;
-continue_stmt: CONTINUE SEMI; 
-return_stmt: RETURN expr SEMI;
-call_stmt: function_call SEMI;
-block_stmt: LEFT_CURLY_BRACKET (noblock_stmt | vardecl)* RIGHT_CURLY_BRACKET;
+break_statement: BREAK SEMI;
+continue_statement: CONTINUE SEMI; 
+return_statement: RETURN SEMI | RETURN expr SEMI;					// Return None or return expression
+call_statement: function_call SEMI;
+block_statement: LEFT_CURLY_BRACKET (noblock_statement | vardecl | block_statement)* RIGHT_CURLY_BRACKET;
 
 /*	=============================== LEXER ================================== */
 //	Comments
