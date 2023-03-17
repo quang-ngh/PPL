@@ -2,7 +2,7 @@
 	Principle of Programming Languages
 	Assignment 1 - Lexer and  Recognizer
 	AUTHOR: Ho Quang Nguyen - 2052666
-	
+	Submission 3
 	""" MT22 is a case sensitive programming language """
 */
 grammar MT22;
@@ -59,7 +59,7 @@ function_prototype: IDENTIFIERS COLON FUNCTION function_type LEFT_PARENTHESIS fu
 function_body: block_statement;
 func_params: paramlist |;
 paramlist: paramone COMMA paramlist | paramone;
-paramone: INHERIT? IDENTIFIERS? IDENTIFIERS COLON include_auto_type;
+paramone: INHERIT? OUT? IDENTIFIERS COLON include_auto_type;
 function_call: IDENTIFIERS LEFT_PARENTHESIS arg_list RIGHT_PARENTHESIS;
 arg_list: arg_list_params | ;
 arg_list_params: (IDENTIFIERS | expr) COMMA arg_list_params | (IDENTIFIERS | expr);
@@ -106,7 +106,7 @@ noblock_statement:
 assign_statement: (IDENTIFIERS | array_indexing) ASSIGN expr SEMI; 
 
 if_statement: IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt
-		|IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt ELSE stmt;
+			  |IF LEFT_PARENTHESIS expr RIGHT_PARENTHESIS stmt ELSE stmt;
 
 for_statement: FOR LEFT_PARENTHESIS (IDENTIFIERS | array_indexing) ASSIGN expr COMMA expr COMMA expr RIGHT_PARENTHESIS stmt;
 
@@ -136,6 +136,7 @@ OF: 		'of';
 
 //	KEYWORDS - Methods 
 INHERIT: 	'inherit';
+OUT: 		'out';
 VOID: 		'void';
 RETURN:  	'return';
 FUNCTION: 	'function';

@@ -39,13 +39,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#vardecl_with_init.
-    def visitVardecl_with_init(self, ctx:MT22Parser.Vardecl_with_initContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#vardecl_no_init.
-    def visitVardecl_no_init(self, ctx:MT22Parser.Vardecl_no_initContext):
+    # Visit a parse tree produced by MT22Parser#full_format_decl.
+    def visitFull_format_decl(self, ctx:MT22Parser.Full_format_declContext):
         return self.visitChildren(ctx)
 
 
@@ -59,8 +54,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#vardecl_array.
-    def visitVardecl_array(self, ctx:MT22Parser.Vardecl_arrayContext):
+    # Visit a parse tree produced by MT22Parser#array_type.
+    def visitArray_type(self, ctx:MT22Parser.Array_typeContext):
         return self.visitChildren(ctx)
 
 
@@ -194,58 +189,58 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#noblock_stmt.
-    def visitNoblock_stmt(self, ctx:MT22Parser.Noblock_stmtContext):
+    # Visit a parse tree produced by MT22Parser#noblock_statement.
+    def visitNoblock_statement(self, ctx:MT22Parser.Noblock_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#assign_stmt.
-    def visitAssign_stmt(self, ctx:MT22Parser.Assign_stmtContext):
+    # Visit a parse tree produced by MT22Parser#assign_statement.
+    def visitAssign_statement(self, ctx:MT22Parser.Assign_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#if_stmt.
-    def visitIf_stmt(self, ctx:MT22Parser.If_stmtContext):
+    # Visit a parse tree produced by MT22Parser#if_statement.
+    def visitIf_statement(self, ctx:MT22Parser.If_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#for_stmt.
-    def visitFor_stmt(self, ctx:MT22Parser.For_stmtContext):
+    # Visit a parse tree produced by MT22Parser#for_statement.
+    def visitFor_statement(self, ctx:MT22Parser.For_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#while_stmt.
-    def visitWhile_stmt(self, ctx:MT22Parser.While_stmtContext):
+    # Visit a parse tree produced by MT22Parser#while_statement.
+    def visitWhile_statement(self, ctx:MT22Parser.While_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#do_while_stmt.
-    def visitDo_while_stmt(self, ctx:MT22Parser.Do_while_stmtContext):
+    # Visit a parse tree produced by MT22Parser#do_while_statement.
+    def visitDo_while_statement(self, ctx:MT22Parser.Do_while_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#break_stmt.
-    def visitBreak_stmt(self, ctx:MT22Parser.Break_stmtContext):
+    # Visit a parse tree produced by MT22Parser#break_statement.
+    def visitBreak_statement(self, ctx:MT22Parser.Break_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#continue_stmt.
-    def visitContinue_stmt(self, ctx:MT22Parser.Continue_stmtContext):
+    # Visit a parse tree produced by MT22Parser#continue_statement.
+    def visitContinue_statement(self, ctx:MT22Parser.Continue_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#return_stmt.
-    def visitReturn_stmt(self, ctx:MT22Parser.Return_stmtContext):
+    # Visit a parse tree produced by MT22Parser#return_statement.
+    def visitReturn_statement(self, ctx:MT22Parser.Return_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#call_stmt.
-    def visitCall_stmt(self, ctx:MT22Parser.Call_stmtContext):
+    # Visit a parse tree produced by MT22Parser#call_statement.
+    def visitCall_statement(self, ctx:MT22Parser.Call_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#block_stmt.
-    def visitBlock_stmt(self, ctx:MT22Parser.Block_stmtContext):
+    # Visit a parse tree produced by MT22Parser#block_statement.
+    def visitBlock_statement(self, ctx:MT22Parser.Block_statementContext):
         return self.visitChildren(ctx)
 
 

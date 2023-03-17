@@ -25,6 +25,7 @@ function_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | VOID | array_type;		/
 include_auto_type: BOOLEAN | INTEGER | FLOAT | STRING | AUTO | array_type;			// Atomic but include auto type
 
 // Variables declarations
+// Bugs: cannot check compatible of values init and number of variables
 vardecl: list_of_ids COLON include_auto_type SEMI
 		 | full_format_decl SEMI;
 full_format_decl: IDENTIFIERS COMMA full_format_decl COMMA expr
@@ -58,7 +59,7 @@ function_prototype: IDENTIFIERS COLON FUNCTION function_type LEFT_PARENTHESIS fu
 function_body: block_statement;
 func_params: paramlist |;
 paramlist: paramone COMMA paramlist | paramone;
-paramone: INHERIT? IDENTIFIERS? IDENTIFIERS COLON include_auto_type;
+paramone: INHERIT? OUT? IDENTIFIERS COLON include_auto_type;
 function_call: IDENTIFIERS LEFT_PARENTHESIS arg_list RIGHT_PARENTHESIS;
 arg_list: arg_list_params | ;
 arg_list_params: (IDENTIFIERS | expr) COMMA arg_list_params | (IDENTIFIERS | expr);
@@ -135,6 +136,7 @@ OF: 		'of';
 
 //	KEYWORDS - Methods 
 INHERIT: 	'inherit';
+OUT: 		'out';
 VOID: 		'void';
 RETURN:  	'return';
 FUNCTION: 	'function';

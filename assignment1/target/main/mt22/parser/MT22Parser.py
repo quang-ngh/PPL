@@ -1,4 +1,4 @@
-# Generated from /home/quangngcs/Desktop/Github/PPL/assignment1/src/main/mt22/parser/MT22.g4 by ANTLR 4.9.2
+# Generated from main/mt22/parser/MT22.g4 by ANTLR 4.9.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3:")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\39")
         buf.write("\u01c1\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
@@ -52,13 +52,13 @@ def serializedATN():
         buf.write("\60\3\60\3\60\3\60\7\60\u01ba\n\60\f\60\16\60\u01bd\13")
         buf.write("\60\3\60\3\60\3\60\2\5<>@\61\2\4\6\b\n\f\16\20\22\24\26")
         buf.write("\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\")
-        buf.write("^\2\7\3\2\3\6\4\2\33\34 #\3\2\35\36\3\2\26\27\3\2\30\32")
-        buf.write("\2\u01d6\2`\3\2\2\2\4m\3\2\2\2\6o\3\2\2\2\bx\3\2\2\2\n")
-        buf.write("\u0080\3\2\2\2\f\u008a\3\2\2\2\16\u0098\3\2\2\2\20\u009d")
-        buf.write("\3\2\2\2\22\u009f\3\2\2\2\24\u00a2\3\2\2\2\26\u00ad\3")
-        buf.write("\2\2\2\30\u00af\3\2\2\2\32\u00b5\3\2\2\2\34\u00bc\3\2")
-        buf.write("\2\2\36\u00be\3\2\2\2 \u00c8\3\2\2\2\"\u00ca\3\2\2\2$")
-        buf.write("\u00df\3\2\2\2&\u00e1\3\2\2\2(\u00e5\3\2\2\2*\u00ec\3")
+        buf.write("^\2\7\3\2\3\6\4\2\32\33\37\"\3\2\34\35\3\2\25\26\3\2\27")
+        buf.write("\31\2\u01d6\2`\3\2\2\2\4m\3\2\2\2\6o\3\2\2\2\bx\3\2\2")
+        buf.write("\2\n\u0080\3\2\2\2\f\u008a\3\2\2\2\16\u0098\3\2\2\2\20")
+        buf.write("\u009d\3\2\2\2\22\u009f\3\2\2\2\24\u00a2\3\2\2\2\26\u00ad")
+        buf.write("\3\2\2\2\30\u00af\3\2\2\2\32\u00b5\3\2\2\2\34\u00bc\3")
+        buf.write("\2\2\2\36\u00be\3\2\2\2 \u00c8\3\2\2\2\"\u00ca\3\2\2\2")
+        buf.write("$\u00df\3\2\2\2&\u00e1\3\2\2\2(\u00e5\3\2\2\2*\u00ec\3")
         buf.write("\2\2\2,\u00ef\3\2\2\2.\u00f8\3\2\2\2\60\u00ff\3\2\2\2")
         buf.write("\62\u010b\3\2\2\2\64\u0112\3\2\2\2\66\u0114\3\2\2\28\u011d")
         buf.write("\3\2\2\2:\u0124\3\2\2\2<\u0126\3\2\2\2>\u0131\3\2\2\2")
@@ -71,144 +71,144 @@ def serializedATN():
         buf.write("\5\4\3\2hn\3\2\2\2il\5\f\7\2jl\5\"\22\2ki\3\2\2\2kj\3")
         buf.write("\2\2\2ln\3\2\2\2me\3\2\2\2mk\3\2\2\2n\5\3\2\2\2op\t\2")
         buf.write("\2\2p\7\3\2\2\2qy\7\6\2\2ry\7\3\2\2sy\7\4\2\2ty\7\5\2")
-        buf.write("\2uy\7\b\2\2vy\7\f\2\2wy\5\24\13\2xq\3\2\2\2xr\3\2\2\2")
-        buf.write("xs\3\2\2\2xt\3\2\2\2xu\3\2\2\2xv\3\2\2\2xw\3\2\2\2y\t")
-        buf.write("\3\2\2\2z\u0081\7\6\2\2{\u0081\7\3\2\2|\u0081\7\4\2\2")
-        buf.write("}\u0081\7\5\2\2~\u0081\7\b\2\2\177\u0081\5\24\13\2\u0080")
+        buf.write("\2uy\7\b\2\2vy\7\13\2\2wy\5\24\13\2xq\3\2\2\2xr\3\2\2")
+        buf.write("\2xs\3\2\2\2xt\3\2\2\2xu\3\2\2\2xv\3\2\2\2xw\3\2\2\2y")
+        buf.write("\t\3\2\2\2z\u0081\7\6\2\2{\u0081\7\3\2\2|\u0081\7\4\2")
+        buf.write("\2}\u0081\7\5\2\2~\u0081\7\b\2\2\177\u0081\5\24\13\2\u0080")
         buf.write("z\3\2\2\2\u0080{\3\2\2\2\u0080|\3\2\2\2\u0080}\3\2\2\2")
         buf.write("\u0080~\3\2\2\2\u0080\177\3\2\2\2\u0081\13\3\2\2\2\u0082")
-        buf.write("\u0083\5\20\t\2\u0083\u0084\7,\2\2\u0084\u0085\5\n\6\2")
-        buf.write("\u0085\u0086\7.\2\2\u0086\u008b\3\2\2\2\u0087\u0088\5")
-        buf.write("\16\b\2\u0088\u0089\7.\2\2\u0089\u008b\3\2\2\2\u008a\u0082")
+        buf.write("\u0083\5\20\t\2\u0083\u0084\7+\2\2\u0084\u0085\5\n\6\2")
+        buf.write("\u0085\u0086\7-\2\2\u0086\u008b\3\2\2\2\u0087\u0088\5")
+        buf.write("\16\b\2\u0088\u0089\7-\2\2\u0089\u008b\3\2\2\2\u008a\u0082")
         buf.write("\3\2\2\2\u008a\u0087\3\2\2\2\u008b\r\3\2\2\2\u008c\u008d")
-        buf.write("\7\60\2\2\u008d\u008e\7-\2\2\u008e\u008f\5\16\b\2\u008f")
-        buf.write("\u0090\7-\2\2\u0090\u0091\58\35\2\u0091\u0099\3\2\2\2")
-        buf.write("\u0092\u0093\7\60\2\2\u0093\u0094\7,\2\2\u0094\u0095\5")
-        buf.write("\n\6\2\u0095\u0096\7+\2\2\u0096\u0097\58\35\2\u0097\u0099")
+        buf.write("\7/\2\2\u008d\u008e\7,\2\2\u008e\u008f\5\16\b\2\u008f")
+        buf.write("\u0090\7,\2\2\u0090\u0091\58\35\2\u0091\u0099\3\2\2\2")
+        buf.write("\u0092\u0093\7/\2\2\u0093\u0094\7+\2\2\u0094\u0095\5\n")
+        buf.write("\6\2\u0095\u0096\7*\2\2\u0096\u0097\58\35\2\u0097\u0099")
         buf.write("\3\2\2\2\u0098\u008c\3\2\2\2\u0098\u0092\3\2\2\2\u0099")
-        buf.write("\17\3\2\2\2\u009a\u009b\7\60\2\2\u009b\u009e\5\22\n\2")
-        buf.write("\u009c\u009e\7\60\2\2\u009d\u009a\3\2\2\2\u009d\u009c")
-        buf.write("\3\2\2\2\u009e\21\3\2\2\2\u009f\u00a0\7-\2\2\u00a0\u00a1")
-        buf.write("\5\20\t\2\u00a1\23\3\2\2\2\u00a2\u00a3\7\7\2\2\u00a3\u00a4")
-        buf.write("\7\'\2\2\u00a4\u00a5\5\26\f\2\u00a5\u00a6\7(\2\2\u00a6")
+        buf.write("\17\3\2\2\2\u009a\u009b\7/\2\2\u009b\u009e\5\22\n\2\u009c")
+        buf.write("\u009e\7/\2\2\u009d\u009a\3\2\2\2\u009d\u009c\3\2\2\2")
+        buf.write("\u009e\21\3\2\2\2\u009f\u00a0\7,\2\2\u00a0\u00a1\5\20")
+        buf.write("\t\2\u00a1\23\3\2\2\2\u00a2\u00a3\7\7\2\2\u00a3\u00a4")
+        buf.write("\7&\2\2\u00a4\u00a5\5\26\f\2\u00a5\u00a6\7\'\2\2\u00a6")
         buf.write("\u00a7\7\t\2\2\u00a7\u00a8\5\6\4\2\u00a8\25\3\2\2\2\u00a9")
-        buf.write("\u00aa\7\61\2\2\u00aa\u00ab\7-\2\2\u00ab\u00ae\5\26\f")
-        buf.write("\2\u00ac\u00ae\7\61\2\2\u00ad\u00a9\3\2\2\2\u00ad\u00ac")
-        buf.write("\3\2\2\2\u00ae\27\3\2\2\2\u00af\u00b0\7)\2\2\u00b0\u00b1")
-        buf.write("\5\32\16\2\u00b1\u00b2\7*\2\2\u00b2\31\3\2\2\2\u00b3\u00b6")
+        buf.write("\u00aa\7\60\2\2\u00aa\u00ab\7,\2\2\u00ab\u00ae\5\26\f")
+        buf.write("\2\u00ac\u00ae\7\60\2\2\u00ad\u00a9\3\2\2\2\u00ad\u00ac")
+        buf.write("\3\2\2\2\u00ae\27\3\2\2\2\u00af\u00b0\7(\2\2\u00b0\u00b1")
+        buf.write("\5\32\16\2\u00b1\u00b2\7)\2\2\u00b2\31\3\2\2\2\u00b3\u00b6")
         buf.write("\5\34\17\2\u00b4\u00b6\3\2\2\2\u00b5\u00b3\3\2\2\2\u00b5")
         buf.write("\u00b4\3\2\2\2\u00b6\33\3\2\2\2\u00b7\u00b8\58\35\2\u00b8")
-        buf.write("\u00b9\7-\2\2\u00b9\u00ba\5\34\17\2\u00ba\u00bd\3\2\2")
+        buf.write("\u00b9\7,\2\2\u00b9\u00ba\5\34\17\2\u00ba\u00bd\3\2\2")
         buf.write("\2\u00bb\u00bd\58\35\2\u00bc\u00b7\3\2\2\2\u00bc\u00bb")
-        buf.write("\3\2\2\2\u00bd\35\3\2\2\2\u00be\u00bf\7\60\2\2\u00bf\u00c0")
-        buf.write("\7\'\2\2\u00c0\u00c1\5 \21\2\u00c1\u00c2\7(\2\2\u00c2")
-        buf.write("\37\3\2\2\2\u00c3\u00c4\58\35\2\u00c4\u00c5\7-\2\2\u00c5")
+        buf.write("\3\2\2\2\u00bd\35\3\2\2\2\u00be\u00bf\7/\2\2\u00bf\u00c0")
+        buf.write("\7&\2\2\u00c0\u00c1\5 \21\2\u00c1\u00c2\7\'\2\2\u00c2")
+        buf.write("\37\3\2\2\2\u00c3\u00c4\58\35\2\u00c4\u00c5\7,\2\2\u00c5")
         buf.write("\u00c6\5 \21\2\u00c6\u00c9\3\2\2\2\u00c7\u00c9\58\35\2")
         buf.write("\u00c8\u00c3\3\2\2\2\u00c8\u00c7\3\2\2\2\u00c9!\3\2\2")
         buf.write("\2\u00ca\u00cb\5$\23\2\u00cb\u00cc\5&\24\2\u00cc#\3\2")
-        buf.write("\2\2\u00cd\u00ce\7\60\2\2\u00ce\u00cf\7,\2\2\u00cf\u00d0")
-        buf.write("\7\16\2\2\u00d0\u00d1\5\b\5\2\u00d1\u00d2\7%\2\2\u00d2")
-        buf.write("\u00d3\5(\25\2\u00d3\u00d4\7&\2\2\u00d4\u00e0\3\2\2\2")
-        buf.write("\u00d5\u00d6\7\60\2\2\u00d6\u00d7\7,\2\2\u00d7\u00d8\7")
-        buf.write("\16\2\2\u00d8\u00d9\5\b\5\2\u00d9\u00da\7%\2\2\u00da\u00db")
-        buf.write("\5(\25\2\u00db\u00dc\7&\2\2\u00dc\u00dd\7\n\2\2\u00dd")
-        buf.write("\u00de\7\60\2\2\u00de\u00e0\3\2\2\2\u00df\u00cd\3\2\2")
-        buf.write("\2\u00df\u00d5\3\2\2\2\u00e0%\3\2\2\2\u00e1\u00e2\5^\60")
+        buf.write("\2\2\u00cd\u00ce\7/\2\2\u00ce\u00cf\7+\2\2\u00cf\u00d0")
+        buf.write("\7\r\2\2\u00d0\u00d1\5\b\5\2\u00d1\u00d2\7$\2\2\u00d2")
+        buf.write("\u00d3\5(\25\2\u00d3\u00d4\7%\2\2\u00d4\u00e0\3\2\2\2")
+        buf.write("\u00d5\u00d6\7/\2\2\u00d6\u00d7\7+\2\2\u00d7\u00d8\7\r")
+        buf.write("\2\2\u00d8\u00d9\5\b\5\2\u00d9\u00da\7$\2\2\u00da\u00db")
+        buf.write("\5(\25\2\u00db\u00dc\7%\2\2\u00dc\u00dd\7\n\2\2\u00dd")
+        buf.write("\u00de\7/\2\2\u00de\u00e0\3\2\2\2\u00df\u00cd\3\2\2\2")
+        buf.write("\u00df\u00d5\3\2\2\2\u00e0%\3\2\2\2\u00e1\u00e2\5^\60")
         buf.write("\2\u00e2\'\3\2\2\2\u00e3\u00e6\5*\26\2\u00e4\u00e6\3\2")
         buf.write("\2\2\u00e5\u00e3\3\2\2\2\u00e5\u00e4\3\2\2\2\u00e6)\3")
-        buf.write("\2\2\2\u00e7\u00e8\5,\27\2\u00e8\u00e9\7-\2\2\u00e9\u00ea")
+        buf.write("\2\2\2\u00e7\u00e8\5,\27\2\u00e8\u00e9\7,\2\2\u00e9\u00ea")
         buf.write("\5*\26\2\u00ea\u00ed\3\2\2\2\u00eb\u00ed\5,\27\2\u00ec")
         buf.write("\u00e7\3\2\2\2\u00ec\u00eb\3\2\2\2\u00ed+\3\2\2\2\u00ee")
         buf.write("\u00f0\7\n\2\2\u00ef\u00ee\3\2\2\2\u00ef\u00f0\3\2\2\2")
-        buf.write("\u00f0\u00f2\3\2\2\2\u00f1\u00f3\7\13\2\2\u00f2\u00f1")
-        buf.write("\3\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4")
-        buf.write("\u00f5\7\60\2\2\u00f5\u00f6\7,\2\2\u00f6\u00f7\5\n\6\2")
-        buf.write("\u00f7-\3\2\2\2\u00f8\u00f9\7\60\2\2\u00f9\u00fa\7%\2")
-        buf.write("\2\u00fa\u00fb\5\60\31\2\u00fb\u00fc\7&\2\2\u00fc/\3\2")
-        buf.write("\2\2\u00fd\u0100\5\62\32\2\u00fe\u0100\3\2\2\2\u00ff\u00fd")
-        buf.write("\3\2\2\2\u00ff\u00fe\3\2\2\2\u0100\61\3\2\2\2\u0101\u0104")
-        buf.write("\7\60\2\2\u0102\u0104\58\35\2\u0103\u0101\3\2\2\2\u0103")
-        buf.write("\u0102\3\2\2\2\u0104\u0105\3\2\2\2\u0105\u0106\7-\2\2")
-        buf.write("\u0106\u010c\5\62\32\2\u0107\u010a\7\60\2\2\u0108\u010a")
-        buf.write("\58\35\2\u0109\u0107\3\2\2\2\u0109\u0108\3\2\2\2\u010a")
-        buf.write("\u010c\3\2\2\2\u010b\u0103\3\2\2\2\u010b\u0109\3\2\2\2")
-        buf.write("\u010c\63\3\2\2\2\u010d\u0113\7\61\2\2\u010e\u0113\7\62")
-        buf.write("\2\2\u010f\u0113\7\64\2\2\u0110\u0113\7\63\2\2\u0111\u0113")
-        buf.write("\5\30\r\2\u0112\u010d\3\2\2\2\u0112\u010e\3\2\2\2\u0112")
-        buf.write("\u010f\3\2\2\2\u0112\u0110\3\2\2\2\u0112\u0111\3\2\2\2")
-        buf.write("\u0113\65\3\2\2\2\u0114\u0115\7%\2\2\u0115\u0116\58\35")
-        buf.write("\2\u0116\u0117\7&\2\2\u0117\67\3\2\2\2\u0118\u0119\5:")
-        buf.write("\36\2\u0119\u011a\7$\2\2\u011a\u011b\5:\36\2\u011b\u011e")
-        buf.write("\3\2\2\2\u011c\u011e\5:\36\2\u011d\u0118\3\2\2\2\u011d")
-        buf.write("\u011c\3\2\2\2\u011e9\3\2\2\2\u011f\u0120\5<\37\2\u0120")
-        buf.write("\u0121\t\3\2\2\u0121\u0122\5<\37\2\u0122\u0125\3\2\2\2")
-        buf.write("\u0123\u0125\5<\37\2\u0124\u011f\3\2\2\2\u0124\u0123\3")
-        buf.write("\2\2\2\u0125;\3\2\2\2\u0126\u0127\b\37\1\2\u0127\u0128")
-        buf.write("\5> \2\u0128\u012e\3\2\2\2\u0129\u012a\f\4\2\2\u012a\u012b")
-        buf.write("\t\4\2\2\u012b\u012d\5> \2\u012c\u0129\3\2\2\2\u012d\u0130")
-        buf.write("\3\2\2\2\u012e\u012c\3\2\2\2\u012e\u012f\3\2\2\2\u012f")
-        buf.write("=\3\2\2\2\u0130\u012e\3\2\2\2\u0131\u0132\b \1\2\u0132")
-        buf.write("\u0133\5@!\2\u0133\u0139\3\2\2\2\u0134\u0135\f\4\2\2\u0135")
-        buf.write("\u0136\t\5\2\2\u0136\u0138\5@!\2\u0137\u0134\3\2\2\2\u0138")
-        buf.write("\u013b\3\2\2\2\u0139\u0137\3\2\2\2\u0139\u013a\3\2\2\2")
-        buf.write("\u013a?\3\2\2\2\u013b\u0139\3\2\2\2\u013c\u013d\b!\1\2")
-        buf.write("\u013d\u013e\5B\"\2\u013e\u0144\3\2\2\2\u013f\u0140\f")
-        buf.write("\4\2\2\u0140\u0141\t\6\2\2\u0141\u0143\5B\"\2\u0142\u013f")
-        buf.write("\3\2\2\2\u0143\u0146\3\2\2\2\u0144\u0142\3\2\2\2\u0144")
-        buf.write("\u0145\3\2\2\2\u0145A\3\2\2\2\u0146\u0144\3\2\2\2\u0147")
-        buf.write("\u0148\7\37\2\2\u0148\u014b\5B\"\2\u0149\u014b\5D#\2\u014a")
-        buf.write("\u0147\3\2\2\2\u014a\u0149\3\2\2\2\u014bC\3\2\2\2\u014c")
-        buf.write("\u014d\7\27\2\2\u014d\u0150\5D#\2\u014e\u0150\5F$\2\u014f")
-        buf.write("\u014c\3\2\2\2\u014f\u014e\3\2\2\2\u0150E\3\2\2\2\u0151")
-        buf.write("\u0157\5\64\33\2\u0152\u0157\5\66\34\2\u0153\u0157\7\60")
-        buf.write("\2\2\u0154\u0157\5\36\20\2\u0155\u0157\5.\30\2\u0156\u0151")
-        buf.write("\3\2\2\2\u0156\u0152\3\2\2\2\u0156\u0153\3\2\2\2\u0156")
-        buf.write("\u0154\3\2\2\2\u0156\u0155\3\2\2\2\u0157G\3\2\2\2\u0158")
-        buf.write("\u0163\5L\'\2\u0159\u0163\5N(\2\u015a\u0163\5P)\2\u015b")
-        buf.write("\u0163\5R*\2\u015c\u0163\5T+\2\u015d\u0163\5V,\2\u015e")
-        buf.write("\u0163\5X-\2\u015f\u0163\5Z.\2\u0160\u0163\5^\60\2\u0161")
-        buf.write("\u0163\5\\/\2\u0162\u0158\3\2\2\2\u0162\u0159\3\2\2\2")
-        buf.write("\u0162\u015a\3\2\2\2\u0162\u015b\3\2\2\2\u0162\u015c\3")
-        buf.write("\2\2\2\u0162\u015d\3\2\2\2\u0162\u015e\3\2\2\2\u0162\u015f")
-        buf.write("\3\2\2\2\u0162\u0160\3\2\2\2\u0162\u0161\3\2\2\2\u0163")
-        buf.write("I\3\2\2\2\u0164\u016e\5L\'\2\u0165\u016e\5N(\2\u0166\u016e")
+        buf.write("\u00f0\u00f2\3\2\2\2\u00f1\u00f3\7/\2\2\u00f2\u00f1\3")
+        buf.write("\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4\u00f5")
+        buf.write("\7/\2\2\u00f5\u00f6\7+\2\2\u00f6\u00f7\5\n\6\2\u00f7-")
+        buf.write("\3\2\2\2\u00f8\u00f9\7/\2\2\u00f9\u00fa\7$\2\2\u00fa\u00fb")
+        buf.write("\5\60\31\2\u00fb\u00fc\7%\2\2\u00fc/\3\2\2\2\u00fd\u0100")
+        buf.write("\5\62\32\2\u00fe\u0100\3\2\2\2\u00ff\u00fd\3\2\2\2\u00ff")
+        buf.write("\u00fe\3\2\2\2\u0100\61\3\2\2\2\u0101\u0104\7/\2\2\u0102")
+        buf.write("\u0104\58\35\2\u0103\u0101\3\2\2\2\u0103\u0102\3\2\2\2")
+        buf.write("\u0104\u0105\3\2\2\2\u0105\u0106\7,\2\2\u0106\u010c\5")
+        buf.write("\62\32\2\u0107\u010a\7/\2\2\u0108\u010a\58\35\2\u0109")
+        buf.write("\u0107\3\2\2\2\u0109\u0108\3\2\2\2\u010a\u010c\3\2\2\2")
+        buf.write("\u010b\u0103\3\2\2\2\u010b\u0109\3\2\2\2\u010c\63\3\2")
+        buf.write("\2\2\u010d\u0113\7\60\2\2\u010e\u0113\7\61\2\2\u010f\u0113")
+        buf.write("\7\63\2\2\u0110\u0113\7\62\2\2\u0111\u0113\5\30\r\2\u0112")
+        buf.write("\u010d\3\2\2\2\u0112\u010e\3\2\2\2\u0112\u010f\3\2\2\2")
+        buf.write("\u0112\u0110\3\2\2\2\u0112\u0111\3\2\2\2\u0113\65\3\2")
+        buf.write("\2\2\u0114\u0115\7$\2\2\u0115\u0116\58\35\2\u0116\u0117")
+        buf.write("\7%\2\2\u0117\67\3\2\2\2\u0118\u0119\5:\36\2\u0119\u011a")
+        buf.write("\7#\2\2\u011a\u011b\5:\36\2\u011b\u011e\3\2\2\2\u011c")
+        buf.write("\u011e\5:\36\2\u011d\u0118\3\2\2\2\u011d\u011c\3\2\2\2")
+        buf.write("\u011e9\3\2\2\2\u011f\u0120\5<\37\2\u0120\u0121\t\3\2")
+        buf.write("\2\u0121\u0122\5<\37\2\u0122\u0125\3\2\2\2\u0123\u0125")
+        buf.write("\5<\37\2\u0124\u011f\3\2\2\2\u0124\u0123\3\2\2\2\u0125")
+        buf.write(";\3\2\2\2\u0126\u0127\b\37\1\2\u0127\u0128\5> \2\u0128")
+        buf.write("\u012e\3\2\2\2\u0129\u012a\f\4\2\2\u012a\u012b\t\4\2\2")
+        buf.write("\u012b\u012d\5> \2\u012c\u0129\3\2\2\2\u012d\u0130\3\2")
+        buf.write("\2\2\u012e\u012c\3\2\2\2\u012e\u012f\3\2\2\2\u012f=\3")
+        buf.write("\2\2\2\u0130\u012e\3\2\2\2\u0131\u0132\b \1\2\u0132\u0133")
+        buf.write("\5@!\2\u0133\u0139\3\2\2\2\u0134\u0135\f\4\2\2\u0135\u0136")
+        buf.write("\t\5\2\2\u0136\u0138\5@!\2\u0137\u0134\3\2\2\2\u0138\u013b")
+        buf.write("\3\2\2\2\u0139\u0137\3\2\2\2\u0139\u013a\3\2\2\2\u013a")
+        buf.write("?\3\2\2\2\u013b\u0139\3\2\2\2\u013c\u013d\b!\1\2\u013d")
+        buf.write("\u013e\5B\"\2\u013e\u0144\3\2\2\2\u013f\u0140\f\4\2\2")
+        buf.write("\u0140\u0141\t\6\2\2\u0141\u0143\5B\"\2\u0142\u013f\3")
+        buf.write("\2\2\2\u0143\u0146\3\2\2\2\u0144\u0142\3\2\2\2\u0144\u0145")
+        buf.write("\3\2\2\2\u0145A\3\2\2\2\u0146\u0144\3\2\2\2\u0147\u0148")
+        buf.write("\7\36\2\2\u0148\u014b\5B\"\2\u0149\u014b\5D#\2\u014a\u0147")
+        buf.write("\3\2\2\2\u014a\u0149\3\2\2\2\u014bC\3\2\2\2\u014c\u014d")
+        buf.write("\7\26\2\2\u014d\u0150\5D#\2\u014e\u0150\5F$\2\u014f\u014c")
+        buf.write("\3\2\2\2\u014f\u014e\3\2\2\2\u0150E\3\2\2\2\u0151\u0157")
+        buf.write("\5\64\33\2\u0152\u0157\5\66\34\2\u0153\u0157\7/\2\2\u0154")
+        buf.write("\u0157\5\36\20\2\u0155\u0157\5.\30\2\u0156\u0151\3\2\2")
+        buf.write("\2\u0156\u0152\3\2\2\2\u0156\u0153\3\2\2\2\u0156\u0154")
+        buf.write("\3\2\2\2\u0156\u0155\3\2\2\2\u0157G\3\2\2\2\u0158\u0163")
+        buf.write("\5L\'\2\u0159\u0163\5N(\2\u015a\u0163\5P)\2\u015b\u0163")
+        buf.write("\5R*\2\u015c\u0163\5T+\2\u015d\u0163\5V,\2\u015e\u0163")
+        buf.write("\5X-\2\u015f\u0163\5Z.\2\u0160\u0163\5^\60\2\u0161\u0163")
+        buf.write("\5\\/\2\u0162\u0158\3\2\2\2\u0162\u0159\3\2\2\2\u0162")
+        buf.write("\u015a\3\2\2\2\u0162\u015b\3\2\2\2\u0162\u015c\3\2\2\2")
+        buf.write("\u0162\u015d\3\2\2\2\u0162\u015e\3\2\2\2\u0162\u015f\3")
+        buf.write("\2\2\2\u0162\u0160\3\2\2\2\u0162\u0161\3\2\2\2\u0163I")
+        buf.write("\3\2\2\2\u0164\u016e\5L\'\2\u0165\u016e\5N(\2\u0166\u016e")
         buf.write("\5P)\2\u0167\u016e\5R*\2\u0168\u016e\5T+\2\u0169\u016e")
         buf.write("\5V,\2\u016a\u016e\5X-\2\u016b\u016e\5Z.\2\u016c\u016e")
         buf.write("\5\\/\2\u016d\u0164\3\2\2\2\u016d\u0165\3\2\2\2\u016d")
         buf.write("\u0166\3\2\2\2\u016d\u0167\3\2\2\2\u016d\u0168\3\2\2\2")
         buf.write("\u016d\u0169\3\2\2\2\u016d\u016a\3\2\2\2\u016d\u016b\3")
         buf.write("\2\2\2\u016d\u016c\3\2\2\2\u016eK\3\2\2\2\u016f\u0172")
-        buf.write("\7\60\2\2\u0170\u0172\5\36\20\2\u0171\u016f\3\2\2\2\u0171")
-        buf.write("\u0170\3\2\2\2\u0172\u0173\3\2\2\2\u0173\u0174\7+\2\2")
-        buf.write("\u0174\u0175\58\35\2\u0175\u0176\7.\2\2\u0176M\3\2\2\2")
-        buf.write("\u0177\u0178\7\17\2\2\u0178\u0179\7%\2\2\u0179\u017a\5")
-        buf.write("8\35\2\u017a\u017b\7&\2\2\u017b\u017c\5H%\2\u017c\u0186")
-        buf.write("\3\2\2\2\u017d\u017e\7\17\2\2\u017e\u017f\7%\2\2\u017f")
-        buf.write("\u0180\58\35\2\u0180\u0181\7&\2\2\u0181\u0182\5H%\2\u0182")
-        buf.write("\u0183\7\20\2\2\u0183\u0184\5H%\2\u0184\u0186\3\2\2\2")
+        buf.write("\7/\2\2\u0170\u0172\5\36\20\2\u0171\u016f\3\2\2\2\u0171")
+        buf.write("\u0170\3\2\2\2\u0172\u0173\3\2\2\2\u0173\u0174\7*\2\2")
+        buf.write("\u0174\u0175\58\35\2\u0175\u0176\7-\2\2\u0176M\3\2\2\2")
+        buf.write("\u0177\u0178\7\16\2\2\u0178\u0179\7$\2\2\u0179\u017a\5")
+        buf.write("8\35\2\u017a\u017b\7%\2\2\u017b\u017c\5H%\2\u017c\u0186")
+        buf.write("\3\2\2\2\u017d\u017e\7\16\2\2\u017e\u017f\7$\2\2\u017f")
+        buf.write("\u0180\58\35\2\u0180\u0181\7%\2\2\u0181\u0182\5H%\2\u0182")
+        buf.write("\u0183\7\17\2\2\u0183\u0184\5H%\2\u0184\u0186\3\2\2\2")
         buf.write("\u0185\u0177\3\2\2\2\u0185\u017d\3\2\2\2\u0186O\3\2\2")
-        buf.write("\2\u0187\u0188\7\22\2\2\u0188\u018b\7%\2\2\u0189\u018c")
-        buf.write("\7\60\2\2\u018a\u018c\5\36\20\2\u018b\u0189\3\2\2\2\u018b")
-        buf.write("\u018a\3\2\2\2\u018c\u018d\3\2\2\2\u018d\u018e\7+\2\2")
-        buf.write("\u018e\u018f\58\35\2\u018f\u0190\7-\2\2\u0190\u0191\5")
-        buf.write("8\35\2\u0191\u0192\7-\2\2\u0192\u0193\58\35\2\u0193\u0194")
-        buf.write("\7&\2\2\u0194\u0195\5H%\2\u0195Q\3\2\2\2\u0196\u0197\7")
-        buf.write("\21\2\2\u0197\u0198\7%\2\2\u0198\u0199\58\35\2\u0199\u019a")
-        buf.write("\7&\2\2\u019a\u019b\5H%\2\u019bS\3\2\2\2\u019c\u019d\7")
-        buf.write("\23\2\2\u019d\u019e\5^\60\2\u019e\u019f\7\21\2\2\u019f")
-        buf.write("\u01a0\7%\2\2\u01a0\u01a1\58\35\2\u01a1\u01a2\7&\2\2\u01a2")
-        buf.write("\u01a3\7.\2\2\u01a3U\3\2\2\2\u01a4\u01a5\7\24\2\2\u01a5")
-        buf.write("\u01a6\7.\2\2\u01a6W\3\2\2\2\u01a7\u01a8\7\25\2\2\u01a8")
-        buf.write("\u01a9\7.\2\2\u01a9Y\3\2\2\2\u01aa\u01ab\7\r\2\2\u01ab")
-        buf.write("\u01b1\7.\2\2\u01ac\u01ad\7\r\2\2\u01ad\u01ae\58\35\2")
-        buf.write("\u01ae\u01af\7.\2\2\u01af\u01b1\3\2\2\2\u01b0\u01aa\3")
+        buf.write("\2\u0187\u0188\7\21\2\2\u0188\u018b\7$\2\2\u0189\u018c")
+        buf.write("\7/\2\2\u018a\u018c\5\36\20\2\u018b\u0189\3\2\2\2\u018b")
+        buf.write("\u018a\3\2\2\2\u018c\u018d\3\2\2\2\u018d\u018e\7*\2\2")
+        buf.write("\u018e\u018f\58\35\2\u018f\u0190\7,\2\2\u0190\u0191\5")
+        buf.write("8\35\2\u0191\u0192\7,\2\2\u0192\u0193\58\35\2\u0193\u0194")
+        buf.write("\7%\2\2\u0194\u0195\5H%\2\u0195Q\3\2\2\2\u0196\u0197\7")
+        buf.write("\20\2\2\u0197\u0198\7$\2\2\u0198\u0199\58\35\2\u0199\u019a")
+        buf.write("\7%\2\2\u019a\u019b\5H%\2\u019bS\3\2\2\2\u019c\u019d\7")
+        buf.write("\22\2\2\u019d\u019e\5^\60\2\u019e\u019f\7\20\2\2\u019f")
+        buf.write("\u01a0\7$\2\2\u01a0\u01a1\58\35\2\u01a1\u01a2\7%\2\2\u01a2")
+        buf.write("\u01a3\7-\2\2\u01a3U\3\2\2\2\u01a4\u01a5\7\23\2\2\u01a5")
+        buf.write("\u01a6\7-\2\2\u01a6W\3\2\2\2\u01a7\u01a8\7\24\2\2\u01a8")
+        buf.write("\u01a9\7-\2\2\u01a9Y\3\2\2\2\u01aa\u01ab\7\f\2\2\u01ab")
+        buf.write("\u01b1\7-\2\2\u01ac\u01ad\7\f\2\2\u01ad\u01ae\58\35\2")
+        buf.write("\u01ae\u01af\7-\2\2\u01af\u01b1\3\2\2\2\u01b0\u01aa\3")
         buf.write("\2\2\2\u01b0\u01ac\3\2\2\2\u01b1[\3\2\2\2\u01b2\u01b3")
-        buf.write("\5.\30\2\u01b3\u01b4\7.\2\2\u01b4]\3\2\2\2\u01b5\u01bb")
-        buf.write("\7)\2\2\u01b6\u01ba\5J&\2\u01b7\u01ba\5\f\7\2\u01b8\u01ba")
+        buf.write("\5.\30\2\u01b3\u01b4\7-\2\2\u01b4]\3\2\2\2\u01b5\u01bb")
+        buf.write("\7(\2\2\u01b6\u01ba\5J&\2\u01b7\u01ba\5\f\7\2\u01b8\u01ba")
         buf.write("\5^\60\2\u01b9\u01b6\3\2\2\2\u01b9\u01b7\3\2\2\2\u01b9")
         buf.write("\u01b8\3\2\2\2\u01ba\u01bd\3\2\2\2\u01bb\u01b9\3\2\2\2")
         buf.write("\u01bb\u01bc\3\2\2\2\u01bc\u01be\3\2\2\2\u01bd\u01bb\3")
-        buf.write("\2\2\2\u01be\u01bf\7*\2\2\u01bf_\3\2\2\2(ekmx\u0080\u008a")
+        buf.write("\2\2\2\u01be\u01bf\7)\2\2\u01bf_\3\2\2\2(ekmx\u0080\u008a")
         buf.write("\u0098\u009d\u00ad\u00b5\u00bc\u00c8\u00df\u00e5\u00ec")
         buf.write("\u00ef\u00f2\u00ff\u0103\u0109\u010b\u0112\u011d\u0124")
         buf.write("\u012e\u0139\u0144\u014a\u014f\u0156\u0162\u016d\u0171")
@@ -227,16 +227,16 @@ class MT22Parser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'integer'", "'float'", "'string'", "'boolean'", 
-                     "'array'", "'auto'", "'of'", "'inherit'", "'out'", 
-                     "'void'", "'return'", "'function'", "'if'", "'else'", 
-                     "'while'", "'for'", "'do'", "'break'", "'continue'", 
-                     "'+'", "'-'", "'/'", "'*'", "'%'", "'!='", "'=='", 
-                     "'&&'", "'||'", "'!'", "'<'", "'<='", "'>'", "'>='", 
-                     "'::'", "'('", "')'", "'['", "']'", "'{'", "'}'", "'='", 
-                     "':'", "','", "';'", "'.'" ]
+                     "'array'", "'auto'", "'of'", "'inherit'", "'void'", 
+                     "'return'", "'function'", "'if'", "'else'", "'while'", 
+                     "'for'", "'do'", "'break'", "'continue'", "'+'", "'-'", 
+                     "'/'", "'*'", "'%'", "'!='", "'=='", "'&&'", "'||'", 
+                     "'!'", "'<'", "'<='", "'>'", "'>='", "'::'", "'('", 
+                     "')'", "'['", "']'", "'{'", "'}'", "'='", "':'", "','", 
+                     "';'", "'.'" ]
 
     symbolicNames = [ "<INVALID>", "INTEGER", "FLOAT", "STRING", "BOOLEAN", 
-                      "ARRAY", "AUTO", "OF", "INHERIT", "OUT", "VOID", "RETURN", 
+                      "ARRAY", "AUTO", "OF", "INHERIT", "VOID", "RETURN", 
                       "FUNCTION", "IF", "ELSE", "WHILE", "FOR", "DO", "BREAK", 
                       "CONTINUE", "ADD", "SUBSTRACT", "DIVIDE", "MULTIPLY", 
                       "MODULO", "NOTEQUAL", "EQUAL", "AND", "OR", "NOT", 
@@ -318,54 +318,53 @@ class MT22Parser ( Parser ):
     AUTO=6
     OF=7
     INHERIT=8
-    OUT=9
-    VOID=10
-    RETURN=11
-    FUNCTION=12
-    IF=13
-    ELSE=14
-    WHILE=15
-    FOR=16
-    DO=17
-    BREAK=18
-    CONTINUE=19
-    ADD=20
-    SUBSTRACT=21
-    DIVIDE=22
-    MULTIPLY=23
-    MODULO=24
-    NOTEQUAL=25
-    EQUAL=26
-    AND=27
-    OR=28
-    NOT=29
-    LESS=30
-    LEQ=31
-    GREATER=32
-    GEQ=33
-    STRING_CONCAT=34
-    LEFT_PARENTHESIS=35
-    RIGHT_PARENTHESIS=36
-    LEFT_SQUARE_BRACKET=37
-    RIGHT_SQUARE_BRACKET=38
-    LEFT_CURLY_BRACKET=39
-    RIGHT_CURLY_BRACKET=40
-    ASSIGN=41
-    COLON=42
-    COMMA=43
-    SEMI=44
-    DOT=45
-    IDENTIFIERS=46
-    INTLIT=47
-    FLOATLIT=48
-    STRINGLIT=49
-    BOOLIT=50
-    WS=51
-    BLOCKCOMMENT=52
-    INLINECOMMENT=53
-    ILLEGAL_ESCAPE=54
-    UNCLOSE_STRING=55
-    ERROR_CHAR=56
+    VOID=9
+    RETURN=10
+    FUNCTION=11
+    IF=12
+    ELSE=13
+    WHILE=14
+    FOR=15
+    DO=16
+    BREAK=17
+    CONTINUE=18
+    ADD=19
+    SUBSTRACT=20
+    DIVIDE=21
+    MULTIPLY=22
+    MODULO=23
+    NOTEQUAL=24
+    EQUAL=25
+    AND=26
+    OR=27
+    NOT=28
+    LESS=29
+    LEQ=30
+    GREATER=31
+    GEQ=32
+    STRING_CONCAT=33
+    LEFT_PARENTHESIS=34
+    RIGHT_PARENTHESIS=35
+    LEFT_SQUARE_BRACKET=36
+    RIGHT_SQUARE_BRACKET=37
+    LEFT_CURLY_BRACKET=38
+    RIGHT_CURLY_BRACKET=39
+    ASSIGN=40
+    COLON=41
+    COMMA=42
+    SEMI=43
+    DOT=44
+    IDENTIFIERS=45
+    INTLIT=46
+    FLOATLIT=47
+    STRINGLIT=48
+    BOOLIT=49
+    WS=50
+    BLOCKCOMMENT=51
+    INLINECOMMENT=52
+    ILLEGAL_ESCAPE=53
+    UNCLOSE_STRING=54
+    ERROR_CHAR=55
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -392,6 +391,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_program
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProgram" ):
+                return visitor.visitProgram(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -436,6 +441,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_decl
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDecl" ):
+                return visitor.visitDecl(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -518,6 +529,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_atomic_type
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAtomic_type" ):
+                return visitor.visitAtomic_type(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -575,6 +592,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_function_type
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_type" ):
+                return visitor.visitFunction_type(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -663,6 +686,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_include_auto_type
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInclude_auto_type" ):
+                return visitor.visitInclude_auto_type(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -744,6 +773,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_vardecl
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVardecl" ):
+                return visitor.visitVardecl(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -822,6 +857,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_full_format_decl
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFull_format_decl" ):
+                return visitor.visitFull_format_decl(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -888,6 +929,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_list_of_ids
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_of_ids" ):
+                return visitor.visitList_of_ids(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -939,6 +986,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_another_id_list
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAnother_id_list" ):
+                return visitor.visitAnother_id_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -992,6 +1045,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_array_type
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArray_type" ):
+                return visitor.visitArray_type(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1041,6 +1100,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_dimensions
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDimensions" ):
+                return visitor.visitDimensions(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1099,6 +1164,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_array_literal
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArray_literal" ):
+                return visitor.visitArray_literal(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1136,6 +1207,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr_list
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr_list" ):
+                return visitor.visitExpr_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1189,6 +1266,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_list_of_exprs
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_of_exprs" ):
+                return visitor.visitList_of_exprs(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1250,6 +1333,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_array_indexing
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArray_indexing" ):
+                return visitor.visitArray_indexing(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1296,6 +1385,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_indexop_expr
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIndexop_expr" ):
+                return visitor.visitIndexop_expr(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1351,6 +1446,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_funcdecl
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFuncdecl" ):
+                return visitor.visitFuncdecl(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1412,6 +1513,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_function_prototype
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_prototype" ):
+                return visitor.visitFunction_prototype(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1488,6 +1595,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_function_body
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_body" ):
+                return visitor.visitFunction_body(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1522,6 +1635,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_func_params
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_params" ):
+                return visitor.visitFunc_params(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1533,7 +1652,7 @@ class MT22Parser ( Parser ):
             self.state = 227
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [MT22Parser.INHERIT, MT22Parser.OUT, MT22Parser.IDENTIFIERS]:
+            if token in [MT22Parser.INHERIT, MT22Parser.IDENTIFIERS]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 225
                 self.paramlist()
@@ -1574,6 +1693,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_paramlist
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParamlist" ):
+                return visitor.visitParamlist(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1619,8 +1744,11 @@ class MT22Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def IDENTIFIERS(self):
-            return self.getToken(MT22Parser.IDENTIFIERS, 0)
+        def IDENTIFIERS(self, i:int=None):
+            if i is None:
+                return self.getTokens(MT22Parser.IDENTIFIERS)
+            else:
+                return self.getToken(MT22Parser.IDENTIFIERS, i)
 
         def COLON(self):
             return self.getToken(MT22Parser.COLON, 0)
@@ -1632,11 +1760,14 @@ class MT22Parser ( Parser ):
         def INHERIT(self):
             return self.getToken(MT22Parser.INHERIT, 0)
 
-        def OUT(self):
-            return self.getToken(MT22Parser.OUT, 0)
-
         def getRuleIndex(self):
             return MT22Parser.RULE_paramone
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParamone" ):
+                return visitor.visitParamone(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1658,10 +1789,10 @@ class MT22Parser ( Parser ):
 
             self.state = 240
             self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==MT22Parser.OUT:
+            la_ = self._interp.adaptivePredict(self._input,16,self._ctx)
+            if la_ == 1:
                 self.state = 239
-                self.match(MT22Parser.OUT)
+                self.match(MT22Parser.IDENTIFIERS)
 
 
             self.state = 242
@@ -1702,6 +1833,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_function_call
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_call" ):
+                return visitor.visitFunction_call(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1741,6 +1878,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_arg_list
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArg_list" ):
+                return visitor.visitArg_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1797,6 +1940,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_arg_list_params
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArg_list_params" ):
+                return visitor.visitArg_list_params(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1885,6 +2034,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_literal
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLiteral" ):
+                return visitor.visitLiteral(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1953,6 +2108,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_sub_expr
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSub_expr" ):
+                return visitor.visitSub_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1996,6 +2157,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr" ):
+                return visitor.visitExpr(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2069,6 +2236,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_expr1
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr1" ):
+                return visitor.visitExpr1(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2135,6 +2308,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr2
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr2" ):
+                return visitor.visitExpr2(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2210,6 +2389,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr3
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr3" ):
+                return visitor.visitExpr3(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2289,6 +2474,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_expr4
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr4" ):
+                return visitor.visitExpr4(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
     def expr4(self, _p:int=0):
@@ -2361,6 +2552,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_expr5
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr5" ):
+                return visitor.visitExpr5(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2416,6 +2613,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr6
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr6" ):
+                return visitor.visitExpr6(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2480,6 +2683,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr7
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr7" ):
+                return visitor.visitExpr7(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2581,6 +2790,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_stmt
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStmt" ):
+                return visitor.visitStmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2709,6 +2924,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_noblock_statement
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNoblock_statement" ):
+                return visitor.visitNoblock_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2811,6 +3032,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_assign_statement
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssign_statement" ):
+                return visitor.visitAssign_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2881,6 +3108,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_if_statement
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIf_statement" ):
+                return visitor.visitIf_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2981,6 +3214,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_for_statement
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFor_statement" ):
+                return visitor.visitFor_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3060,6 +3299,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_while_statement
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhile_statement" ):
+                return visitor.visitWhile_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3121,6 +3366,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_do_while_statement
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDo_while_statement" ):
+                return visitor.visitDo_while_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3169,6 +3420,12 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_break_statement
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBreak_statement" ):
+                return visitor.visitBreak_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3206,6 +3463,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_continue_statement
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitContinue_statement" ):
+                return visitor.visitContinue_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3248,6 +3511,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_return_statement
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitReturn_statement" ):
+                return visitor.visitReturn_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3304,6 +3573,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_call_statement
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCall_statement" ):
+                return visitor.visitCall_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3363,6 +3638,12 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_block_statement
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBlock_statement" ):
+                return visitor.visitBlock_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 

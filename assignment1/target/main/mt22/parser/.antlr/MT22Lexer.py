@@ -1,4 +1,4 @@
-# Generated from /home/quangngcs/Desktop/Github/PPL/submission/MT22.g4 by ANTLR 4.9.2
+# Generated from /home/quangngcs/Desktop/Github/PPL/assignment1/target/main/mt22/parser/MT22.g4 by ANTLR 4.9.2
 from antlr4 import *
 from io import StringIO
 import sys
