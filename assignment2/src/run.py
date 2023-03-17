@@ -31,9 +31,51 @@ def main(argv):
         elif argv[1] == 'LexerSuite':
             from LexerSuite import LexerSuite
             getAndTest(LexerSuite)
+
+        elif argv[1] == 'LexerSuiteTai':
+            from LexerSuiteTai import LexerSuite
+            getAndTest(LexerSuite)
+        
+        elif argv[1] == 'LexerSuiteDat':
+            from LexerSuiteDat import LexerSuite
+            getAndTest(LexerSuite)
+        
+        elif argv[1] == 'LexerSuiteChanh':
+            from LexerSuiteChanh import LexerSuite
+            getAndTest(LexerSuite)
+        
+        elif argv[1] == 'LexerSuiteNam':
+            from LexerSuiteNam import LexerSuite
+            getAndTest(LexerSuite)    
+        elif argv[1] == 'LexerSuiteNhan':
+            from LexerSuiteNhan import LexerSuite
+            getAndTest(LexerSuite)    
+
+        ########## Parser Suite =======================
         elif argv[1] == 'ParserSuite':
             from ParserSuite import ParserSuite
             getAndTest(ParserSuite)
+        
+        elif argv[1] == 'ParserSuiteAnh':
+            from ParserSuiteAnh import ParserSuite
+            getAndTest(ParserSuite)
+        
+        elif argv[1] == 'ParserSuiteNam':
+            from ParserSuiteNam import ParserSuite
+            getAndTest(ParserSuite)
+        
+        elif argv[1] == 'ParserSuiteTai':
+            from ParserSuiteTai import ParserSuite
+            getAndTest(ParserSuite)
+    
+        elif argv[1] == 'ParserSuiteChanh':
+            from ParserSuiteChanh import ParserSuite
+            getAndTest(ParserSuite)
+        
+        elif argv[1] == 'ParserSuiteNhan':
+            from ParserSuiteNhan import ParserSuite
+            getAndTest(ParserSuite)
+
         elif argv[1] == 'ASTGenSuite':
             from ASTGenSuite import ASTGenSuite
             getAndTest(ASTGenSuite)

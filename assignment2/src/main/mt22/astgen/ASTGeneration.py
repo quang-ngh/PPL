@@ -6,10 +6,13 @@ from AST import *
 class ASTGeneration(MT22Visitor):
     
     def visitProgram(self, ctx: MT22Parser.ProgramContext):
-        return Program([])
+        return Program(ctx.decl().accept(self))
 
     def visitDecl(self, ctx:MT22Parser.DeclContext):
-        return self.visitChildren(ctx)
+        if ctx.decl():
+            return ctx.vardecl().accept(self) + ctx.decl().accept(self) if ctx.vardecl() else \
+                   [ctx.funcdecl().accept(self)] + ctx.decl().accept(self)
+        return ctx.vardecl().accept(self) if ctx.vardecl() else [ctx.funcdecl().accept(self)]
 
     def visitAtomic_type(self, ctx: MT22Parser.Atomic_typeContext):
        
@@ -38,15 +41,38 @@ class ASTGeneration(MT22Visitor):
         if ctx.array_type() :   return ctx.array_type().accept(self)
 
     def visitVardecl(self, ctx: MT22Parser.VardeclContext):        
-        pass
+        ans = []
 
-    # def visitFull_format_decl(self, ctx: MT22Parser.Full_format_declContext):
-    #     pass
+        #   Vardeclaration without initializations
+        if ctx.list_of_ids():
+            list_of_ids = ctx.list_of_ids().accept(self)
+            id_type     = ctx.include_auto_type().accept(self)
+            for id_name in list_of_ids:
+                ans.append(VarDecl(id_name, id_type))
+            return ans
+
+        #   Full format
+        full_format_list    = ctx.full_format_decl().accept(self)
+        name_list           = [pair[0] for pair in full_format_list[:-1]]
+        init_list           = [pair[1] for pair in full_format_list[:-1][::-1]]     # Reverse to get the right order
+        var_type            = full_format_list[-1]
+
+        for idx, _ in enumerate(full_format_list[:-1]):
+            ans.append(VarDecl(name_list[idx], var_type, init_list[idx]))
+        
+        return ans
+
+    def visitFull_format_decl(self, ctx: MT22Parser.Full_format_declContext):
+        #   Return the name in the right order
+        #   but the init values are in the reverse order
+        if ctx.include_auto_type():
+            return [(ctx.IDENTIFIERS().getText(), ctx.expr().accept(self)), ctx.include_auto_type().accept(self)]
+        return [(ctx.IDENTIFIERS().getText(), ctx.expr().accept(self))] + ctx.full_format_decl().accept(self)       
 
     def visitList_of_ids(self, ctx: MT22Parser.List_of_idsContext):
         if ctx.another_id_list():
-            return [Id(ctx.IDENTIFIERS().getText())] + ctx.another_id_list().accept(self)
-        return [Id(ctx.IDENTIFIERS().getText())]
+            return [ctx.IDENTIFIERS().getText()] + ctx.another_id_list().accept(self)
+        return [ctx.IDENTIFIERS().getText()]
 
     def visitAnother_id_list(self, ctx: MT22Parser.Another_id_listContext):
         return ctx.list_of_ids().accept(self)    
@@ -81,10 +107,27 @@ class ASTGeneration(MT22Visitor):
         return [ctx.expr().accept(self)]
     
     def visitFuncdecl(self, ctx: MT22Parser.FuncdeclContext):
-        func_protype    = ctx.func_prototype().accept(self)
-
+        func_protype    = ctx.function_prototype().accept(self)
+        func_body       = ctx.function_body().accept(self)
+        
+        inherit = None
+        if len(func_protype) == 5:
+            name, return_type, params, inherit, name_inherit = func_protype
+        else:
+            print(func_protype)
+            name, return_type, params = func_protype
+        
+        return FuncDecl(
+            name        = name,
+            return_type = return_type,
+            params      = params,
+            inherit     = inherit,
+            body        = func_body
+        )
 
     def visitFunction_prototype(self, ctx: MT22Parser.Function_prototypeContext):
+        for item in ctx.IDENTIFIERS():
+            print(item)
         if ctx.INHERIT():
             ans = [
                 ctx.IDENTIFIERS(0).getText(),           # name of function
@@ -94,7 +137,7 @@ class ASTGeneration(MT22Visitor):
                 ctx.IDENTIFIERS(1).getText(),           # inheriting variable
             ]
         return  [
-                ctx.IDENTIFIERS().getText(),            # name of function
+                ctx.IDENTIFIERS(0).getText(),            # name of function
                 ctx.function_type().accept(self),       # type of return
                 ctx.func_params().accept(self),         # function parameters
             ]
@@ -121,16 +164,32 @@ class ASTGeneration(MT22Visitor):
         return FuncCall(ctx.IDENTIFIERS().getText(), ctx.arg_list().accept(self))
 
     def visitArg_list(self, ctx: MT22Parser.Arg_listContext) -> list:
-        pass
+        if ctx.arg_list_params():
+            return ctx.arg_list_params().accept(self)
+        return []
+
     def visitArg_list_params(self, ctx: MT22Parser.Arg_list_paramsContext):
-        pass
+        if ctx.getChildCount() == 3:
+            if ctx.IDENTIFIERS():
+                return [ctx.IDENTIFIERS().getText()] + ctx.arg_list_params().accept(self)
+            elif ctx.expr():
+                return [ctx.expr().accept(self)] + ctx.arg_list_params().accept(self)
+        
+        if ctx.IDENTIFIERS():
+            return [ctx.IDENTIFIERS().getText()]
+        
+        if ctx.expr():
+            return [ctx.expr().accept(self)]
 
     def visitLiteral(self, ctx: MT22Parser.LiteralContext):
         if ctx.array_literal(): return ctx.array_literal().accept(self)
         if ctx.INTLIT():        return IntegerLit(int(ctx.INTLIT().getText()))
         if ctx.FLOATLIT():      return FloatLit(float(ctx.FLOATLIT().getText()))
-        if ctx.INTLIT():        return BooleanLit(bool(ctx.BOOLIT().getText()))  
-        if ctx.INTLIT():        return StringLit(str(ctx.STRINGLIT().getText()))
+        if ctx.BOOLIT().getText() == 'true':
+            return BooleanLit(True)
+        if ctx.BOOLIT().getText() == 'false':
+            return BooleanLit(False)
+        if ctx.STRINGLIT():        return StringLit(str(ctx.STRINGLIT().getText()))
     
     def visitSub_expr(self, ctx: MT22Parser.Sub_exprContext):
         return ctx.sub_expr().accept(self)
@@ -138,16 +197,16 @@ class ASTGeneration(MT22Visitor):
     def visitExpr(self, ctx: MT22Parser.ExprContext):
         if ctx.STRING_CONCAT():
             return BinExpr(ctx.STRING_CONCAT().getText(), ctx.expr1(0).accept(self), ctx.expr1(1).accept(self), ctx.expr(2).accept)
-        return ctx.expr1().accept(self)
+        return ctx.expr1(0).accept(self)
 
     def visitExpr1(self, ctx: MT22Parser.Expr1Context):
         if ctx.getChildCount() == 3:
             return BinExpr(ctx.getChild(1).getText(), ctx.expr2(0).accept(self), ctx.expr2(1).accept(self))
-        return ctx.expr2().accept(self)
+        return ctx.expr2(0).accept(self)
     
     def visitExpr2(self, ctx: MT22Parser.Expr2Context):
         if ctx.getChildCount() == 3:
-            return BinExpr(ctx.getChild(1).getText(), ctx.expr2().accept(self), ctx.expr3().accept(self))
+            return BinExpr(ctx.getChild(1).getText(), ctx.expr2(0).accept(self), ctx.expr3().accept(self))
         return ctx.expr3().accept(self)
 
     def visitExpr3(self, ctx: MT22Parser.Expr3Context):
@@ -158,8 +217,8 @@ class ASTGeneration(MT22Visitor):
     
     def visitExpr4(self, ctx: MT22Parser.Expr4Context):
         if ctx.getChildCount() == 3:
-            return BinExpr(ctx.getChild(1).getText(), ctx.expr3().accept(self), ctx.expr4().accept(self))
-        return ctx.expr4().accept(self)
+            return BinExpr(ctx.getChild(1).getText(), ctx.expr4().accept(self), ctx.expr5().accept(self))
+        return ctx.expr5().accept(self)
     
     def visitExpr5(self, ctx: MT22Parser.Expr5Context):
         if ctx.getChildCount() == 2:
@@ -174,7 +233,7 @@ class ASTGeneration(MT22Visitor):
     def visitExpr7(self, ctx: MT22Parser.Expr7Context):
         if ctx.IDENTIFIERS():
             return Id(ctx.IDENTIFIERS().getText())
-        return ctx.getChild().accept(self)
+        return ctx.getChild(0).accept(self)
 
     def visitStmt(self, ctx: MT22Parser.StmtContext):
         return ctx.getChild().accept(self)
@@ -205,13 +264,15 @@ class ASTGeneration(MT22Visitor):
         return DoWhileStmt(ctx.expr().accept(self), ctx.block_statement().accept(self))
     
     def visitBreak_statement(self, ctx: MT22Parser.Break_statementContext):
-        return ctx.BREAK().getText()
+        return BreakStmt()
 
     def visitContinue_statement(self, ctx:  MT22Parser.Continue_statementContext):
-        return ctx.CONTINUE().getText()
+        return ContinueStmt()
 
     def visitReturn_statement(self, ctx: MT22Parser.Return_statementContext):
-        return ReturnStmt(ctx.expr().accept(self))
+        if ctx.expr():
+            return ReturnStmt(ctx.expr().accept(self))
+        return ReturnStmt()
 
     def visitBlock_statement(self, ctx: MT22Parser.Block_statementContext):
         pass

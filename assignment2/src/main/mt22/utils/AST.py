@@ -293,3 +293,4 @@ class Program(AST):
 
     def __str__(self):
         return "Program([\n\t{}\n])".format("\n\t".join([str(decl) for decl in self.decls]))
+  
