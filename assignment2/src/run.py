@@ -79,6 +79,15 @@ def main(argv):
         elif argv[1] == 'ASTGenSuite':
             from ASTGenSuite import ASTGenSuite
             getAndTest(ASTGenSuite)
+        elif argv[1] == 'ASTGenSuiteNhan':
+            from ASTGenSuiteNhan import ASTGenSuite
+            getAndTest(ASTGenSuite)
+        elif argv[1] == 'ASTGenSuiteNam':
+            from ASTGenSuiteNam import ASTGenSuite
+            getAndTest(ASTGenSuite)
+        elif argv[1] == 'ASTGenSuiteTai':
+            from ASTGenSuiteTai import ASTGenSuite
+            getAndTest(ASTGenSuite)
         # elif argv[1] == 'CheckerSuite':
         #     from CheckerSuite import CheckerSuite
         #     getAndTest(CheckerSuite)

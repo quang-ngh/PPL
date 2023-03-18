@@ -244,10 +244,5 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#in_block_body.
-    def visitIn_block_body(self, ctx:MT22Parser.In_block_bodyContext):
-        return self.visitChildren(ctx)
-
-
 
 del MT22Parser
