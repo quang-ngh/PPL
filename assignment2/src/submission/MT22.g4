@@ -65,7 +65,7 @@ arg_list: arg_list_params | ;
 arg_list_params: (IDENTIFIERS | expr) COMMA arg_list_params | (IDENTIFIERS | expr);
 
 
-literal: INTLIT | FLOATLIT | BOOLIT | STRINGLIT | array_literal;
+literal: TRUE | FALSE | INTLIT | FLOATLIT | STRINGLIT | array_literal;
 sub_expr: (LEFT_PARENTHESIS expr RIGHT_PARENTHESIS);
 
 //	Expressions
@@ -118,8 +118,8 @@ break_statement: BREAK SEMI;
 continue_statement: CONTINUE SEMI; 
 return_statement: RETURN SEMI | RETURN expr SEMI;					// Return None or return expression
 call_statement: function_call SEMI;
-block_statement: LEFT_CURLY_BRACKET (noblock_statement | vardecl | block_statement)* RIGHT_CURLY_BRACKET;
-
+block_statement: LEFT_CURLY_BRACKET in_block_body RIGHT_CURLY_BRACKET;
+in_block_body: (stmt | vardecl) in_block_body | ;
 /*	=============================== LEXER ================================== */
 //	Comments
 
@@ -184,8 +184,10 @@ COLON:						':';											// May not sure whether the colon is counted as one t
 COMMA: 						',';											// May not sure whether the comma is counted as one token in vardecl
 SEMI: 						';';
 DOT:						'.';
+TRUE: 'true';
+FALSE: 'false';
 
-IDENTIFIERS: [_a-zA-Z][_a-zA-Z0-9]*;
+
 
 //	LITERALS
 INTLIT: IntPart {
@@ -198,11 +200,11 @@ FLOATLIT: ((IntPart DecPart) | (IntPart ExpPart) | (DecPart ExpPart) | (IntPart 
 STRINGLIT: '"' (StringChar | EscapeSeqs)* '"' {
 	self.text = self.text[1:-1]
 };
-BOOLIT: 'true' | 'false';
+
 
 
 //	IDENTIFIERS
-
+IDENTIFIERS: [_a-zA-Z][_a-zA-Z0-9]*;
 
 
 /*=========================	 Fragments =====================================*/

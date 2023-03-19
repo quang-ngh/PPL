@@ -1,4 +1,4 @@
-# Generated from main/mt22/parser/MT22.g4 by ANTLR 4.9.2
+# Generated from /home/quangngcs/Desktop/Github/PPL/assignment2/src/submission/MT22.g4 by ANTLR 4.9.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -397,12 +397,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_program
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProgram" ):
-                return visitor.visitProgram(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -446,12 +440,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_decl
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDecl" ):
-                return visitor.visitDecl(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -534,12 +522,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_atomic_type
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAtomic_type" ):
-                return visitor.visitAtomic_type(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -597,12 +579,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_function_type
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunction_type" ):
-                return visitor.visitFunction_type(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -691,12 +667,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_include_auto_type
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInclude_auto_type" ):
-                return visitor.visitInclude_auto_type(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -778,12 +748,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_vardecl
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVardecl" ):
-                return visitor.visitVardecl(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -862,12 +826,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_full_format_decl
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFull_format_decl" ):
-                return visitor.visitFull_format_decl(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -934,12 +892,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_list_of_ids
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitList_of_ids" ):
-                return visitor.visitList_of_ids(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -991,12 +943,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_another_id_list
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAnother_id_list" ):
-                return visitor.visitAnother_id_list(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1050,12 +996,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_array_type
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArray_type" ):
-                return visitor.visitArray_type(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1105,12 +1045,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_dimensions
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDimensions" ):
-                return visitor.visitDimensions(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1169,12 +1103,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_array_literal
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArray_literal" ):
-                return visitor.visitArray_literal(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1212,12 +1140,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr_list
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr_list" ):
-                return visitor.visitExpr_list(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1271,12 +1193,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_list_of_exprs
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitList_of_exprs" ):
-                return visitor.visitList_of_exprs(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1338,12 +1254,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_array_indexing
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArray_indexing" ):
-                return visitor.visitArray_indexing(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1390,12 +1300,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_indexop_expr
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIndexop_expr" ):
-                return visitor.visitIndexop_expr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1451,12 +1355,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_funcdecl
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncdecl" ):
-                return visitor.visitFuncdecl(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1518,12 +1416,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_function_prototype
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunction_prototype" ):
-                return visitor.visitFunction_prototype(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1600,12 +1492,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_function_body
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunction_body" ):
-                return visitor.visitFunction_body(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1639,12 +1525,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_func_params
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_params" ):
-                return visitor.visitFunc_params(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1698,12 +1578,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_paramlist
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParamlist" ):
-                return visitor.visitParamlist(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1767,12 +1641,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_paramone
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParamone" ):
-                return visitor.visitParamone(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1838,12 +1706,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_function_call
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunction_call" ):
-                return visitor.visitFunction_call(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1883,12 +1745,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_arg_list
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArg_list" ):
-                return visitor.visitArg_list(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1945,12 +1801,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_arg_list_params
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArg_list_params" ):
-                return visitor.visitArg_list_params(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2042,12 +1892,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_literal
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLiteral" ):
-                return visitor.visitLiteral(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2121,12 +1965,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_sub_expr
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSub_expr" ):
-                return visitor.visitSub_expr(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2170,12 +2008,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr" ):
-                return visitor.visitExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2249,12 +2081,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_expr1
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr1" ):
-                return visitor.visitExpr1(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2321,12 +2147,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr2
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr2" ):
-                return visitor.visitExpr2(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2402,12 +2222,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr3
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr3" ):
-                return visitor.visitExpr3(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2487,12 +2301,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_expr4
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr4" ):
-                return visitor.visitExpr4(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
     def expr4(self, _p:int=0):
@@ -2565,12 +2373,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_expr5
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr5" ):
-                return visitor.visitExpr5(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2626,12 +2428,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr6
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr6" ):
-                return visitor.visitExpr6(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2696,12 +2492,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_expr7
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr7" ):
-                return visitor.visitExpr7(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2803,12 +2593,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_stmt
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStmt" ):
-                return visitor.visitStmt(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2937,12 +2721,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_noblock_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNoblock_statement" ):
-                return visitor.visitNoblock_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3045,12 +2823,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_assign_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAssign_statement" ):
-                return visitor.visitAssign_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3121,12 +2893,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_if_statement
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIf_statement" ):
-                return visitor.visitIf_statement(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3227,12 +2993,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_for_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFor_statement" ):
-                return visitor.visitFor_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3312,12 +3072,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_while_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitWhile_statement" ):
-                return visitor.visitWhile_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3379,12 +3133,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_do_while_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDo_while_statement" ):
-                return visitor.visitDo_while_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3433,12 +3181,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_break_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBreak_statement" ):
-                return visitor.visitBreak_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3476,12 +3218,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_continue_statement
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitContinue_statement" ):
-                return visitor.visitContinue_statement(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3524,12 +3260,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_return_statement
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitReturn_statement" ):
-                return visitor.visitReturn_statement(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3587,12 +3317,6 @@ class MT22Parser ( Parser ):
         def getRuleIndex(self):
             return MT22Parser.RULE_call_statement
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCall_statement" ):
-                return visitor.visitCall_statement(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3634,12 +3358,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_block_statement
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBlock_statement" ):
-                return visitor.visitBlock_statement(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3686,12 +3404,6 @@ class MT22Parser ( Parser ):
 
         def getRuleIndex(self):
             return MT22Parser.RULE_in_block_body
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIn_block_body" ):
-                return visitor.visitIn_block_body(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
