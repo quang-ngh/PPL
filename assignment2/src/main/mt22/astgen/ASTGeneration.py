@@ -4,6 +4,8 @@ from AST import *
 
 """
 Nguyen Ho Quang - 2052666
+Version 2
+12:55 19/03/2023
 """
 
 class ASTGeneration(MT22Visitor):

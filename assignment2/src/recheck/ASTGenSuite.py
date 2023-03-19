@@ -5,7 +5,6 @@ from AST import *
 
 """
 Nguyen Ho Quang - 2052666
-Version 2
 """
 
 class ASTGenSuite(unittest.TestCase):

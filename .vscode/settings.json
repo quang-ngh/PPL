@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./assignment2/src/main/mt22/utils"
+    ]
+}

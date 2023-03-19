@@ -4,7 +4,7 @@ from AST import *
 
 """
 Nguyen Ho Quang - 2052666
-Version 2
+Version 1
 12:55 19/03/2023
 """
 

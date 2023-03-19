@@ -3,7 +3,6 @@
 	Assignment 1 - Lexer and  Recognizer
 	AUTHOR: Ho Quang Nguyen - 2052666
 	Submission 3
-	Version 2 : Submit AST
 	""" MT22 is a case sensitive programming language """
 */
 grammar MT22;
