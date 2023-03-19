@@ -88,6 +88,15 @@ def main(argv):
         elif argv[1] == 'ASTGenSuiteTai':
             from ASTGenSuiteTai import ASTGenSuite
             getAndTest(ASTGenSuite)
+        elif argv[1] == 'ASTGenSuiteHoa':
+            from ASTGenSuiteHoa import ASTGenSuite
+            getAndTest(ASTGenSuite)
+        elif argv[1] == 'ASTGenSuiteV':
+            from ASTGenSuiteV import ASTGenSuite
+            getAndTest(ASTGenSuite)
+        elif argv[1] == 'ASTGenSuiteK':
+            from ASTGenSuiteK import ASTGenSuite
+            getAndTest(ASTGenSuite)
         # elif argv[1] == 'CheckerSuite':
         #     from CheckerSuite import CheckerSuite
         #     getAndTest(CheckerSuite)

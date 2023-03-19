@@ -943,7 +943,7 @@ class ParserSuite(unittest.TestCase):
     
 
     def test_parser_295(self):
-            input = input = """
+            input =  """
             // This is the line comment
             degreeOfFreedom: auto = 1024;
             batteryLevel: integer = 100;
@@ -998,16 +998,14 @@ class ParserSuite(unittest.TestCase):
     
 
     def test_parser_298(self):
-            input = """
-            main: function void() inherit sum
+            input = """main: function void() inherit sum
             {
                 return sum(sum());
             }
             sum = function void()
             {
                 return "Nothing";
-            }
-            """
+            }"""
             expect = "Error on line 6 col 16: ="
             self.assertTrue(TestParser.test(input, expect, 298))
     

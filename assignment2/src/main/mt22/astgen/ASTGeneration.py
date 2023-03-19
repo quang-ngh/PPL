@@ -238,11 +238,6 @@ class ASTGeneration(MT22Visitor):
         if ctx.IDENTIFIERS():
             return Id(ctx.IDENTIFIERS().getText())
         return ctx.getChild(0).accept(self)
-        # if ctx.IDENTIFIERS():   return Id(ctx.IDENTIFIERS().getText())
-        # if ctx.literal()    :   return ctx.literal().accept(self)
-        # if ctx.sub_expr()   :   return ctx.sub_expr().accept(self)
-        # if ctx.array_indexing():    return ctx.array_indexing().accept(self)
-        # if ctx.function_call():     return ctx.function_call().accept(self)
 
     def visitStmt(self, ctx: MT22Parser.StmtContext):
         return ctx.getChild(0).accept(self)
@@ -261,7 +256,9 @@ class ASTGeneration(MT22Visitor):
         return IfStmt(ctx.expr().accept(self), ctx.stmt(0).accept(self))
 
     def visitFor_statement(self, ctx: MT22Parser.For_statementContext):
-        assign_stmt = AssignStmt(Id(ctx.IDENTIFIERS().getText()), ctx.expr(0).accept(self))
+        assign_stmt = None
+        if ctx.IDENTIFIERS():
+            assign_stmt = AssignStmt(Id(ctx.IDENTIFIERS().getText()), ctx.expr(0).accept(self))
         if ctx.array_indexing():
             assign_stmt = AssignStmt(ctx.array_indexing().accept(self), ctx.expr(0).accept(self))
         return ForStmt(assign_stmt, ctx.expr(1).accept(self), ctx.expr(2).accept(self), ctx.stmt().accept(self))
