@@ -1,11 +1,10 @@
-
 import unittest
 from TestUtils import TestAST
 from AST import *
 
 """
 Nguyen Ho Quang - 2052666
-Version 2
+Version 3
 """
 
 class ASTGenSuite(unittest.TestCase):
@@ -1385,7 +1384,7 @@ if (a > 3) {
                 sum = x*567 + y/1234;
                 return sum-45673;
             }
-            float plusFuncDouble(x: float, y: float) {
+            plusFuncDouble: function float(x: float, y: float) {
                 if(x>=y){
                     return x;
                 }
@@ -1395,6 +1394,7 @@ if (a > 3) {
             }"""
         expect="""Program([
 	FuncDecl(plusFuncInt, IntegerType, [Param(x, IntegerType), Param(y, IntegerType)], None, BlockStmt([VarDecl(sum, IntegerType), AssignStmt(Id(sum), BinExpr(+, BinExpr(*, Id(x), IntegerLit(567)), BinExpr(/, Id(y), IntegerLit(1234)))), ReturnStmt(BinExpr(-, Id(sum), IntegerLit(45673)))]))
+	FuncDecl(plusFuncDouble, FloatType, [Param(x, FloatType), Param(y, FloatType)], None, BlockStmt([IfStmt(BinExpr(>=, Id(x), Id(y)), BlockStmt([ReturnStmt(Id(x))]), BlockStmt([ReturnStmt(Id(y))]))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 385))
 

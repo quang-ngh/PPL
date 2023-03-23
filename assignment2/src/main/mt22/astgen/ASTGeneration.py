@@ -4,7 +4,7 @@ from AST import *
 
 """
 Nguyen Ho Quang - 2052666
-Version 2
+Version 3
 12:55 19/03/2023
 """
 
@@ -300,4 +300,3 @@ class ASTGeneration(MT22Visitor):
         name = func_call.name
         args = func_call.args
         return CallStmt(name, args)
-
