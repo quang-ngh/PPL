@@ -325,335 +325,328 @@ main: function void () {
         expect = "Type Mismatch In Statement: While(IntLiteral(1),[])"
         self.assertTrue(TestChecker.test(input,expect,420))
 
-#     def test_return_proc_must_no_expr(self):
-#         """test_return_proc_must_no_expr"""
-#         input = """
-# procedure proc();
-# begin
-#     return;
-# end
+    def test_return_proc_must_no_expr(self):
+        """test_return_proc_must_no_expr"""
+        input = """
+        func1: function void(){
+            doNothing();
+        }
+        main: function void() {
+            func1();
+            return 0; // error
+        }
+        """
+        expect = "Type Mismatch In Statement: Return(Some(IntLiteral(0)))"
+        self.assertTrue(TestChecker.test(input,expect,421))
 
-# procedure main();
-# begin
-#     proc();
-#     return 0;  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: Return(Some(IntLiteral(0)))"
-#         self.assertTrue(TestChecker.test(input,expect,421))
+    def test_return_func_must_expr_with_proper_type1(self):
+        """test_return_func_must_expr_with_proper_type1"""
+        input = """
+        main: function void(){
+            ret: integer = 1;
+            ret = foo();
+            ret = foo1();
+        }
 
-#     def test_return_func_must_expr_with_proper_type1(self):
-#         """test_return_func_must_expr_with_proper_type1"""
-#         input = """
-# procedure main();
-# var ret:integer;
-# begin
-#     ret:=foo();
-#     ret:=foo1();
-# end
+        foo1: function integer() { 
+            a : integer = 3;
+            for(i = 0, i < 10, i + 1){
+                a = a + i;
+            }
+            return a;
+        }
 
-# function foo1():integer;
-# begin
-#     return 1;
-# end
+        foo: function float(){
+            return 1;
+        }
+        """
+        expect = "Type Mismatch In Statement: Return(Some(FloatLiteral(1.1)))"
+        self.assertTrue(TestChecker.test(input,expect,422))
 
-# function foo():integer;
-# begin
-#     return 1.1;  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: Return(Some(FloatLiteral(1.1)))"
-#         self.assertTrue(TestChecker.test(input,expect,422))
+    def test_return_func_must_expr_with_proper_type2(self):
+        """test_return_func_must_expr_with_proper_type2"""
+        input = """
+        main: function void() {
+            ret: float;
+            b : boolean;
+            ret = foo();
+            b = foo1();
+        }
 
-#     def test_return_func_must_expr_with_proper_type2(self):
-#         """test_return_func_must_expr_with_proper_type2"""
-#         input = """
-# procedure main();
-# var ret:float;
-#     b:boolean;
-# begin
-#     ret:=foo();
-#     b:=foo1();
-# end
+        foo: function float(){
+            return 3 / 5;
+        }
 
-# function foo():float;
-# begin
-#     return 2*3-5;
-# end
+        foo1: function boolean(x: integer){
+            return x;
+        }
+        """
+        expect = "Type Mismatch In Statement: Return(Some(IntLiteral(0)))"
+        self.assertTrue(TestChecker.test(input,expect,423))
 
-# function foo1():boolean;
-# begin
-#     return 0;  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: Return(Some(IntLiteral(0)))"
-#         self.assertTrue(TestChecker.test(input,expect,423))
+    def test_assign_stmt_lhs_must_not_string_type(self):
+        """test_assign_stmt_lhs_must_not_string_type"""
+        input = """
+        main: function void() {
+            s: string;
+            a: integer;
 
-#     def test_assign_stmt_lhs_must_not_string_type(self):
-#         """test_assign_stmt_lhs_must_not_string_type"""
-#         input = """
-# procedure MAIN();
-# var s:string;
-#     a:integer;
-# begin
-#     a:=1;
-#     s:="random string";  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: AssignStmt(Id(s),StringLiteral(random string))"
-#         self.assertTrue(TestChecker.test(input,expect,424))
+            a = 1;
+            s = "random string";
 
-#     def test_assign_stmt_lhs_must_not_arr_type(self):
-#         """test_assign_stmt_lhs_must_not_arr_type"""
-#         input = """
-# function foo():array[0 .. 5] of string;
-# var arr:array[0 .. 5] of string;
-# begin
-#     return arr;
-# end
+        }
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(s),StringLiteral(random string))"
+        self.assertTrue(TestChecker.test(input,expect,424))
 
-# procedure MaIn();
-# var arr:array[0 .. 5] of string;
-# begin
-#     arr := foo();  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: AssignStmt(Id(arr),CallExpr(Id(foo),[]))"
-#         self.assertTrue(TestChecker.test(input,expect,425))
+    def test_assign_stmt_lhs_must_not_arr_type(self):
+        """test_assign_stmt_lhs_must_not_arr_type"""
+        input = """
+        foo: function array[5] of string{
+            arr: array[5] of string;
+            return arr;
+        }
 
-#     def test_assign_stmt_type_lhs_and_rhs_must_be_compa(self):
-#         """test_assign_stmt_type_lhs_and_rhs_must_be_compa"""
-#         input = """
-# procedure MAIN();
-# var a,b:integer;
-#     c:float;
-# begin
-#     a:=b;
-#     c:=a;
-#     a:=c;  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: AssignStmt(Id(a),Id(c))"
-#         self.assertTrue(TestChecker.test(input,expect,426))
+        main: function void(){
+            s: string;
+            s = foo();
+        }
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(arr),CallExpr(Id(foo),[]))"
+        self.assertTrue(TestChecker.test(input,expect,425))
 
-#     def test_assign_stmt_type_lhs_and_rhs_must_be_compa2(self):
-#         """test_assign_stmt_type_lhs_and_rhs_must_be_compa2"""
-#         input = """
-# procedure MAIN();
-# var a,b:integer;
-#     c:float;
-# begin
-#     a:=b;
-#     c:=a:=b;
-#     a:=c:=a;  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: AssignStmt(Id(a),Id(c))"
-#         self.assertTrue(TestChecker.test(input,expect,427))
+    def test_assign_stmt_type_lhs_and_rhs_must_be_compa(self):
+        """test_assign_stmt_type_lhs_and_rhs_must_be_compa"""
+        input = """
+        main: function void(){
+            a: integer;
+            b : float;
+            a = b;
+            c = a;      // Can float be assigned integer?
+            a = c;
+        }
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(a),Id(c))"
+        self.assertTrue(TestChecker.test(input,expect,426))
 
-#     def test_call_stmt_id_must_be_proc(self):
-#         """test_call_stmt_id_must_be_proc"""
-#         input = """
-# function foo():integer;
-# begin
-#     return 0;
-# end
+    def test_assign_stmt_type_lhs_and_rhs_must_be_compa2(self):
+        """test_assign_stmt_type_lhs_and_rhs_must_be_compa2"""
+        input = """
+        main: function void()
+        {
+            a, b: integer;
+            c: float;
+            str: string;
+            a = b;
+            c = a;
+            str = b;
+        }
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(a),Id(c))"
+        self.assertTrue(TestChecker.test(input,expect,427))
 
-# procedure proc();
-# begin
-# end
+    def test_call_stmt_id_must_be_proc(self):
+        """test_call_stmt_id_must_be_proc"""
+        input = """
+        foo: function integer(a: integer)
+        {
+            return a + 3;
+        }
 
-# procedure MaIn();
-# begin
-#     proc();
-#     foo();  // error
-# end
-# """
-#         expect = "Undeclared Procedure: foo"
-#         self.assertTrue(TestChecker.test(input,expect,428))
+        proc: function void()
+        {
+            a: integer;
+        }
+        
+        main: function void(){
+            proc();
+            foo1();
+        }
+        """
+        expect = "Undeclared Procedure: foo"
+        self.assertTrue(TestChecker.test(input,expect,428))
 
-#     def test_call_stmt_param_len_must_be_the_same(self):
-#         """test_call_stmt_param_len_must_be_the_same"""
-#         input = """
-# procedure proc(a,b:integer);
-# begin
-# end
+    def test_call_stmt_param_len_must_be_the_same(self):
+        """test_call_stmt_param_len_must_be_the_same"""
+        input = """
+        proc: function void (a: integer, b: integer)
+        {
+            printInteger(a + b);
+        }
 
-# procedure MaIn();
-# begin
-#     proc(1 , 0);
-#     proc(1);  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: CallStmt(Id(proc),[IntLiteral(1)])"
-#         self.assertTrue(TestChecker.test(input,expect,429))
+        main: function void(){
+            proc(1,0);
+            proc(1);
+        }
+        """
+        expect = "Type Mismatch In Statement: CallStmt(Id(proc),[IntLiteral(1)])"
+        self.assertTrue(TestChecker.test(input,expect,429))
 
-#     def test_call_stmt_param_list_must_be_type_comp(self):
-#         """test_call_stmt_param_list_must_be_type_comp"""
-#         input = """
-# procedure proc(a,b:float);
-# begin
-# end
+    def test_call_stmt_param_list_must_be_type_comp(self):
+        """test_call_stmt_param_list_must_be_type_comp"""
+        input = """
+        proc: function void(a: float, b: float)
+        {
+            printFloat(a + b);
+        }
 
-# procedure MaIn();
-# begin
-#     proc(1.2 , 3);
-#     proc(1.2 , "string");  // error
-# end
-# """
-#         expect = "Type Mismatch In Statement: CallStmt(Id(proc),[FloatLiteral(1.2),StringLiteral(string)])"
-#         self.assertTrue(TestChecker.test(input,expect,430))
+        main: function void() {
+            proc(1.2, 3.0);
+            proc(1.1, "hello man");
+        } 
+        """
+        expect = "Type Mismatch In Statement: CallStmt(Id(proc),[FloatLiteral(1.2),StringLiteral(string)])"
+        self.assertTrue(TestChecker.test(input,expect,430))
 
-#     def test_expr1_arr_must_be_array_type(self):
-#         """test_expr1_arr_must_be_array_type"""
-#         input = """
-# procedure MaIn();
-# var a:integer;
-#     arr:array[0 .. 4] of integer;
-# begin
-#     arr[0]:=1;
-#     a[0]:=1;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: ArrayCell(Id(a),IntLiteral(0))"
-#         self.assertTrue(TestChecker.test(input,expect,431))
+    def test_expr1_arr_must_be_array_type(self):
+        """test_expr1_arr_must_be_array_type"""
+        input = """
+        main: function void()
+        {
+            a: integer = 0;
+            arr: array[4] of integer;
+            arr[0] = a;
+            a[0] = 1;
+        } 
+        """
+        expect = "Type Mismatch In Expression: ArrayCell(Id(a),IntLiteral(0))"
+        self.assertTrue(TestChecker.test(input,expect,431))
 
-#     def test_expr2_arr_must_be_int_type(self):
-#         """test_expr2_arr_must_be_int_type"""
-#         input = """
-# procedure MaIn();
-# var a:array[0 .. 4] of float;
-# begin
-#     a[0]:=1.1;
-#     a[0.5]:=1.1;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: ArrayCell(Id(a),FloatLiteral(0.5))"
-#         self.assertTrue(TestChecker.test(input,expect,432))
+    def test_expr2_arr_must_be_int_type(self):
+        """test_expr2_arr_must_be_int_type"""
+        input = """
+        main: function void()
+        {
+            a: array[4] of float;
+            a[0] = 1.1;
+            a[1/2] = 1.2;
+        }
+        """
+        expect = "Type Mismatch In Expression: ArrayCell(Id(a),FloatLiteral(0.5))"
+        self.assertTrue(TestChecker.test(input,expect,432))
 
-#     def test_type_binary_expr1(self):
-#         """test_type_operand_expr1"""
-#         input = """
-# procedure MaIn();
-# var b,c:boolean;
-# begin
-#     b:= true and false;
-#     b:= b and then c;
-#     c:= b or c or else true;
-#     c:= b and 0;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: BinaryOp(and,Id(b),IntLiteral(0))"
-#         self.assertTrue(TestChecker.test(input,expect,433))
+    def test_type_binary_expr1(self):
+        """test_type_operand_expr1"""
+        input = """
+        main: function void()
+        {
+            b,c : boolean;
+            b = (true and false);
+            c = true;
+            b = (!b) and c;
+            c = (b or 0);
+        }
+        """
+        expect = "Type Mismatch In Expression: BinaryOp(and,Id(b),IntLiteral(0))"
+        self.assertTrue(TestChecker.test(input,expect,433))
 
-#     def test_type_binary_expr2(self):
-#         """test_type_operand_expr2"""
-#         input = """
-# procedure MaIn();
-# var a,b:integer;
-#     c: float;
-#     d:boolean;
-# begin
-#     c:= b + 1;
-#     b:= 5 - 1;
-#     c:= b * c;
-#     c:= b div a;
-#     c:= b mod a;
-#     c:= c/b;
-#     d:= (a>=b) and (c<=b) or (a=c);
-#     a:= d + 0;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: BinaryOp(+,Id(d),IntLiteral(0))"
-#         self.assertTrue(TestChecker.test(input,expect,434))
+    def test_type_binary_expr2(self):
+        """test_type_operand_expr2"""
+        input = """
+        main: function void()
+        {
+            a,b : integer;
+            c: float;
+            d: boolean;
 
-#     def test_type_binary_expr3(self):
-#         """test_type_operand_expr3"""
-#         input = """
-# procedure MaIn();
-# var b:integer;
-#     c: float;
-# begin
-#     b:= b div c;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: BinaryOp(div,Id(b),Id(c))"
-#         self.assertTrue(TestChecker.test(input,expect,435))
+            c = b + 1.0;
+            b = 5-1;
+            c = b * c;
+            d = (a > b) and(b < c);
+            a = d + 09;
+        }
+        """
+        expect = "Type Mismatch In Expression: BinaryOp(+,Id(d),IntLiteral(0))"
+        self.assertTrue(TestChecker.test(input,expect,434))
 
-#     def test_type_binary_expr4(self):
-#         """test_type_operand_expr4"""
-#         input = """
-# procedure foo(s:string);
-# begin
-#     return ;
-# end
+    def test_type_binary_expr3(self):
+        """test_type_operand_expr3"""
+        input = """
+        main: function void()
+        {
+            b: integer;
+            c: float;
 
-# procedure MaIn();
-# var a: integer;
-# begin
-#     foo("ss");
-#     foo("s"*2);  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: BinaryOp(*,StringLiteral(s),IntLiteral(2))"
-#         self.assertTrue(TestChecker.test(input,expect,436))
+            b = b div c;
+        }
+        """
+        expect = "Type Mismatch In Expression: BinaryOp(div,Id(b),Id(c))"
+        self.assertTrue(TestChecker.test(input,expect,435))
 
-#     def test_type_unary_expr1(self):
-#         """test_type_unary_expr1"""
-#         input = """
-# procedure MaIn();
-# var s: string;
-#     a: integer;
-# begin
-#     putintln(-a);
-#     putstring(-s);  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: UnaryOp(-,Id(s))"
-#         self.assertTrue(TestChecker.test(input,expect,437))
+    def test_type_binary_expr4(self):
+        """test_type_operand_expr4"""
+        input = """
+        foo: function void(s: string){
+            printString(s);
+        }
 
-#     def test_type_unary_expr2(self):
-#         """test_type_unary_expr2"""
-#         input = """
-# procedure MaIn();
-# var b: boolean;
-#     a: integer;
-# begin
-#     a:=-a;
-#     b:=b;
-#     b:=-b;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: UnaryOp(-,Id(b))"
-#         self.assertTrue(TestChecker.test(input,expect,438))
+        main: function void()
+        {
+            foo("ss");
+            foo("s" * 2);
+        }
+        """
+        expect = "Type Mismatch In Expression: BinaryOp(*,StringLiteral(s),IntLiteral(2))"
+        self.assertTrue(TestChecker.test(input,expect,436))
 
-#     def test_type_unary_expr3(self):
-#         """test_type_unary_expr3"""
-#         input = """
-# procedure MaIn();
-# var b: boolean;
-#     a: integer;
-# begin
-#     b:=not b;
-#     a:=not a;  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: UnaryOp(not,Id(a))"
-#         self.assertTrue(TestChecker.test(input,expect,439))
+    def test_type_unary_expr1(self):
+        """test_type_unary_expr1"""
+        input = """
+        main: function void()
+        {
+            s: string;
+            a: integer;
+            printString(s);
+            printString(a);
+        }
+        """
+        expect = "Type Mismatch In Expression: UnaryOp(-,Id(s))"
+        self.assertTrue(TestChecker.test(input,expect,437))
 
-#     def test_type_unary_expr4(self):
-#         """test_type_unary_expr4"""
-#         input = """
-# procedure MaIn();
-# var b: boolean;
-#     s: sTRING;
-# begin
-#     b:=not B;
-#     putstring(not S);  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: UnaryOp(not,Id(S))"
-#         self.assertTrue(TestChecker.test(input,expect,440))
+    def test_type_unary_expr2(self):
+        """test_type_unary_expr2"""
+        input = """
+        main: function void()
+        {
+            b: boolean;
+            a: integer;
+
+            a = -a;
+            b = b;
+            b = -b;
+        }
+        """
+        expect = "Type Mismatch In Expression: UnaryOp(-,Id(b))"
+        self.assertTrue(TestChecker.test(input,expect,438))
+
+    def test_type_unary_expr3(self):
+        """test_type_unary_expr3"""
+        input = """
+        main: function void()
+        {
+            b: boolean;
+            a: integer;
+
+            b = (!b);
+            a = (!a);
+        }
+        """
+        expect = "Type Mismatch In Expression: UnaryOp(not,Id(a))"
+        self.assertTrue(TestChecker.test(input,expect,439))
+
+    def test_type_unary_expr4(self):
+        """test_type_unary_expr4"""
+        input = """
+        main: function void(){
+            b: boolean;
+            s: string;
+
+            b = (!b);
+            printString((!s))
+        }
+        """
+        expect = "Type Mismatch In Expression: UnaryOp(not,Id(S))"
+        self.assertTrue(TestChecker.test(input,expect,440))
 
 #     def test_call_expr_id_must_be_func(self):
 #         """test_call_expr_id_must_be_func"""
