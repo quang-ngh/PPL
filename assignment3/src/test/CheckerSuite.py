@@ -648,460 +648,365 @@ main: function void () {
         expect = "Type Mismatch In Expression: UnaryOp(not,Id(S))"
         self.assertTrue(TestChecker.test(input,expect,440))
 
-#     def test_call_expr_id_must_be_func(self):
-#         """test_call_expr_id_must_be_func"""
-#         input = """
-# function foo():integer;
-# begin
-#     return getint();
-# end
+    def test_call_expr_id_must_be_func(self):
+        """test_call_expr_id_must_be_func"""
+        input = """
+        foo: function integer(){
+            return 1;
+        }
 
-# procedure MaIn();
-# var a:integer;
-# begin
-#     a:=foo();
-#     a:=main();  // error
-# end
-# """
-#         expect = "Undeclared Function: main"
-#         self.assertTrue(TestChecker.test(input,expect,441))
+        main: function void(){
+            a: integer = foo();
+            a = foo1();
+        }
+        """
+        expect = "Undeclared Function: main"
+        self.assertTrue(TestChecker.test(input,expect,441))
 
-#     def test_call_expr_param_len_must_be_the_same(self):
-#         """test_call_expr_param_len_must_be_the_same"""
-#         input = """
-# function foo():float;
-# var a:integer;
-# begin
-#     return a;
-# end
+    def test_call_expr_param_len_must_be_the_same(self):
+        """test_call_expr_param_len_must_be_the_same"""
+        input = """
+        foo: function float()
+        {
+            a: float = 5.5;
+            return a + 1;
+        }
 
-# procedure MaIn();
-# var a:float;
-# begin
-#     a := foo();
-#     a := foo(1,2,3);  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: CallExpr(Id(foo),[IntLiteral(1),IntLiteral(2),IntLiteral(3)])"
-#         self.assertTrue(TestChecker.test(input,expect,442))
+        main: function void()
+        {
+            a: float;
+            a = foo();
+            a = foo(1,2,3);
+        }
+        """
+        expect = "Type Mismatch In Expression: CallExpr(Id(foo),[IntLiteral(1),IntLiteral(2),IntLiteral(3)])"
+        self.assertTrue(TestChecker.test(input,expect,442))
 
-#     def test_call_expr_param_list_must_be_type_comp(self):
-#         """test_call_expr_param_list_must_be_type_comp"""
-#         input = """
-# function foo(a:integer;b:float;c:strinG):boolean;
-# begin
-#     return (a*b - a/b) <= ((b / a+1) *getint());
-# end
+    def test_call_expr_param_list_must_be_type_comp(self):
+        """test_call_expr_param_list_must_be_type_comp"""
+        input = """
+        foo: function boolean(a:integer, b:float, c:string)
+        {
+            return (a*b - a/b) <= ((b / a+1) * 3);
+        }
+        main: function void(){
+            a = foo(1,2,"hello");
+            a = foo(1,2,3);
+        }
+        """
+        expect = "Type Mismatch In Expression: CallExpr(Id(foo),[IntLiteral(1),IntLiteral(2),IntLiteral(3)])"
+        self.assertTrue(TestChecker.test(input,expect,443))
 
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a := foo(1,2,"15gg");
-#     a := foo(1,2,3);  // error
-# end
-# """
-#         expect = "Type Mismatch In Expression: CallExpr(Id(foo),[IntLiteral(1),IntLiteral(2),IntLiteral(3)])"
-#         self.assertTrue(TestChecker.test(input,expect,443))
+    def test_func_not_return1(self):
+        """test_func_not_return1"""
+        input = """
+        foo: function boolean()
+        {
+            return 5 * 12 / 123 >= 182.1;
+        }
+        main: function void()
+        {
+            a: boolean;
+            a = foo();
+        }
+        foo1: function boolean()
+        {
 
-#     def test_func_not_return1(self):
-#         """test_func_not_return1"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo1();
-# end
-        
-# function foo():boolean;
-# begin
-#     return 5*getint()/getfloat()>=1998.0;  //# return here
-# end
+        }
+        """
+        expect = "Function foo1Not Return "
+        self.assertTrue(TestChecker.test(input,expect,444))
 
-# function foo1():boolean;  // error
-# begin
-# end
-# """
-#         expect = "Function foo1Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,444))
+    def test_func_not_return2(self):
+        """test_func_not_return2"""
+        input = """
+        main: function void()
+        {
+            a: boolean;
+            a = foo();
+            a = foo2();
+        }
 
-#     def test_func_not_return2(self):
-#         """test_func_not_return2"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo2();
-# end
-        
-# function foo():boolean;
-# begin
-#     if True then
-#         return falsE;  //# return here
-#     else
-#         return true;  //# return here
-# end
+        foo: function boolean()
+        {
+            if (true){
+                return true;
+            }
+            else{
+                return False;
+            }
+        }
+        """
+        expect = "Function foo2Not Return "
+        self.assertTrue(TestChecker.test(input,expect,445))
 
-# function foo2():boolean;  // error
-# begin
-#     if True then
-#         return falsE;
-#     else  //# no return
-#         begin
-#         end
-# end
-# """
-#         expect = "Function foo2Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,445))
+    def test_func_not_return3(self):
+        """test_func_not_return3"""
+        input = """
+        main: function void()
+        {
+            a : boolean();
+            a = foo();
+            a = foo3();
+        }
 
-#     def test_func_not_return3(self):
-#         """test_func_not_return3"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo3();
-# end
-        
-# function foo():boolean;
-# begin
-#     if True then
-#         return falsE;  //# return here
-#     else
-#         return true;  //# return here
-# end
+        foo: function boolean()
+        {
+            if (true){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
 
-# function foo3():boolean;  // error
-# begin
-#     if True then  //# no return
-#         begin
-#         end
-#     else
-#         return True;
-# end
-# """
-#         expect = "Function foo3Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,446))
+        foo3: function boolean()
+        {
+            if (true){
+            
+            }
+            else{
+                return true;
+            }
+        }
+        """
+        expect = "Function foo3Not Return "
+        self.assertTrue(TestChecker.test(input,expect,446))
 
-#     def test_func_not_return4(self):
-#         """test_func_not_return4"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo4();
-# end
-        
-# function foo():boolean;
-# var a:integer;
-# begin
-#     if True then
-#         begin
-#         end
-#     else
-#         begin
-#         end
-#     a:=1;
-#     return true aNd THEN faLse;  //# return here
-# end
+    def test_func_not_return4(self):
+        """test_func_not_return4"""
+        input = """
+        main: function void()
+        {
+            a: boolean;
+            a = foo();
+            a = foo4();
+        }
 
-# function foo4():boolean;  // error
-# var a:integer;
-# begin
-#     if True then
-#         begin
-#         end
-#     else
-#         begin
-#         end
-#     a:=1;
-# end
-# """
-#         expect = "Function foo4Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,447))
-
-#     def test_func_not_return5(self):
-#         """test_func_not_return5"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo5();
-# end
-        
-# function foo():boolean;
-# var a:integer;
-# begin
-#     if True then
-#         begin
-#             a:=a;
-#             putintln(a);
-#             return a=9.9;  //# return here
-#         end
-#     else
-#         begin
-#             a:=0;
-#             putintln(69);
-#             return 1.2<=1.20;  //# return here
-#         end
-# end
-
-# function foo5():boolean;  // error
-# var a:integer;
-# begin
-#     if True then
-#         begin
-#             a:=a;
-#             putintln(a);
-#             return a=9.9;
-#         end
-#     else  //# no return
-#         begin
-#             a:=0;
-#             putintln(69);
-#         end
-# end
-# """
-#         expect = "Function foo5Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,448))
-
-#     def test_func_not_return6(self):
-#         """test_func_not_return6"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo6();
-# end
-        
-# function foo():boolean;
-# var a:integer;
-# begin
-#     with
-#         a,b:float;
-#         c:string;
-#     do
-#         begin
-#             a:=b;
-#             putstring(c);
-#             return a > b/2;  //# return here
-#         end
-# end
-
-# function foo6():boolean;  // error
-# var a:integer;
-# begin
-#     with
-#         a,b:float;
-#         c:string;
-#     do
-#         begin
-#             a:=b;
-#             putstring(c);
-#         end
-# end
-# """
-#         expect = "Function foo6Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,449))
-
-#     def test_func_not_return7(self):
-#         """test_func_not_return7"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo7();
-# end
-        
-# function foo():boolean;
-# var a:integer;
-# begin
-#     while foo() do
-#         return True or else a = 0;
-#     return false;  //# return here
-# end
-
-# function foo7():boolean;  // error
-# var a:float;
-# begin
-#     while foo() do  //# no return
-#         return True or else a = 0;
-# end
-# """
-#         expect = "Function foo7Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,450))
-
-#     def test_func_not_return8(self):
-#         """test_func_not_return8"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo8();
-# end
-
-# function foo():boolean;
-# var i:integer;
-#     f:float;
-# begin
-#     while foo() do
-#         begin
-#             i:=getint();
-#             f:=i/1;
-#             f:=getfloat();
-#             return True or else i = 0;
-#         end
-#     return True;  //# return here
-# end
-
-# function foo8():boolean;  // error
-# var i:integer;
-#     f:float;
-# begin
-#     while foo() do  //# no return
-#         begin
-#             i:=getint();
-#             f:=i/1;
-#             f:=getfloat();
-#             return True or else i = 0;
-#         end
-# end
-# """
-#         expect = "Function foo8Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,451))
-
-#     def test_func_not_return9(self):
-#         """test_func_not_return9"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo9();
-# end
-
-# function foo():boolean;
-# var i:integer;
-#     f:float;
-# begin
-#     for i:=0 downtO -100 do
-#         return i=1998;
-#     return True;  //# return here
-# end
-
-# function foo9():boolean;  // error
-# var i:integer;
-#     f:float;
-# begin
-#     for i:=0 downtO -100 do  //# no return
-#         return i=1998;
-# end
-# """
-#         expect = "Function foo9Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,452))
-
-#     def test_func_not_return10(self):
-#         """test_func_not_return10"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo10();
-# end
-
-# function foo():boolean;
-# var a:integer;
-# begin
-#     if True then
-#         begin
-#             a:=a;
-#             putintln(a);
-#             while True do
-#                 break;
+        foo: function boolean()
+        {
+            if (true){
                 
-#             return false;  //# return here
-#         end
-#     else
-#         begin
-#             a:=0;
-#             putintln(69);
-#             return 1.2<=1.20;  //# return here
-#         end
-# end
+            }
+            else{
+                a = 1;
+            }
+            return (true and false and (!true));
+        }
+        """
+        expect = "Function foo4Not Return "
+        self.assertTrue(TestChecker.test(input,expect,447))
 
-# function foo10():boolean;  // error
-# var a:integer;
-# begin
-#     if True then  //# no return
-#         begin
-#             a:=a;
-#             putintln(a);
-#             while True do
-#                 return true;
+    def test_func_not_return5(self):
+        """test_func_not_return5"""
+        input = """
+        main : function void()
+        {
+            a : boolean();
+            a = foo();
+            a = foo5();
+        }
 
-#             for a:=0 downto a do
-#                 begin
-#                     return false;
-#                 end
-#         end
-#     else
-#         begin
-#             a:=0;
-#             putintln(69);
-#             return 1.2<=1.20;
-#         end
-# end
-# """
-#         expect = "Function foo10Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,453))
+        foo: function boolean()
+        {
+            a: integer = 2;
+            return a < 4/a;
+        }
 
-#     def test_func_not_return11(self):
-#         """test_func_not_return11"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo11();
-# end
+        foo5: function boolean(a: integer)
+        {
+            if (a > 5){
+                a = 5 * 10
+            }
+            if ((a< 5) and (a > 10))
+            {
+                a = a + 1;
+            }
+        }
+        """
+        expect = "Function foo5Not Return "
+        self.assertTrue(TestChecker.test(input,expect,448))
 
-# function foo():boolean;
-# var a:integer;
-# begin
-#     while a = 1 do
-#         begin
-#             a:=0;
-#             if not (a=0) THEn
-#                 return falSE;
-#             else
-#                 return false or false;
-#         end
-#     return foo();  //# return here
-# end
+    def test_func_not_return6(self):
+        """test_func_not_return6"""
+        input = """
+        main: function void()
+        {
+            a: boolean;
+            a = foo();
+            a = foo6();
+        }
 
-# function foo11():boolean;  // error
-# var a:integer;
-# begin
-#     while a = 1 do  //# no return
-#         begin
-#             a:=0;
-#             if not (a=0) then
-#                 return falSE;
-#             else
-#                 return false or false;
-#         end
-# end
-# """
-#         expect = "Function foo11Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,454))
+        foo: function boolean()
+        {
+            a,b : float;
+            c: string;
+            a = b;
+            c = "hello"::"world";
+        }
+
+        foo6: function boolean()
+        {
+            a,b : float;
+            c: string;
+        }
+        """
+        expect = "Function foo6Not Return "
+        self.assertTrue(TestChecker.test(input,expect,449))
+
+    def test_func_not_return7(self):
+        """test_func_not_return7"""
+        input = """
+        main: function void()
+        {
+            a,b: boolean;
+            a = foo();
+            b = foo7();
+        }
+
+        foo: function boolean()
+        {
+            while (foo())
+            {
+                return true;
+            }
+            return (a and false);
+        }
+
+        foo: function boolean()
+        {
+            a: float;
+            while(true)
+            {
+                printString("No return");
+            }
+        }
+        """
+        expect = "Function foo7Not Return "
+        self.assertTrue(TestChecker.test(input,expect,450))
+
+    def test_func_not_return8(self):
+        """test_func_not_return8"""
+        input = """
+        main: function string()
+        {
+            a : string;
+            a = foo() :: " hello world";
+            a = goo() :: "";
+        }
+
+        foo: function string()
+        {
+            return "cmm";
+        }
+
+        goo: function string()
+        {
+            for( i = 0, i < 10, i + 1)
+            {
+                printString("Hehee");
+            }
+        }
+        """
+        expect = "Function foo8Not Return "
+        self.assertTrue(TestChecker.test(input,expect,451))
+
+    def test_func_not_return9(self):
+        """test_func_not_return9"""
+        input = """
+        main: function void()
+        {
+            a,b: float();
+            a = foo();
+            b = goo();
+        }
+
+        foo: function float()
+        {
+            a: integer = 2;
+            c = a / 2.0;
+            return c + 1.0;
+        }
+
+        goo: function float()
+        {
+            while(true)
+            {
+                printString("hello world");
+            }
+        }
+        """
+        expect = "Function foo9Not Return "
+        self.assertTrue(TestChecker.test(input,expect,452))
+
+    def test_func_not_return10(self):
+        """test_func_not_return10"""
+ 
+        input = """
+        main: function void()
+        {
+            a,b : boolean;
+            a = foo();
+            b = goo();
+        }
+
+        foo: function boolean()
+        {
+            a: integer = 0;
+            if (true){
+                a = readInteger();
+                while (true)
+                {
+                    break;
+                }
+                return true;
+            }
+            return (a <= 0);
+        }
+
+        goo: function boolean()
+        {
+            while(true)
+            {
+                printString("Hello bros");
+            } 
+        }
+        """
+        expect = "Function foo10Not Return "
+        self.assertTrue(TestChecker.test(input,expect,453))
+
+    def test_func_not_return11(self):
+        """test_func_not_return11"""
+        input = """
+        main: function void()
+        {
+            a,b : boolean();
+            a = foo();
+            b = goo();
+        }
+
+        foo: function boolean()
+        {
+            a: integer = -10;
+            while(a < 0)
+            {
+                print("hello world");
+                if ((a % 2) == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        goo: function boolean()
+        {
+            a : integer;
+            a = 3; 
+        }
+        """
+        expect = "Function foo11Not Return "
+        self.assertTrue(TestChecker.test(input,expect,454))
 
 #     def test_func_not_return12(self):
 #         """test_func_not_return12"""
@@ -1195,105 +1100,115 @@ main: function void () {
 #         expect = "Function foo13Not Return "
 #         self.assertTrue(TestChecker.test(input,expect,456))
 
-#     def test_break_not_in_loop1(self):
-#         """test_break_not_in_loop1"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         break;
-    
-#     for a:=a doWNtO 0 do
-#         break;
-# end
+    def test_break_not_in_loop1(self):
+        """test_break_not_in_loop1"""
+        input = """
+        foo: function  void()
+        {
+            a: integer;
+            while(true){
+                break;
+            }
+            for ( a= 0 , a < 5, a + 1)
+            {
+                printString("hello world");
+                break;
+            }
+        }
 
-# procedure MaIn();
-# begin
-#     foo();
-#     break;  // error
-# end
-# """
-#         expect = "Break Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,457))
+        main: function integer()
+        {
+            foo();
+            break;
+            return 1;
+        }
+        """
+        expect = "Break Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,457))
 
-#     def test_break_not_in_loop2(self):
-#         """test_break_not_in_loop2"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         if (1=2) or (a>=0.000000001000000000001) then
-#             break;
-    
-#     for a:=a doWNtO 0 do
-#         if true or FalSe then
-#             break;
-# end
+    def test_break_not_in_loop2(self):
+        """test_break_not_in_loop2"""
+        input = """
 
-# procedure MaIn();
-# begin
-#     foo();
-#     if (0.6/5>7) or not false then
-#         break;  // error
-# end
-# """
-#         expect = "Break Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,458))
+        foo: function void()
+        {
+            a:integer;
+            a = 1 - 1e-1;
+            while (true){
 
-#     def test_break_not_in_loop3(self):
-#         """test_break_not_in_loop3"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         with a:booleaN; do
-#             break;
-    
-#     for a:=a doWNtO 0 do
-#         with a:booleaN; do
-#             break;
-# end
+                if ((1=2) or (a>=0.000000001000000000001)){
+                    break;
+                }
+            }    
+        }
+                
+        main: function void()
+        {
+            foo();
+            if (0.6 > 5/7 ){
+                break;
+            }
+        }
+        """
+        expect = "Break Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,458))
 
-# procedure MaIn();
-# begin
-#     foo();
-#     with a:booleaN; do
-#         break;  // error
-# end
-# """
-#         expect = "Break Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,459))
+    def test_break_not_in_loop3(self):
+        """test_break_not_in_loop3"""
+        input = """
+        foo: function void()
+        {
+            a: integer;
+            while(true){
+                a: boolean;
+                a = (a and (a % 2 == 0));
+                break;
+            }
 
-#     def test_break_not_in_loop4(self):
-#         """test_break_not_in_loop4"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         if 6*7-42>1 then
-#             with a:booleaN; do
-#                 break;
-    
-#     for a:=a doWNtO 0 do
-#         if 0mod 0>1 then
-#             with a:booleaN; do
-#                 break;
-# end
+            for ( a = 0, a < 10, a + 2){
+                break;
+            }
+        }
 
-# procedure MaIn();
-# begin
-#     foo();
-#     if (3div 4=0) or (6=6.00) then
-#         with a:booleaN; do
-#             break;  // error
-# end
-# """
-#         expect = "Break Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,460))
+        main: function void()
+        {
+            foo();
+            break;
+        }
+        """
+        expect = "Break Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,459))
+
+    def test_break_not_in_loop4(self):
+        """test_break_not_in_loop4"""
+        input = """
+        foo: function void()
+        {
+            a : integer = 3;
+            while(true)
+            {
+                if ( a * 7 - 42 > 1){
+                    break;
+                }
+                else{
+                    a = a * 2;
+                }
+            }
+        }
+
+        main: function void()
+        {
+            for (a = 0, a < 10, a + 1)
+            {
+                if (a % 3 == 0){
+                    break;
+                }
+            }
+            break;
+        }
+        """
+        expect = "Break Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,460))
 
 #     def test_break_not_in_loop5(self):
 #         """test_break_not_in_loop5"""
