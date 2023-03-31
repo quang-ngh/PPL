@@ -1210,539 +1210,551 @@ main: function void () {
         expect = "Break Not In Loop"
         self.assertTrue(TestChecker.test(input,expect,460))
 
-#     def test_break_not_in_loop5(self):
-#         """test_break_not_in_loop5"""
-#         input = """
-# procedure MaIn();
-# begin
-#     if -5=0-5/1*3.14/ 3.14 then
-#         while getINT()=1.998 do
-#             begin
-#                 break;
-#             end
-#     else
-#         begin
-#             with a:integer; do
-#                 begin
-#                     for a:=getint() to getINT() do
-#                         break ;
-#                     begin
-#                         putINT(a);
-#                         break;  // error
-#                     end
-#                 end
-#             return;
-#         end
-# end
-# """
-#         expect = "Break Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,461))
+    ############################ 61 - 80 #######################################
+    def test_break_not_in_loop5(self):
+        """test_break_not_in_loop5"""
+        input = """
+        main: function void()
+        {
+            if(-5=0-5/1*3.14/ 3.14)
+            {
+                while(readInteger() == 1.988){
+                    printString("hello man");
+                    break;
+                }
+            }
+            else
+            {
+                a: integer;
+                for(a = 0, a < 10, a + 1)
+                {
+                    a = readInteger();
+                    a = a + 2;
+                }
+                break;
+            }
+        }
+        """
+        expect = "Break Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,461))
 
-#     def test_continue_not_in_loop1(self):
-#         """test_continue_not_in_loop1"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         continue;
-    
-#     for a:=a doWNtO 0 do
-#         continue;
-# end
+    def test_continue_not_in_loop1(self):
+        """test_continue_not_in_loop1"""
+        input = """
+        foo: function void()
+        {
+            a: integer = 0;
+            while(true){
+                a = a + 1;
+                if(a < 10){
+                    break;
+                }
+                continue;
+            }
 
-# procedure MaIn();
-# begin
-#     foo();
-#     continue;  // error
-# end
-# """
-#         expect = "Continue Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,462))
+            for (a = 0, a < 10, a + 1){
+                break;
+            }
+        }
 
-#     def test_continue_not_in_loop2(self):
-#         """test_continue_not_in_loop2"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         if (1=2) or (a>=0.000000001000000000001) then
-#             Continue;
-    
-#     for a:=a doWNtO 0 do
-#         if true or FalSe then
-#             Continue;
-# end
+        main: function void()
+        {
+            foo();
+            continue;
+        }
+        """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,462))
 
-# procedure MaIn();
-# begin
-#     foo();
-#     if (0.6/5>7) or not false then
-#         Continue;  // error
-# end
-# """
-#         expect = "Continue Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,463))
+    def test_continue_not_in_loop2(self):
+        """test_continue_not_in_loop2"""
+        input = """
+        foo: function void()
+        {
+            a: integer = 0;
+            while(true)
+            {
+                if((1==2) or (a >= 0.0000001))
+                {
+                    continue;
+                }
+            }
+            for(a = 0, a < 10, a + 1){
+                if( true and !false){
+                    continue
+                }
+            }
+        }
 
-#     def test_continue_not_in_loop3(self):
-#         """test_continue_not_in_loop3"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         with a:booleaN; do
-#             Continue;
-    
-#     for a:=a doWNtO 0 do
-#         with a:booleaN; do
-#             Continue;
-# end
+        main: function void()
+        {
+            foo();
+            continue;
+        }
+        """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,463))
 
-# procedure MaIn();
-# begin
-#     foo();
-#     with a:booleaN; do
-#         Continue;  // error
-# end
-# """
-#         expect = "Continue Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,464))
+    def test_continue_not_in_loop3(self):
+        """test_continue_not_in_loop3"""
+        input = """
+        foo: function void()
+        {
+            a: integer = 3;
+            while(true)
+            {
+                if (a > 3){
+                    continue;
+                }
+                else{
+                    break;
+                }
+            }
+        }
 
-#     def test_continue_not_in_loop4(self):
-#         """test_continue_not_in_loop4"""
-#         input = """
-# procedure foo();
-# var a:integer;
-# begin
-#     while trUE do
-#         if 6*7-42>1 then
-#             with a:booleaN; do
-#                 Continue;
-    
-#     for a:=a doWNtO 0 do
-#         if 0mod 0>1 then
-#             with a:booleaN; do
-#                 Continue;
-# end
+        main: function void()
+        {
+            a,b: integer  = 3, 4;
+            foo();
+            continue;               // Error
+        }
+        """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,464))
 
-# procedure MaIn();
-# begin
-#     foo();
-#     if (3div 4=0) or (6=6.00) then
-#         with a:booleaN; do
-#             Continue;  // error
-# end
-# """
-#         expect = "Continue Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,465))
+    def test_continue_not_in_loop4(self):
+        """test_continue_not_in_loop4"""
+        input = """
+        foo: function void()
+        {   
+            a: integer;
+            while(true)
+            {
+                if( 6* 7 -42 < 3){
+                    continue;
+                }
+                else{
+                    break;
+                }
+            }
+            for(a = 0, a < 3, a + 1)
+            {
+                if (a % 2 == 0)
+                {
+                    continue;
+                }
+            }
+        }
 
-#     def test_continue_not_in_loop5(self):
-#         """test_continue_not_in_loop5"""
-#         input = """
-# procedure MaIn();
-# begin
-#     if -5=0-5/1*3.14/ 3.14 then
-#         while getINT()=1.998 do
-#             begin
-#                 Continue;
-#             end
-#     else
-#         begin
-#             with a:integer; do
-#                 begin
-#                     for a:=getint() to getINT() do
-#                         Continue ;
-#                     begin
-#                         putINT(a);
-#                         Continue;  // error
-#                     end
-#                 end
-#             return;
-#         end
-# end
-# """
-#         expect = "Continue Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,466))
+        main: function integer(a: integer)
+        {
+            foo();
+            if (a > 3){
+                continue;           // error
+            }
+        }
+        """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,465))
 
-#     def test_continue_not_in_loop6(self):
-#         """test_continue_not_in_loop6"""
-#         input = """
-# var a:boolEAN;
-# procedure main();
-# begin
-#     a:=MaIn1();
-#     a:=maiN2();
-# end
+    def test_continue_not_in_loop5(self):
+        """test_continue_not_in_loop5"""
+        input = """
+        Main: function void()
+        {
+            if(-5=0-5/1*3.14/ 3.14)
+            {
+                while(true)
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                {
+                    {
+                        for (a = 3, a < 10, a + 1)
+                        {
+                            printInteger(a);
+                        }
+                    }
+                }
+                continue;           // Error
+            }
+        }
+        """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,466))
 
-# function main2():booleaN;
-# var a: integer;
-# begin
-#     while true do
-#         begin
-#             if a=6.9 then
-#                 begin
-#                     with
-#                         a,b: float;
-#                         C:array[1 .. 4] of integeR;
-#                         D:integer;
-#                     do
-#                         begin
-#                             a:=b/3;
-#                             b:=-b;
-#                             for d:=c[D] to D mod 0 do
-#                                 break;
-#                             continue;
-#                         end
-#                 end
-#             else
-#                 begin
-#                 end
-#         end
-#     return falSE;
-# end
+    def test_continue_not_in_loop6(self):
+        """test_continue_not_in_loop6"""
+        input = """
+        main2: function integer()
+        {
+            while(true)
+            {
+                if( a == 6.9)
+                {
+                    a, b: float;
+                    C: array[100] of integer;
+                    d: integer;
+                    {
+                        a = b / 3;
+                        b = -b;
+                        for(i = C[d], i > 0, i - 1)
+                        {
+                            break;
+                        }
+                    }
+                }
+                continue;
+            }
+            return 1;
+        }
 
-# function main1():booleaN;
-# var a: integer;
-# begin
-#     while true do
-#         begin
-#             if a=6.9 then
-#                 begin
-#                     with
-#                         a,b: float;
-#                         C:array[1 .. 4] of integeR;
-#                         D:integer;
-#                     do
-#                         begin
-#                             a:=b/3;
-#                             b:=-b;
-#                             for d:=c[D] to D mod 0 do
-#                                 break;
-#                             continue;
-#                         end
-#                 end
-#             else
-#                 begin
-#                 end
-#         end
-#     continue;  // error
-#     return falSE;
-# end
-# """
-#         expect = "Continue Not In Loop"
-#         self.assertTrue(TestChecker.test(input,expect,467))
+        main1: function float()
+        {
+            while(true)
+            {
+                if( a == 6.9)
+                {
+                    a, b: float;
+                    C: array[100] of integer;
+                    d: integer;
+                    {
+                        a = b / 3;
+                        b = -b;
+                        for(i = C[d], i > 0, i - 1)
+                        {
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+            return 1123_123.1;
+            
+        }
 
-#     def test_no_entry_point1(self):
-#         """test_no_entry_point1"""
-#         input = """
-# var a:boolEAN;
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,468))
+        main: function void()
+        {
+            a: integer = main2();
+            b : float = main1();
+            continue;
+        }
+        """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input,expect,467))
 
-#     def test_no_entry_point2(self):
-#         """test_no_entry_point2"""
-#         input = """
-# var a:boolEAN;
+    def test_no_entry_point1(self):
+        """test_no_entry_point1"""
+        input = """
+var a:boolEAN;
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,468))
 
-# function foo():boolean;
-# begin
-#     return foo2();
-# end
+    def test_no_entry_point2(self):
+        """test_no_entry_point2"""
+        input = """
+var a:boolEAN;
 
-# function foo2():boolean;
-# begin
-#     return foo();
-# end
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,469))
+function foo():boolean;
+begin
+    return foo2();
+end
 
-#     def test_no_entry_point3(self):
-#         """test_no_entry_point3"""
-#         input = """
-# var a:boolEAN;
+function foo2():boolean;
+begin
+    return foo();
+end
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,469))
 
-# function main():boolean;
-# begin
-#     return MAIN3();
-# end
+    def test_no_entry_point3(self):
+        """test_no_entry_point3"""
+        input = """
+var a:boolEAN;
 
-# function main3():boolean;
-# begin
-#     return MAIN();
-# end
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,470))
+function main():boolean;
+begin
+    return MAIN3();
+end
 
-#     def test_no_entry_point4(self):
-#         """test_no_entry_point4"""
-#         input = """
-# var a:boolEAN;
+function main3():boolean;
+begin
+    return MAIN();
+end
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,470))
 
-# procedure MAIN(a:integer);
-# begin  
-#     main4(1);
-# end
+    def test_no_entry_point4(self):
+        """test_no_entry_point4"""
+        input = """
+var a:boolEAN;
 
-# procedure MAIN4(a:integer);
-# begin
-#     maIN(2);
-# end
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,471))
+procedure MAIN(a:integer);
+begin  
+    main4(1);
+end
 
-#     def test_no_entry_point5(self):
-#         """test_no_entry_point5"""
-#         input = """
-# var a:boolEAN;
-# var arr:array[0 .. 1998] of string;
+procedure MAIN4(a:integer);
+begin
+    maIN(2);
+end
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,471))
 
-# procedure main(a:array[0 .. 1998] of string);
-# begin
-#     MaIn5(arr);
-# end
+    def test_no_entry_point5(self):
+        """test_no_entry_point5"""
+        input = """
+var a:boolEAN;
+var arr:array[0 .. 1998] of string;
 
-# procedure main5(a:array[0 .. 1998] of string);
-# begin
-#     MaIn(arr);
-# end
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,472))
+procedure main(a:array[0 .. 1998] of string);
+begin
+    MaIn5(arr);
+end
 
-#     def test_no_entry_point6(self):
-#         """test_no_entry_point6"""
-#         input = """
-# var MaIN:boolEAN;
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,473))
+procedure main5(a:array[0 .. 1998] of string);
+begin
+    MaIn(arr);
+end
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,472))
 
-#     def test_no_entry_point7(self):
-#         """test_no_entry_point7"""
-#         input = """
-# var main:integer;
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,474))
+    def test_no_entry_point6(self):
+        """test_no_entry_point6"""
+        input = """
+var MaIN:boolEAN;
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,473))
 
-#     def test_no_entry_point8(self):
-#         """test_no_entry_point8"""
-#         input = """
-# var main:integer;
+    def test_no_entry_point7(self):
+        """test_no_entry_point7"""
+        input = """
+var main:integer;
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,474))
 
-# function foo(a:array[0 .. 1998] of string):array [0 .. 1998] of string;
-# var main:float;
-# begin
-#     with
-#         main:string;
-#     do
-#         with
-#             main:array[0 .. -1] of integer;
-#         do
-#             with 
-#                 main:booleAN;
-#             do
-#                 begin
-#                     return foo(foo8());
-#                 end
-# end
+    def test_no_entry_point8(self):
+        """test_no_entry_point8"""
+        input = """
+var main:integer;
 
-# function foo8():array [0 .. 1998] of string;
-# var main:float;
-# begin
-#     with
-#         main:string;
-#     do
-#         with
-#             main:array[0 .. -1] of integer;
-#         do
-#             with 
-#                 main:booleAN;
-#             do
-#                 begin
-#                     return foo(foo8());
-#                 end
-# end
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,475))
+function foo(a:array[0 .. 1998] of string):array [0 .. 1998] of string;
+var main:float;
+begin
+    with
+        main:string;
+    do
+        with
+            main:array[0 .. -1] of integer;
+        do
+            with 
+                main:booleAN;
+            do
+                begin
+                    return foo(foo8());
+                end
+end
 
-#     def test_no_entry_point9(self):
-#         """test_no_entry_point9"""
-#         input = """
-# function main(main:array[0 .. 1998] of string):array [0 .. 1998] of string;
-# begin
-#     with
-#         main:string;
-#     do
-#         with 
-#             main:booleAN;
-#         do
-#             with
-#                 main:array[0 .. 1998] of string;
-#             do
-#                 begin
-#                     return call(main);
-#                 end
-# end
+function foo8():array [0 .. 1998] of string;
+var main:float;
+begin
+    with
+        main:string;
+    do
+        with
+            main:array[0 .. -1] of integer;
+        do
+            with 
+                main:booleAN;
+            do
+                begin
+                    return foo(foo8());
+                end
+end
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,475))
 
-# function call(call:array[0 .. 1998] of string):array [0 .. 1998] of string;
-# begin
-#     return main(call);
-# end
-# """
-#         expect = "No entry point"
-#         self.assertTrue(TestChecker.test(input,expect,476))
+    def test_no_entry_point9(self):
+        """test_no_entry_point9"""
+        input = """
+function main(main:array[0 .. 1998] of string):array [0 .. 1998] of string;
+begin
+    with
+        main:string;
+    do
+        with 
+            main:booleAN;
+        do
+            with
+                main:array[0 .. 1998] of string;
+            do
+                begin
+                    return call(main);
+                end
+end
 
-#     def test_func_not_return14(self):
-#         """test_func_not_return14"""
-#         input = """
-# procedure main();
-# var i:float;
-# begin
-#     i:=foo();
-#     i:=foo14();
-# end
+function call(call:array[0 .. 1998] of string):array [0 .. 1998] of string;
+begin
+    return main(call);
+end
+"""
+        expect = "No entry point"
+        self.assertTrue(TestChecker.test(input,expect,476))
 
-# function foo():integer;
-# begin
-#     if true then
-#         return - 0;
-#     return - 0 - 1;  //# return here
-# end
+    def test_func_not_return14(self):
+        """test_func_not_return14"""
+        input = """
+procedure main();
+var i:float;
+begin
+    i:=foo();
+    i:=foo14();
+end
 
-# function foo14():integer;  // error
-# begin
-#     if true then
-#         return - 0;
-# end
-# """
-#         expect = "Function foo14Not Return "
-#         self.assertTrue(TestChecker.test(input,expect,477))
+function foo():integer;
+begin
+    if true then
+        return - 0;
+    return - 0 - 1;  //# return here
+end
 
-#     def test_unreachable_stmt1(self):
-#         """test_unreachable_stmt1"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo1();
-# end
+function foo14():integer;  // error
+begin
+    if true then
+        return - 0;
+end
+"""
+        expect = "Function foo14Not Return "
+        self.assertTrue(TestChecker.test(input,expect,477))
 
-# function foo():boolean;
-# begin
-#     return true;
-# end
+    def test_unreachable_stmt1(self):
+        """test_unreachable_stmt1"""
+        input = """
+procedure MaIn();
+var a:boolean;
+begin
+    a:=foo();
+    a:=foo1();
+end
+
+function foo():boolean;
+begin
+    return true;
+end
         
-# function foo1():boolean;
-# begin
-#     return 5*getint()/getfloat()>=1998.0;  //# return here
-#     return False;  // error
-# end
-# """
-#         expect = "Unreachable statement: Return(Some(BooleanLiteral(False)))"
-#         self.assertTrue(TestChecker.test(input,expect,478))
+function foo1():boolean;
+begin
+    return 5*getint()/getfloat()>=1998.0;  //# return here
+    return False;  // error
+end
+"""
+        expect = "Unreachable statement: Return(Some(BooleanLiteral(False)))"
+        self.assertTrue(TestChecker.test(input,expect,478))
 
-#     def test_unreachable_stmt2(self):
-#         """test_unreachable_stmt2"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     foo();
-#     foo2();
-# end
+    def test_unreachable_stmt2(self):
+        """test_unreachable_stmt2"""
+        input = """
+procedure MaIn();
+var a:boolean;
+begin
+    foo();
+    foo2();
+end
 
-# var x:boolean;
+var x:boolean;
         
-# procedure foo();
-# begin
-#     if True then
-#         return;
-#     else  //# no return
-#         begin
-#         end
-#     while true do
-#         begin
-#             foo2();
-#             return ;
-#         end
-# end
+procedure foo();
+begin
+    if True then
+        return;
+    else  //# no return
+        begin
+        end
+    while true do
+        begin
+            foo2();
+            return ;
+        end
+end
 
-# procedure foo2();
-# begin
-#     if True then
-#         return ;  //# return here
-#     else
-#         return ;  //# return here
-#     while FALSE do  // error
-#         begin
-#             foo();
-#             return ;
-#         end
-# end
-# """
-#         expect = "Unreachable statement: While(BooleanLiteral(False),[CallStmt(Id(foo),[]),Return(None)])"
-#         self.assertTrue(TestChecker.test(input,expect,479))
+procedure foo2();
+begin
+    if True then
+        return ;  //# return here
+    else
+        return ;  //# return here
+    while FALSE do  // error
+        begin
+            foo();
+            return ;
+        end
+end
+"""
+        expect = "Unreachable statement: While(BooleanLiteral(False),[CallStmt(Id(foo),[]),Return(None)])"
+        self.assertTrue(TestChecker.test(input,expect,479))
 
-#     def test_unreachable_stmt3(self):
-#         """test_unreachable_stmt3"""
-#         input = """
-# procedure MaIn();
-# var a:boolean;
-# begin
-#     a:=foo();
-#     a:=foo3();
-# end
+    def test_unreachable_stmt3(self):
+        """test_unreachable_stmt3"""
+        input = """
+procedure MaIn();
+var a:boolean;
+begin
+    a:=foo();
+    a:=foo3();
+end
 
-# function foo():boolean;
-# begin
-#     if True then  //# no return
-#         begin
-#         end
-#     else
-#         return True;
-#     with
-#         a:integer;
-#         b,c:float;
-#         d:boolean;
-#     do
-#         begin
-#             a:=1;
-#             b:=a+c;
-#             d:=a=c;
-#             return false;
-#         end
-# end
+function foo():boolean;
+begin
+    if True then  //# no return
+        begin
+        end
+    else
+        return True;
+    with
+        a:integer;
+        b,c:float;
+        d:boolean;
+    do
+        begin
+            a:=1;
+            b:=a+c;
+            d:=a=c;
+            return false;
+        end
+end
         
-# function foo3():boolean;
-# begin
-#     if True then
-#         return falsE;  //# return here
-#     else
-#         return true;  //# return here
-#     with  // error
-#         A:integer;
-#         B,C:float;
-#         d:boolean;
-#     do
-#         begin
-#             a:=1;
-#             b:=a+c;
-#             d:=a=c;
-#             return false;
-#         end
-# end
-# """
-#         expect = "Unreachable statement: With([VarDecl(Id(A),IntType),VarDecl(Id(B),FloatType),VarDecl(Id(C),FloatType),VarDecl(Id(d),BoolType)],[AssignStmt(Id(a),IntLiteral(1)),AssignStmt(Id(b),BinaryOp(+,Id(a),Id(c))),AssignStmt(Id(d),BinaryOp(=,Id(a),Id(c))),Return(Some(BooleanLiteral(False)))])"
-#         self.assertTrue(TestChecker.test(input,expect,480))
+function foo3():boolean;
+begin
+    if True then
+        return falsE;  //# return here
+    else
+        return true;  //# return here
+    with  // error
+        A:integer;
+        B,C:float;
+        d:boolean;
+    do
+        begin
+            a:=1;
+            b:=a+c;
+            d:=a=c;
+            return false;
+        end
+end
+"""
+        expect = "Unreachable statement: With([VarDecl(Id(A),IntType),VarDecl(Id(B),FloatType),VarDecl(Id(C),FloatType),VarDecl(Id(d),BoolType)],[AssignStmt(Id(a),IntLiteral(1)),AssignStmt(Id(b),BinaryOp(+,Id(a),Id(c))),AssignStmt(Id(d),BinaryOp(=,Id(a),Id(c))),Return(Some(BooleanLiteral(False)))])"
+        self.assertTrue(TestChecker.test(input,expect,480))
 
 #     def test_unreachable_stmt4(self):
 #         """test_unreachable_stmt4"""
