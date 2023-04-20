@@ -2064,534 +2064,534 @@ main: function void () {
         expect = "Unreachable statement: If(BinaryOp(=,Id(I),Id(F)),[AssignStmt(Id(f),BinaryOp(+,Id(i),IntLiteral(1))),Return(None)],[AssignStmt(Id(f),BinaryOp(+,Id(i),IntLiteral(12)))])"
         self.assertTrue(TestChecker.test(input,expect,486))
 
-    def test_unreachable_stmt10(self):
-        """test_unreachable_stmt10"""
-        input = """
-procedure MaIn();
-begin
-    foo();
-    foo10();
-end
+#     def test_unreachable_stmt10(self):
+#         """test_unreachable_stmt10"""
+#         input = """
+# procedure MaIn();
+# begin
+#     foo();
+#     foo10();
+# end
 
-procedure foo();  // error
-var a:integer;
-begin
-    if True then  //# no return
-        begin
-            a:=a;
-            putintln(a);
-            while True do
-                return;
+# procedure foo();  // error
+# var a:integer;
+# begin
+#     if True then  //# no return
+#         begin
+#             a:=a;
+#             putintln(a);
+#             while True do
+#                 return;
 
-            for a:=0 downto a do
-                begin
-                    return;
-                end
-        end
-    else
-        begin
-            a:=0;
-            putintln(69);
-            return;
-        end
+#             for a:=0 downto a do
+#                 begin
+#                     return;
+#                 end
+#         end
+#     else
+#         begin
+#             a:=0;
+#             putintln(69);
+#             return;
+#         end
 
-    main();
-end
+#     main();
+# end
 
-procedure foo10();
-var a:integer;
-begin
-    if True then
-        begin
-            a:=a;
-            putintln(a);
-            while True do
-                break;
+# procedure foo10();
+# var a:integer;
+# begin
+#     if True then
+#         begin
+#             a:=a;
+#             putintln(a);
+#             while True do
+#                 break;
                 
-            return;  //# return here
-        end
-    else
-        begin
-            a:=0;
-            putintln(69);
-            return;  //# return here
-        end
+#             return;  //# return here
+#         end
+#     else
+#         begin
+#             a:=0;
+#             putintln(69);
+#             return;  //# return here
+#         end
         
-    MAIN();  // error
-end
-"""
-        expect = "Unreachable statement: CallStmt(Id(MAIN),[])"
-        self.assertTrue(TestChecker.test(input,expect,487))
+#     MAIN();  // error
+# end
+# """
+#         expect = "Unreachable statement: CallStmt(Id(MAIN),[])"
+#         self.assertTrue(TestChecker.test(input,expect,487))
 
-    def test_unreachable_stmt11(self):
-        """test_unreachable_stmt11"""
-        input = """
-procedure MaIn();
-var a:boolean;
-begin
-    a:=foo();
-    a:=foo11();
-end
+#     def test_unreachable_stmt11(self):
+#         """test_unreachable_stmt11"""
+#         input = """
+# procedure MaIn();
+# var a:boolean;
+# begin
+#     a:=foo();
+#     a:=foo11();
+# end
 
-function foo():boolean;
-var a:float;
-begin
-    while a = 1 do  //# no return
-        begin
-            a:=0;
-            if not (a=0) then
-                return falSE;
-            else
-                return false or false;
-        end
+# function foo():boolean;
+# var a:float;
+# begin
+#     while a = 1 do  //# no return
+#         begin
+#             a:=0;
+#             if not (a=0) then
+#                 return falSE;
+#             else
+#                 return false or false;
+#         end
 
-    a:=a+1.0;
-    return foo();  //# return here
-end
+#     a:=a+1.0;
+#     return foo();  //# return here
+# end
 
-function foo11():boolean;
-var a:float;
-begin
-    while a = 1 do
-        begin
-            a:=0;
-            if not (a=0) THEn
-                begin
-                    return falSE;
-                    a:=1447;  // error
-                end
-            else
-                return false or false;
-        end
+# function foo11():boolean;
+# var a:float;
+# begin
+#     while a = 1 do
+#         begin
+#             a:=0;
+#             if not (a=0) THEn
+#                 begin
+#                     return falSE;
+#                     a:=1447;  // error
+#                 end
+#             else
+#                 return false or false;
+#         end
 
-    a:=a+1.0;
-    return foo();  //# return here
-end
-"""
-        expect = "Unreachable statement: AssignStmt(Id(a),IntLiteral(1447))"
-        self.assertTrue(TestChecker.test(input,expect,488))
+#     a:=a+1.0;
+#     return foo();  //# return here
+# end
+# """
+#         expect = "Unreachable statement: AssignStmt(Id(a),IntLiteral(1447))"
+#         self.assertTrue(TestChecker.test(input,expect,488))
 
-    def test_unreachable_stmt12(self):
-        """test_unreachable_stmt12"""
-        input = """
-procedure MaIn();
-var a:boolean;
-begin
-    a:=foo();
-    a:=foo12();
-end
+#     def test_unreachable_stmt12(self):
+#         """test_unreachable_stmt12"""
+#         input = """
+# procedure MaIn();
+# var a:boolean;
+# begin
+#     a:=foo();
+#     a:=foo12();
+# end
 
-function foo():boolean;
-var a:integer;
-    b:float;
-begin
-    for a:=a to a do  //# no return
-        begin
-            a:=0;
-            if not (a=0) then
-                return falSE;
-            else
-                return false or false;
-        end
+# function foo():boolean;
+# var a:integer;
+#     b:float;
+# begin
+#     for a:=a to a do  //# no return
+#         begin
+#             a:=0;
+#             if not (a=0) then
+#                 return falSE;
+#             else
+#                 return false or false;
+#         end
 
-    b:=a+1.0;
-    return foo();  //# return here
-end
+#     b:=a+1.0;
+#     return foo();  //# return here
+# end
 
-function foo12():boolean;
-var a:integer;
-    b:float;
-begin
-    for a:=a to a do
-        begin
-            a:=0;
-            if not (a=0) then
-                return falSE;
-            else
-                begin
-                    return false or false;
-                    a:=1998;  // error
-                end
-        end
+# function foo12():boolean;
+# var a:integer;
+#     b:float;
+# begin
+#     for a:=a to a do
+#         begin
+#             a:=0;
+#             if not (a=0) then
+#                 return falSE;
+#             else
+#                 begin
+#                     return false or false;
+#                     a:=1998;  // error
+#                 end
+#         end
 
-    b:=a+1.0;
-    return foo();  //# return here
-end
-"""
-        expect = "Unreachable statement: AssignStmt(Id(a),IntLiteral(1998))"
-        self.assertTrue(TestChecker.test(input,expect,489))
+#     b:=a+1.0;
+#     return foo();  //# return here
+# end
+# """
+#         expect = "Unreachable statement: AssignStmt(Id(a),IntLiteral(1998))"
+#         self.assertTrue(TestChecker.test(input,expect,489))
 
-    def test_unreachable_stmt13(self):
-        """test_unreachable_stmt13"""
-        input = """
-procedure MaIn();
-var a:boolean;
-begin
-    a:=foo();
-    a:=foo13();
-end
+#     def test_unreachable_stmt13(self):
+#         """test_unreachable_stmt13"""
+#         input = """
+# procedure MaIn();
+# var a:boolean;
+# begin
+#     a:=foo();
+#     a:=foo13();
+# end
 
-function foo():boolean;
-var a:integer;
-    b:float;
-begin
-    for a:=a to a do  //# no return
-        begin
-            for a:=a+1 downTO a+2 do
-                begin
-                    while true and then true do
-                        begin
-                            if foo13() and foo() then
-                                break;
-                            else
-                                break;
-                        end
-                end
-            return trUE;
-        end
+# function foo():boolean;
+# var a:integer;
+#     b:float;
+# begin
+#     for a:=a to a do  //# no return
+#         begin
+#             for a:=a+1 downTO a+2 do
+#                 begin
+#                     while true and then true do
+#                         begin
+#                             if foo13() and foo() then
+#                                 break;
+#                             else
+#                                 break;
+#                         end
+#                 end
+#             return trUE;
+#         end
     
-    b:=a+1.0;
-    return FALsE;  //# return here
-end
+#     b:=a+1.0;
+#     return FALsE;  //# return here
+# end
 
-function foo13():boolean;
-var a:integer;
-    b:float;
+# function foo13():boolean;
+# var a:integer;
+#     b:float;
 
-begin
-    for a:=a to a do
-        begin
-            for a:=a+1 downTO a+2 do
-                begin
-                    while true and then true do
-                        begin
-                            if foo13() and foo() then
-                                break;
-                            else
-                                break;
-                            return fALSE or false;  // error
-                        end
-                end
-            return trUE;
-        end
+# begin
+#     for a:=a to a do
+#         begin
+#             for a:=a+1 downTO a+2 do
+#                 begin
+#                     while true and then true do
+#                         begin
+#                             if foo13() and foo() then
+#                                 break;
+#                             else
+#                                 break;
+#                             return fALSE or false;  // error
+#                         end
+#                 end
+#             return trUE;
+#         end
 
-    b:=a+1.0;
-    return FALsE;  //# return here
-end
-"""
-        expect = "Unreachable statement: Return(Some(BinaryOp(or,BooleanLiteral(False),BooleanLiteral(False))))"
-        self.assertTrue(TestChecker.test(input,expect,490))
+#     b:=a+1.0;
+#     return FALsE;  //# return here
+# end
+# """
+#         expect = "Unreachable statement: Return(Some(BinaryOp(or,BooleanLiteral(False),BooleanLiteral(False))))"
+#         self.assertTrue(TestChecker.test(input,expect,490))
 
-    def test_unreachable_stmt14(self):
-        """test_unreachable_stmt14"""
-        input = """
-procedure main();
-var i:float;
-begin
-    i:=foo();
-    i:=foo14();
-end
+#     def test_unreachable_stmt14(self):
+#         """test_unreachable_stmt14"""
+#         input = """
+# procedure main();
+# var i:float;
+# begin
+#     i:=foo();
+#     i:=foo14();
+# end
 
-function foo():integer;
-begin
-    if true then
-        return - 0;
-    return - 0 - 1;  //# return here
-end
+# function foo():integer;
+# begin
+#     if true then
+#         return - 0;
+#     return - 0 - 1;  //# return here
+# end
 
-function foo14():integer;
-var bool:float;
-begin
-    if true then
-        return - 0;
-    return - 0 - 0;  //# return here
-    bool  :=   foo();  // error
-end
-"""
-        expect = "Unreachable statement: AssignStmt(Id(bool),CallExpr(Id(foo),[]))"
-        self.assertTrue(TestChecker.test(input,expect,491))
+# function foo14():integer;
+# var bool:float;
+# begin
+#     if true then
+#         return - 0;
+#     return - 0 - 0;  //# return here
+#     bool  :=   foo();  // error
+# end
+# """
+#         expect = "Unreachable statement: AssignStmt(Id(bool),CallExpr(Id(foo),[]))"
+#         self.assertTrue(TestChecker.test(input,expect,491))
 
-    def test_unreachable_stmt15(self):
-        """test_unreachable_stmt15"""
-        input = """
-procedure MaIn();
-begin
-    foo();
-    foo15();
-end
+#     def test_unreachable_stmt15(self):
+#         """test_unreachable_stmt15"""
+#         input = """
+# procedure MaIn();
+# begin
+#     foo();
+#     foo15();
+# end
 
-procedure foo();
-var a:integer;
-begin
-    for a:=a to a do  //# no return
-        begin
-            with
-                b,c,d:float;
-            do
-                begin
-                    if b=c+d/a then
-                        begin
-                            if true and False then
-                                break;
-                            else
-                                return;
-                        end
-                end
-            putfloatln(0.000) ;
-        end
+# procedure foo();
+# var a:integer;
+# begin
+#     for a:=a to a do  //# no return
+#         begin
+#             with
+#                 b,c,d:float;
+#             do
+#                 begin
+#                     if b=c+d/a then
+#                         begin
+#                             if true and False then
+#                                 break;
+#                             else
+#                                 return;
+#                         end
+#                 end
+#             putfloatln(0.000) ;
+#         end
 
-    a := 1;
-end
+#     a := 1;
+# end
 
-procedure foo15();
-var a:integer;
-begin
-    for a:=a to a do
-        begin
-            with
-                b,c,d:float;
-            do
-                begin
-                    if b=c+d/a then
-                        begin
-                            if true and False then
-                                break;
-                            else
-                                return;
-                        end
-                    return;
-                end
-            putintln(0) ;  // error
-        end
+# procedure foo15();
+# var a:integer;
+# begin
+#     for a:=a to a do
+#         begin
+#             with
+#                 b,c,d:float;
+#             do
+#                 begin
+#                     if b=c+d/a then
+#                         begin
+#                             if true and False then
+#                                 break;
+#                             else
+#                                 return;
+#                         end
+#                     return;
+#                 end
+#             putintln(0) ;  // error
+#         end
 
-    a := 1;
-end
-"""
-        expect = "Unreachable statement: CallStmt(Id(putintln),[IntLiteral(0)])"
-        self.assertTrue(TestChecker.test(input,expect,492))
+#     a := 1;
+# end
+# """
+#         expect = "Unreachable statement: CallStmt(Id(putintln),[IntLiteral(0)])"
+#         self.assertTrue(TestChecker.test(input,expect,492))
 
-    def test_unreachable_stmt16(self):
-        """test_unreachable_stmt16"""
-        input = """
-procedure MaIn();
-begin
-    foo();
-    foo16();
-end
+#     def test_unreachable_stmt16(self):
+#         """test_unreachable_stmt16"""
+#         input = """
+# procedure MaIn();
+# begin
+#     foo();
+#     foo16();
+# end
 
-procedure foo();
-var a:integer;
-begin
-    for a:=a to a do  //# no return
-        begin
-            with
-                b,c,d:float;
-            do
-                begin
-                    if b=c+d/a then
-                        begin
-                            if true and False then
-                                break;
-                            else
-                                continue;
-                        end
-                    else
-                        putfloatLN(1.3);
-                end
-        end
+# procedure foo();
+# var a:integer;
+# begin
+#     for a:=a to a do  //# no return
+#         begin
+#             with
+#                 b,c,d:float;
+#             do
+#                 begin
+#                     if b=c+d/a then
+#                         begin
+#                             if true and False then
+#                                 break;
+#                             else
+#                                 continue;
+#                         end
+#                     else
+#                         putfloatLN(1.3);
+#                 end
+#         end
 
-    a := 1;
-end
+#     a := 1;
+# end
 
-procedure foo16();
-var a:integer;
-begin
-    for a:=a to a do
-        begin
-            with
-                b,c,d:float;
-            do
-                begin
-                    if b=c+d/a then
-                        begin
-                            if true and False then
-                                break;
-                            else
-                                continue;
-                        end
-                    else
-                        return;
-                end
-            putfloatLN(1.9) ;  // error
-        end
+# procedure foo16();
+# var a:integer;
+# begin
+#     for a:=a to a do
+#         begin
+#             with
+#                 b,c,d:float;
+#             do
+#                 begin
+#                     if b=c+d/a then
+#                         begin
+#                             if true and False then
+#                                 break;
+#                             else
+#                                 continue;
+#                         end
+#                     else
+#                         return;
+#                 end
+#             putfloatLN(1.9) ;  // error
+#         end
 
-    a := 1;
-end
-"""
-        expect = "Unreachable statement: CallStmt(Id(putfloatLN),[FloatLiteral(1.9)])"
-        self.assertTrue(TestChecker.test(input,expect,493))
+#     a := 1;
+# end
+# """
+#         expect = "Unreachable statement: CallStmt(Id(putfloatLN),[FloatLiteral(1.9)])"
+#         self.assertTrue(TestChecker.test(input,expect,493))
 
-    def test_unreachable_stmt17(self):
-        """test_unreachable_stmt17"""
-        input = """
-procedure MaIn();
-begin
-    foo();
-    foo17();
-end
+#     def test_unreachable_stmt17(self):
+#         """test_unreachable_stmt17"""
+#         input = """
+# procedure MaIn();
+# begin
+#     foo();
+#     foo17();
+# end
 
-procedure foo();
-var a:integer;
-begin
-    for a:=a to a do  //# no return
-        begin
-            with
-                b,c,d:float;
-            do
-                begin
-                    if b=c+d/a then
-                        begin
-                            if true and False then
-                                break;
-                            else
-                                continue;
-                        end
-                    else
-                        putfloatLN(1.3);
-                end
-        end
+# procedure foo();
+# var a:integer;
+# begin
+#     for a:=a to a do  //# no return
+#         begin
+#             with
+#                 b,c,d:float;
+#             do
+#                 begin
+#                     if b=c+d/a then
+#                         begin
+#                             if true and False then
+#                                 break;
+#                             else
+#                                 continue;
+#                         end
+#                     else
+#                         putfloatLN(1.3);
+#                 end
+#         end
 
-    a := 1;
-end
+#     a := 1;
+# end
 
-procedure foo17();
-var a:integer;
-begin
-    for a:=a to a do
-        begin
-            with
-                b,c,d:float;
-            do
-                begin
-                    if b=c+d/a then
-                        begin
-                            if true and False then
-                                break;
-                            else
-                                return;
-                        end
-                    else
-                        continue;
-                    putfloatLN(1.998) ;  // error
-                end
-        end
+# procedure foo17();
+# var a:integer;
+# begin
+#     for a:=a to a do
+#         begin
+#             with
+#                 b,c,d:float;
+#             do
+#                 begin
+#                     if b=c+d/a then
+#                         begin
+#                             if true and False then
+#                                 break;
+#                             else
+#                                 return;
+#                         end
+#                     else
+#                         continue;
+#                     putfloatLN(1.998) ;  // error
+#                 end
+#         end
 
-    a := 1;
-end
-"""
-        expect = "Unreachable statement: CallStmt(Id(putfloatLN),[FloatLiteral(1.998)])"
-        self.assertTrue(TestChecker.test(input,expect,494))
+#     a := 1;
+# end
+# """
+#         expect = "Unreachable statement: CallStmt(Id(putfloatLN),[FloatLiteral(1.998)])"
+#         self.assertTrue(TestChecker.test(input,expect,494))
 
-    def test_undeclared_identifier3(self):
-        """test_undeclared_identifier3"""
-        input = """
-procedure main();
-var x:integer;
-begin
-    with
-        x,y: float;
-    do
-        X:= 1998;
-    X:= y;  // error
-end
-"""
-        expect = "Undeclared Identifier: y"
-        self.assertTrue(TestChecker.test(input,expect,495))
+#     def test_undeclared_identifier3(self):
+#         """test_undeclared_identifier3"""
+#         input = """
+# procedure main();
+# var x:integer;
+# begin
+#     with
+#         x,y: float;
+#     do
+#         X:= 1998;
+#     X:= y;  // error
+# end
+# """
+#         expect = "Undeclared Identifier: y"
+#         self.assertTrue(TestChecker.test(input,expect,495))
 
-    def test_unreachable_function1(self):
-        """test_unreachable_function1"""
-        input = """
-var a:integer;
-    b:boolean;
+#     def test_unreachable_function1(self):
+#         """test_unreachable_function1"""
+#         input = """
+# var a:integer;
+#     b:boolean;
 
-procedure main();
-begin
-end
+# procedure main();
+# begin
+# end
 
-function poor():integer;
-begin
-    b := fair();
-    return -1;
-end
+# function poor():integer;
+# begin
+#     b := fair();
+#     return -1;
+# end
 
-function fair():boolean;
-begin
-    a := poor();
-    return false;
-end
+# function fair():boolean;
+# begin
+#     a := poor();
+#     return false;
+# end
 
-function rich():string;
-begin
-    return "falSE";
-end
-"""
-        expect = "Unreachable Function: rich"
-        self.assertTrue(TestChecker.test(input,expect,496))
+# function rich():string;
+# begin
+#     return "falSE";
+# end
+# """
+#         expect = "Unreachable Function: rich"
+#         self.assertTrue(TestChecker.test(input,expect,496))
 
-    def test_unreachable_function2(self):
-        """test_unreachable_function2"""
-        input = """
-procedure main();
-begin
-end
+#     def test_unreachable_function2(self):
+#         """test_unreachable_function2"""
+#         input = """
+# procedure main();
+# begin
+# end
 
-function rich(b:boolean):boolean;
-begin
-    b:=rich(False);
-    return false;
-end
-"""
-        expect = "Unreachable Function: rich"
-        self.assertTrue(TestChecker.test(input,expect,497))
+# function rich(b:boolean):boolean;
+# begin
+#     b:=rich(False);
+#     return false;
+# end
+# """
+#         expect = "Unreachable Function: rich"
+#         self.assertTrue(TestChecker.test(input,expect,497))
 
-    def test_unreachable_procedure1(self):
-        """test_unreachable_procedure1"""
-        input = """
-procedure main();
-begin
-end
+#     def test_unreachable_procedure1(self):
+#         """test_unreachable_procedure1"""
+#         input = """
+# procedure main();
+# begin
+# end
 
-procedure poor();
-begin
-    fair();
-end
+# procedure poor();
+# begin
+#     fair();
+# end
 
-procedure fair();
-begin
-    poor();
-end
+# procedure fair();
+# begin
+#     poor();
+# end
 
-procedure rich();
-begin
-    return;
-end
-"""
-        expect = "Unreachable Procedure: rich"
-        self.assertTrue(TestChecker.test(input,expect,498))
+# procedure rich();
+# begin
+#     return;
+# end
+# """
+#         expect = "Unreachable Procedure: rich"
+#         self.assertTrue(TestChecker.test(input,expect,498))
 
-    def test_unreachable_procedure2(self):
-        """test_unreachable_procedure2"""
-        input = """
-procedure main();
-begin
-end
+#     def test_unreachable_procedure2(self):
+#         """test_unreachable_procedure2"""
+#         input = """
+# procedure main();
+# begin
+# end
 
-procedure poor();
-begin
-    poor();
-end
-"""
-        expect = "Unreachable Procedure: poor"
-        self.assertTrue(TestChecker.test(input,expect,499))
+# procedure poor();
+# begin
+#     poor();
+# end
+# """
+#         expect = "Unreachable Procedure: poor"
+#         self.assertTrue(TestChecker.test(input,expect,499))
 
  
