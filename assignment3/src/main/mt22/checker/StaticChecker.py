@@ -50,7 +50,7 @@ class FType:
 class Symbol:
     """
     name: string
-    mtype:  FType
+    ftype:  FType
             AtomicType:  IntegerType, FloatType, BooleanType, StringType
             ArrayType
             AutoType
@@ -58,6 +58,7 @@ class Symbol:
     value: ???
     kind: Function() | Procedure() | Parameter() | Variable()
     isGlobal: boolean
+    isInherit: True if inherit else false
     """
 
     # Default Declare Type is Function Declare - kind Function
@@ -209,14 +210,15 @@ class MT22Checker:
         return a==b and a.typ == b.type
     
     @staticmethod
-    def matchedType(pattern, param):
-        pass
+    def checkedMatchedType(lhs_type, rhs_type):
+        if type(lhs_type) == type(rhs_type):                                return True
+        if type(lhs_type) is FloatType and type(rhs_type) is IntegerType:   return True 
 
     @staticmethod
     def checkParamType(pattern, params):
         if len(pattern) != len(params):
             return False
-        return all([MT22Checker.matchedType(a,b) for a, b in zip(pattern, params)])
+        return all([MT22Checker.checkedMatchedType(a,b) for a, b in zip(pattern, params)])
 
     @staticmethod
     def handleReturnStmts(stmts):
@@ -239,11 +241,6 @@ class MT22Checker:
     @staticmethod
     def isStopTypeStmt(return_type):
         return MT22Checker.isReturnType(return_type) or type(return_type) in [BreakStmt, ContinueStmt]
-class Graph:
-    """
-        For check the unreachable statements in the code
-    """
-    pass
 class StaticChecker(Visitor, Utils):
     glob_envs = [
         Symbol("readInteger", FType([], IntegerType())),
@@ -281,20 +278,31 @@ class StaticChecker(Visitor, Utils):
         Scope.end()
         return [] 
     
-    def visitVarDecl(self, ast: VarDecl, param): pass
-    def visitParamDecl(self, ast: ParamDecl, param): pass
-    def visitFuncDecl(self, ast: FuncDecl, param): pass
+    def visitVarDecl(self, ast: VarDecl, param): 
+        """
+        Error can be raised:
+            Redeclared: (Variable(), ast.name): redeclared in scope
+            Invalid: (Variable(), ast.name)   : declared auto but no initiailization
+        """
+        #   Check redeclared
+        if self.lookup(ast.name, param, lambda x: x.name) is not None:
+            raise Redeclared(Variable(), ast.name)    
 
-    #####################   Visit Types     ####################################        Done
-    def visitIntegerType(self, ast, param): return IntegerType()
-    def visitFloatType(self, ast, param):   return FloatType()
-    def visitBooleanType(self, ast, param): return BooleanType()
-    def visitStringType(self, ast, param):  return StringType()
-    def visitArrayType(self, ast: ArrayType, param): 
-        typ = self.visit(ast.typ, param)
-        return ArrayType(ast.dimensions, typ)
-    def visitAutoType(self, ast, param):    return AutoType()
-    def visitVoidType(self, ast, param):    return VoidType()
+        #   Check invalid declaration 
+        if type(ast.typ) is AutoType:
+            if ast.init is None:
+                raise Invalid(Variable(), ast.name)
+
+        #   Return the symbol
+        return Symbol.fromVarDecl(ast) 
+
+    def visitParamDecl(self, ast: ParamDecl, param): 
+        pass 
+
+    def visitFuncDecl(self, ast: FuncDecl, param): 
+        local_env = []
+        #   Check redeclared
+        pass
 
     ####################    Visit Expressions and Literal   #####################
     def visitBinExpr(self, ast: BinExpr, param): 
@@ -350,6 +358,9 @@ class StaticChecker(Visitor, Utils):
         return BooleanType()
 
     def visitUnExpr(self, ast: UnExpr, param): 
+        """
+        Check compatible type for unary expression includes: negate(!), negative sign (-),
+        """
         scope, func_name = param
         op = str(ast.op)
         exp_type = self.visit(ast.val, (scope, func_name))
@@ -365,18 +376,68 @@ class StaticChecker(Visitor, Utils):
                 raise TypeMismatchInExpression(ast)
         return exp_type
 
-    def visitId(self, ast: Id, param): pass
-    def visitArrayCell(self, ast: ArrayCell, param): pass
-    def visitArrayLit(self, ast: ArrayLit, param): pass
-    def visitFuncCall(self, ast: FuncCall, param): pass
+    def visitId(self, ast: Id, param): 
+        """
+        Return the name of identifier which was declared in
+        a visible scope
+        """
+        scope, func_name = param
+        symbol = MT22Checker.checkUndeclared(scope, ast.name, kind = Identifier())
+        # return symbol.ftype
+        return symbol.name
 
-    def visitIntegerLit(self, ast, param):  return IntegerType()
-    def visitFloatLit(self, ast, param):    return FloatType()
-    def visitStringLit(self, ast, param):   return StringType()
-    def visitBooleanLit(self, ast, param):  return BooleanType()
+    def visitArrayCell(self, ast: ArrayCell, param): 
+        """
+        ast: ArrayCell(
+            name: str,
+            cell: List[Expression]
+        )
+        ArrayCell: a[1,2,3]; asasf[1, 2]; arr[foo() + 1, goo() + 2]
+        """
+        scope, func_name = param
+        arr_type = self.visit(ast.name, (scope, func_name))
+        idx_type = self.visit(ast.cell, (scope, func_name))
+
+        if type(arr_type) is not ArrayType:
+            raise TypeMismatchInExpression(ast)
+
+        if False in [type(x) is IntegerType for x in idx_type]:
+            raise TypeMismatchInExpression(ast)
+        return arr_type.typ 
+
+    def visitFuncCall(self, ast: FuncCall, param):  pass
+    
     
     ###################     Visit Statements    ##################################
-    def visitAssignStmt(self, ast: AssignStmt, param): pass
+    """
+    Statement:  
+        param: scope, return_type, in_loop, func_name
+    Return:
+        result: Tuple(ast.Stmt, return_type)
+    """
+    def visitAssignStmt(self, ast: AssignStmt, param):
+        """
+        Error that can be raised:
+        TypeMismatchInStatement: 
+            *) LHS's type is either VoidType, ArrayType
+            *) LHS's type is cannot be coehere from the RHS
+        """
+        Scope.start("Assign")
+        scope, return_type, in_loop, func_name = param
+        lhs_type = self.visit(ast.lhs, (scope, func_name))
+        expr_type = self.visit(ast.rhs, (scope, func_name))            #    RHS's type
+        
+        """Check type of LHS is not VoidType or ArrayType
+        """
+        if type(lhs_type) in [VoidType, ArrayType]:
+            raise TypeMismatchInStatement(ast)
+        """
+        Check that type of LHS and RHS is not the same type
+        or the LHS can be float and RHS is Integer but not vice versa
+        """
+        if not MT22Checker.checkedMatchedType(lhs_type, expr_type):
+            raise TypeMismatchInStatement(ast)
+        Scope.end()
     def visitBlockStmt(self, ast: BlockStmt, param): pass
     def visitIfStmt(self, ast: IfStmt, param): pass
     def visitForStmt(self, ast: ForStmt, param): pass
@@ -386,7 +447,18 @@ class StaticChecker(Visitor, Utils):
     def visitContinueStmt(self, ast: ContinueStmt, param): pass
     def visitReturnStmt(self, ast: ReturnStmt, param): pass
     def visitCallStmt(self, ast: CallStmt, param): pass
-
     
-
-    
+    def visitArrayLit(self, ast, param):    pass
+    def visitIntegerLit(self, ast, param):  return IntegerType()
+    def visitFloatLit(self, ast, param):    return FloatType()
+    def visitStringLit(self, ast, param):   return StringType()
+    def visitBooleanLit(self, ast, param):  return BooleanType() 
+    def visitIntegerType(self, ast, param): return IntegerType()
+    def visitFloatType(self, ast, param):   return FloatType()
+    def visitBooleanType(self, ast, param): return BooleanType()
+    def visitStringType(self, ast, param):  return StringType()
+    def visitArrayType(self, ast: ArrayType, param): 
+        typ = self.visit(ast.typ, param)
+        return ArrayType(ast.dimensions, typ)
+    def visitAutoType(self, ast, param):    return AutoType()
+    def visitVoidType(self, ast, param):    return VoidType()
