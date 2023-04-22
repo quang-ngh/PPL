@@ -1,4 +1,3 @@
-
 import sys
 sys.path.append('../utils')
 sys.path.append('../../../../target/main/mp/parser')
@@ -172,11 +171,12 @@ class MT22Checker:
         Return:
             newScope: List[Symbol] if there is no duplicate symbol
         """
-        #   Copy scope
+        #   Copy scope 
         newScope    = current_scope.copy()
+        # breakpoint()
         for x in list_symbols:
             
-            f = MT22Checker.utils.lookup(Symbol.cmp(x), list_symbols, Symbol.cmp)
+            f = MT22Checker.utils.lookup(Symbol.cmp(x), newScope, Symbol.cmp)
 
             if f is not None:
                 raise Redeclared(x.kind, x.name)
@@ -225,6 +225,7 @@ class MT22Checker:
         """
         stmts: List[Stmt]
         """
+        breakpoint()
         return None if stmts == [] else stmts[-1][1]
 
     @staticmethod
@@ -244,16 +245,15 @@ class MT22Checker:
 class StaticChecker(Visitor, Utils):
     glob_envs = [
         Symbol("readInteger", FType([], IntegerType())),
-        Symbol("printInteger", FType([IntegerType()], VoidType(), kind = Function())),
+        Symbol("printInteger", FType([IntegerType()], VoidType())),
         Symbol("readFloat", FType([], FloatType())),
-        Symbol("writeFloat", FType([FloatType()], VoidType()), kind=Function()),
+        Symbol("writeFloat", FType([FloatType()], VoidType())),
         Symbol("readBoolean", FType([], BooleanType())),
-        Symbol("printBoolean", FType([BooleanType()], VoidType()), kind=Function()),
-        Symbol("readString", FType([], StringType())) 
-        Symbol("printString", FType([StringType()], VoidType()), kind=Function()),
-        Symbol("super", FType([Expr()], VoidType()), kind=Function())
-        Symbol("preventDefault", FType([], VoidType()), kind=Function())
-
+        Symbol("printBoolean", FType([BooleanType()], VoidType())),
+        Symbol("readString", FType([], StringType())),
+        Symbol("printString", FType([StringType()], VoidType())),
+        Symbol("super", FType([Expr()], VoidType())),
+        Symbol("preventDefault", FType([], VoidType())),
     ]
 
     def __init__(self, astTree):
@@ -264,16 +264,21 @@ class StaticChecker(Visitor, Utils):
     
     def visitProgram(self, ast: Program, globalEnv):
         Scope.start("Program")
-        
-        #   Check redeclared    Variable/Parameter/Function
-        symbols = [Symbol.fromDecl(x).toGlobal() for x in ast.decls]
-        scope   = MT22Checker.checkRedeclared(globalEnv, symbols)
 
+        #   Check redeclared    Variable/Parameter/Function
+        # breakpoint() 
+        symbols = [Symbol.fromDecl(x).toGlobal() for x in ast.decls]
+
+        # breakpoint()
+        scope   = MT22Checker.checkRedeclared(globalEnv, symbols)
         #   Check no entry point
         entry_point = Symbol("main", FType([], VoidType()), kind = Function())
         res         = self.lookup(entry_point.toTupleString(), symbols, lambda x: x.toTupleString())
         if res is None:
             raise NoEntryPoint()
+
+        #   Check visit declaration
+        [self.visit(x, scope) for x in ast.decls]        
 
         Scope.end()
         return [] 
@@ -285,6 +290,7 @@ class StaticChecker(Visitor, Utils):
             Invalid: (Variable(), ast.name)   : declared auto but no initiailization
         """
         #   Check redeclared
+        # breakpoint()
         if self.lookup(ast.name, param, lambda x: x.name) is not None:
             raise Redeclared(Variable(), ast.name)    
 
@@ -297,12 +303,20 @@ class StaticChecker(Visitor, Utils):
         return Symbol.fromVarDecl(ast) 
 
     def visitParamDecl(self, ast: ParamDecl, param): 
-        pass 
+        if self.lookup(ast.name, param, lambda x: x.name) is not None:
+            raise Redeclared(Parameter(), ast.name)
 
-    def visitFuncDecl(self, ast: FuncDecl, param): 
-        local_env = []
-        #   Check redeclared
-        pass
+    def visitFuncDecl(self, ast: FuncDecl, scope): 
+        Scope.start("FuncDecl")
+        listParams      = [self.visit(x, scope).toParam() for x in ast.params]
+        listLocalVar    = [self.visit(x, scope).toVar() for x in ast.body.body if type(x) is VarDecl]
+
+        local_scope     = MT22Checker.checkRedeclared([], listParams + listLocalVar)
+        new_scope       = Scope.merge(scope, local_scope)
+        stmts           = [self.visit(x, (new_scope, ast.return_type, False, ast.name)) for x in ast.body.body if type(x) is Stmt]
+
+        return_type     = MT22Checker.handleReturnStmts(stmts=stmts)
+
 
     ####################    Visit Expressions and Literal   #####################
     def visitBinExpr(self, ast: BinExpr, param): 
@@ -364,7 +378,6 @@ class StaticChecker(Visitor, Utils):
         scope, func_name = param
         op = str(ast.op)
         exp_type = self.visit(ast.val, (scope, func_name))
-
         if op == '-':
             if ExpHelper.isNaNType(exp_type):
                 raise TypeMismatchInExpression(ast)
@@ -415,7 +428,7 @@ class StaticChecker(Visitor, Utils):
     Return:
         result: Tuple(ast.Stmt, return_type)
     """
-    def visitAssignStmt(self, ast: AssignStmt, param):
+    def visitAssignStmt(self, ast: AssignStmt, param):                      #   Implemented
         """
         Error that can be raised:
         TypeMismatchInStatement: 
@@ -431,6 +444,7 @@ class StaticChecker(Visitor, Utils):
         """
         if type(lhs_type) in [VoidType, ArrayType]:
             raise TypeMismatchInStatement(ast)
+
         """
         Check that type of LHS and RHS is not the same type
         or the LHS can be float and RHS is Integer but not vice versa
@@ -438,14 +452,68 @@ class StaticChecker(Visitor, Utils):
         if not MT22Checker.checkedMatchedType(lhs_type, expr_type):
             raise TypeMismatchInStatement(ast)
         Scope.end()
-    def visitBlockStmt(self, ast: BlockStmt, param): pass
+        return (ast, None)
+ 
+    def visitBlockStmt(self, ast: BlockStmt, param): 
+        Scope.start("BlockStmt")
+
+        #   Visit variable declarations
+        scope, return_type, in_loop, func_name = param
+        listVar         = [self.visit(x, scope).toVar() for x in ast.body if type(x) is VarDecl]
+        local_scope     = MT22Checker.checkRedeclared([], listVar)
+
+        #   Visit statements
+        merged_scope    = Scope.merge(scope, local_scope)
+        stmts           = [self.visit(x, (merged_scope, return_type, in_loop, func_name)) for x in ast.body if type(x) is Stmt]
+        Scope.end()
+        return (ast, MT22Checker.handleReturnStmts(stmts))
+
     def visitIfStmt(self, ast: IfStmt, param): pass
     def visitForStmt(self, ast: ForStmt, param): pass
     def visitWhileStmt(self, ast: WhileStmt, param): pass
     def visitDoWhileStmt(self, ast: DoWhileStmt, param): pass
-    def visitBreakStmt(self, ast: BreakStmt, param): pass
-    def visitContinueStmt(self, ast: ContinueStmt, param): pass
-    def visitReturnStmt(self, ast: ReturnStmt, param): pass
+
+    def visitBreakStmt(self, ast: BreakStmt, param):                        #   Implemented
+        """
+        Exception can be raised:
+            MustInLoop(<statement>)
+        """
+        _ ,_ , in_loop, _ = param
+        if not in_loop: 
+            raise MustInLoop(ast)
+        return (ast, BreakStmt())
+    
+    def visitContinueStmt(self, ast: ContinueStmt, param):                  #   Implemented
+        """
+        Exception can be raised:
+            MustInLoop(<statement>)
+        """
+        _, _, in_loop, _ = param
+        if not in_loop:
+            raise MustInLoop(ast)
+        return (ast, ContinueStmt())
+
+    def visitReturnStmt(self, ast: ReturnStmt, param):                      #   Implemented
+        """
+        Exception can be raised:
+            TypeMisMatchInStatement:
+                *) LHS = VoidType and RHS = Expression (wrong)
+                *) Return type is not matched with the type of expression
+        """
+        scope, return_type, in_loop, func_name = param
+
+        #   Check the LHS=VoidType and RHS=Expression
+        if type(return_type) is VoidType and ast.expr is not None:
+            raise TypeMismatchInStatement(ast)
+        
+        #   Check the type of LHS (implicitly) matched with the RHS (the type of expression)
+        ret = self.visit(ast.expr, (scope, func_name)) if ast.expr is not None else VoidType()
+        if not MT22Checker.checkedMatchedType(return_type, ret):
+            raise TypeMismatchInStatement(ast)
+
+        #   Return the abstract tree and the true return type
+        return (ast, ret)
+
     def visitCallStmt(self, ast: CallStmt, param): pass
     
     def visitArrayLit(self, ast, param):    pass
