@@ -11,19 +11,23 @@ class Kind(ABC):
 
 
 class Variable(Kind):
-    pass
+    def __str__(self) :
+        return 'Variable'
 
 
 class Parameter(Kind):
-    pass
+    def __str__(self):
+        return 'Parameter'
 
 
 class Function(Kind):
-    pass
+    def __str__(self):
+        return 'Function'
 
 
 class Identifier(Kind):
-    pass
+    def __str__(self):
+        return 'Identifier'
 
 
 class Redeclared(StaticError):
